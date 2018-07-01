@@ -12,6 +12,7 @@ namespace RepublicManager.Api.Core.Configuration
     {
         public void Configure(EntityTypeBuilder<Aviso> builder)
         {
+            builder.ToTable("Aviso");
             //Definindo Primary Key
             builder.HasKey(aviso => aviso.Id);
             builder.Property(aviso => aviso.Descricao)
@@ -19,6 +20,9 @@ namespace RepublicManager.Api.Core.Configuration
                 .HasMaxLength(250);
             builder.Property(aviso => aviso.DataAviso)
                 .IsRequired();
+            
+            
         }
     }
 }
+
