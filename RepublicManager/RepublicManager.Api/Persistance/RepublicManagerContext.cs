@@ -14,6 +14,7 @@ namespace RepublicManager.Api.Persistance
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
+            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
         }
     }
 }
