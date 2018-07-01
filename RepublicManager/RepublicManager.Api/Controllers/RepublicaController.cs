@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Repositories;
 
@@ -11,23 +12,24 @@ namespace RepublicManager.Api.Controllers
     [Route("api/[controller]")]
     public class RepublicaController : Controller
     {
-        private readonly IRepublicaRepositorio _republicaRepositorio;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RepublicaController(IRepublicaRepositorio tarefaRepositorio)
+
+        public RepublicaController(IUnitOfWork unitOfWork)
         {
-            _republicaRepositorio = tarefaRepositorio;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public IEnumerable<Republica> GetAll()
         {
-            return _republicaRepositorio.GetAll();
+            return _unitOfWork.Republicas.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetTarefa")]
         public IActionResult GetById(int id)
         {
-            var item = _republicaRepositorio.Find(id);
+            var item = _unitOfWork.Republicas.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -43,7 +45,8 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest();
             }
 
-            _republicaRepositorio.Add(item);
+            _unitOfWork.Republicas.Add(item);
+            _unitOfWork.Complete();
 
             /*O método CreatedAtRoute retorna a resposta 201, a qual é a resposta padrão para
              um método HTTP POST que cria um novo recurso no servidor. CreatedAtRoute também 
@@ -62,7 +65,7 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest();
             }
 
-            var republica = _republicaRepositorio.Find(id);
+            var republica = _unitOfWork.Republicas.Find(id);
             if (republica == null)
             {
                 return NotFound();
@@ -71,7 +74,8 @@ namespace RepublicManager.Api.Controllers
             republica.Nome = item.Nome;
             republica.Vagas = item.Vagas;
 
-            _republicaRepositorio.Update(republica);
+            _unitOfWork.Republicas.Update(republica);
+            _unitOfWork.Complete();
             return new NoContentResult();
         }
 
@@ -79,13 +83,14 @@ namespace RepublicManager.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var republica = _republicaRepositorio.Find(id);
+            var republica = _unitOfWork.Republicas.Find(id);
             if (republica == null)
             {
                 return NotFound();
             }
 
-            _republicaRepositorio.Remove(id);
+            _unitOfWork.Republicas.Remove(id);
+            _unitOfWork.Complete();
             return new NoContentResult();
         }
     }

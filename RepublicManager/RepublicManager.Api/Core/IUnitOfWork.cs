@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Repositories;
 
-namespace RepublicManager.Api.Core.Repositories
+namespace RepublicManager.Api.Core
 {
-    public interface IRepublicaRepositorio : IRepositorioBase<Republica>
+    public interface IUnitOfWork : IDisposable
     {
+        IRepublicaRepositorio Republicas { get; }
+        int Complete();
     }
 }

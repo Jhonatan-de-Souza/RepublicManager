@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RepublicManager.Api.Core;
 
 namespace RepublicManager.Api.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ValuesController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            _unitOfWork.Republicas.GetAll();
             return new string[] { "value1", "value2" };
         }
 
