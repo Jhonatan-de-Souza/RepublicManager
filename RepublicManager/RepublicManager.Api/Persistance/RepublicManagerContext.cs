@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RepublicManager.Api.Core.Configuration;
 using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Persistance
@@ -10,5 +11,9 @@ namespace RepublicManager.Api.Persistance
         { }
 
         public DbSet<Republica> Republicas { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AvisosConfiguration());
+        }
     }
 }
