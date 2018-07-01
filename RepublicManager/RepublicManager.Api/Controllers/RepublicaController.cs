@@ -5,7 +5,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class RepublicaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ namespace RepublicManager.Api.Controllers
             return _unitOfWork.Republicas.GetAll();
         }
 
-        [HttpGet("{id}", Name = "GetTarefa")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var item = _unitOfWork.Republicas.Find(id);
@@ -49,7 +49,7 @@ namespace RepublicManager.Api.Controllers
              adiciona um cabeçalho Location ao response, que especifica a URI do novo item tarefa 
              recem criado. (Consulte 10.2.2 201 */
 
-            return CreatedAtRoute("GetTarefa", new { id = item.RepublicaId }, item);
+            return CreatedAtRoute(new { id = item.RepublicaId }, item);
         }
 
 

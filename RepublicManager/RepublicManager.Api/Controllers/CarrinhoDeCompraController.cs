@@ -6,26 +6,28 @@ using RepublicManager.Api.Core.Domain;
 namespace RepublicManager.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class ProdutoController : Controller
+    public class CarrinhoDeCompraController : Controller
     {
+       
+       
         private readonly IUnitOfWork _unitOfWork;
 
 
-        public ProdutoController(IUnitOfWork unitOfWork)
+        public CarrinhoDeCompraController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public IEnumerable<Produto> GetAll()
+        public IEnumerable<CarrinhoDeCompra> GetAll()
         {
-            return _unitOfWork.Produtos.GetAll();
+            return _unitOfWork.CarrinhoDeCompras.GetAll();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var item = _unitOfWork.Produtos.Find(id);
+            var item = _unitOfWork.CarrinhoDeCompras.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -34,45 +36,39 @@ namespace RepublicManager.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Produto item)
+        public IActionResult Create([FromBody] CarrinhoDeCompra item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.Produtos.Add(item);
+            _unitOfWork.CarrinhoDeCompras.Add(item);
             _unitOfWork.Complete();
 
-            /*O método CreatedAtRoute retorna a resposta 201, a qual é a resposta padrão para
-             um método HTTP POST que cria um novo recurso no servidor. CreatedAtRoute também 
-             adiciona um cabeçalho Location ao response, que especifica a URI do novo item tarefa 
-             recem criado. (Consulte 10.2.2 201 */
-
-            return CreatedAtRoute(new { id = item.Id }, item);
+       
+            return CreatedAtRoute( new { id = item.Id }, item);
         }
 
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Produto item)
+        public IActionResult Update(int id, [FromBody] CarrinhoDeCompra item)
         {
             if (item == null || item.Id != id)
             {
                 return BadRequest();
             }
 
-            var produto = _unitOfWork.Produtos.Find(id);
-            if (produto == null)
+            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.Find(id);
+            if (carrinhoDeCompra == null)
             {
                 return NotFound();
             }
 
-            produto.Descricao = item.Descricao;
-            produto.Valor = item.Valor;
-            produto.CarrinhoDeCompraId = item.CarrinhoDeCompraId;
-            produto.UsuarioId = item.UsuarioId;
+            carrinhoDeCompra.RepublicaId = item.RepublicaId;
+            carrinhoDeCompra.ListaProdutos = item.ListaProdutos;
 
-            _unitOfWork.Produtos.Update(produto);
+            _unitOfWork.CarrinhoDeCompras.Update(carrinhoDeCompra);
             _unitOfWork.Complete();
             return new NoContentResult();
         }
@@ -81,13 +77,13 @@ namespace RepublicManager.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var produto = _unitOfWork.Produtos.Find(id);
-            if (produto == null)
+            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.Find(id);
+            if (carrinhoDeCompra == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.Produtos.Remove(id);
+            _unitOfWork.CarrinhoDeCompras.Remove(id);
             _unitOfWork.Complete();
             return new NoContentResult();
         }
