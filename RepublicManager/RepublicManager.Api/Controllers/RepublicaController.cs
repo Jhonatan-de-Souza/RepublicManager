@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
-using WebApi.Models.Interface;
+using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Core.Repositories;
 
-namespace WebApi.Controllers
+namespace RepublicManager.Api.Controllers
 {
     [Route("api/[controller]")]
     public class RepublicaController : Controller

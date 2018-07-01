@@ -9,8 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WebApi.Models;
-using WebApi.Models.Interface;
+using RepublicManager.Api.Core.Repositories;
+using RepublicManager.Api.Persistance;
+using RepublicManager.Api.Persistance.Repositories;
 
 namespace RepublicManager.Api
 {
@@ -31,7 +32,7 @@ namespace RepublicManager.Api
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
 
             var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 
         }
 

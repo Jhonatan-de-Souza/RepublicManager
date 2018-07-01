@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
-using WebApi.Models;
+using RepublicManager.Api.Persistance;
 
 namespace RepublicManager.Api.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(RepublicManagerContext))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
