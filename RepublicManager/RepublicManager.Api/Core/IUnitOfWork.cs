@@ -9,6 +9,8 @@ namespace RepublicManager.Api.Core
     public interface IUnitOfWork : IDisposable
     {
         IRepublicaRepositorio Republicas { get; }
+        IProdutoRepositorio Produtos { get; }
+        ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; }
         int Complete();
     }
 }
