@@ -15,6 +15,7 @@ namespace RepublicManager.Api.Persistance
         {
             
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
+            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
         }
     }
 }
