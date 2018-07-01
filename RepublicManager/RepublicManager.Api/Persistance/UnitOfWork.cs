@@ -12,18 +12,26 @@ namespace RepublicManager.Api.Persistance
     {
         private readonly RepublicManagerContext _context;
 
+        //The repositories used in the application must be set here , Example Below
+        public IRepublicaRepositorio Republicas { get; set; }
+        //The repositories used in the application must be set here , Example Below
+        public IProdutoRepositorio Produtos { get; set; }
+        //The repositories used in the application must be set here , Example Below
+        public ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; set; }
+        //public  Type { get; set; }
+
         //here the unit of work will instaniate the repositories and use it across all of the application
         public UnitOfWork(RepublicManagerContext context)
         {
             _context = context;
             //Example Below
             Republicas = new RepublicaRepositorio(_context);
-            
+            Produtos = new ProdutoRepositorio(_context);
+            CarrinhoDeCompras = new CarrinhoDeCompraRepositorio(_context);
+
 
         }
-        //The repositories used in the application must be set here , Example Below
-        public IRepublicaRepositorio Republicas { get; set; }
-
+      
 
         public int Complete()
         {

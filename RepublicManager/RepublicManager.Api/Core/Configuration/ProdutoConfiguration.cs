@@ -12,7 +12,7 @@ namespace RepublicManager.Api.Core.Configuration
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.HasKey(p => p.ProdutoId);
+            builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Descricao)
                 .IsRequired()
@@ -21,7 +21,7 @@ namespace RepublicManager.Api.Core.Configuration
 
             //1-1
 
-            builder.HasOne(p => p.CarrinhoDeCompra).WithOne();
+           // builder.HasOne(p => p.CarrinhoDeCompra).WithOne(nameof(CarrinhoDeCompra));
         }
 
     }

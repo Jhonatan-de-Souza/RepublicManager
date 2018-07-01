@@ -52,14 +52,14 @@ namespace RepublicManager.Api.Controllers
              adiciona um cabeçalho Location ao response, que especifica a URI do novo item tarefa 
              recem criado. (Consulte 10.2.2 201 */
 
-            return CreatedAtRoute("GetTarefa", new { id = item.ProdutoId }, item);
+            return CreatedAtRoute("GetTarefa", new { id = item.Id }, item);
         }
 
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Produto item)
         {
-            if (item == null || item.ProdutoId != id)
+            if (item == null || item.Id != id)
             {
                 return BadRequest();
             }

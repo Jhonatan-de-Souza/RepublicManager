@@ -7,7 +7,7 @@ namespace RepublicManager.Api.Core.Domain
 {
     public class Produto : Base
     {
-        public int ProdutoId { get; set; }
+        public int Id { get; set; }
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
         public int CarrinhoDeCompraId { get; set; }
