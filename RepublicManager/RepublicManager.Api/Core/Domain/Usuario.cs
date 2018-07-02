@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RepublicManager.Api.Core.Domain
 {
-    public class Usuario
+    public class Usuario : Base
     {
         public int Id { get; set; }
         public string Login { get; set; }

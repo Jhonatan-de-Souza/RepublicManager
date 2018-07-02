@@ -12,7 +12,7 @@ namespace RepublicManager.Api.Core.Configuration
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(u => u.Id);
         }
     }
 }

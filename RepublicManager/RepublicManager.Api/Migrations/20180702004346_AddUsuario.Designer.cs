@@ -11,8 +11,8 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    [Migration("20180702001332_ColunasBaseRepublica")]
-    partial class ColunasBaseRepublica
+    [Migration("20180702004346_AddUsuario")]
+    partial class AddUsuario
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,24 +90,26 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Republica", b =>
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Usuario", b =>
                 {
-                    b.Property<int>("RepublicaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CriadoPor");
 
+                    b.Property<DateTime>("DataFinalContrato");
+
                     b.Property<DateTime>("DataRegistro");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Login");
 
-                    b.Property<int>("Vagas");
+                    b.Property<string>("Senha");
 
                     b.Property<bool>("isAtivo");
 
-                    b.HasKey("RepublicaId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Republicas");
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Produto", b =>
