@@ -5,7 +5,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class CarrinhoDeCompraController : Controller
     {
        

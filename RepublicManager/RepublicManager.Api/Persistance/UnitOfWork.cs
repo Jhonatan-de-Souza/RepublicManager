@@ -18,6 +18,7 @@ namespace RepublicManager.Api.Persistance
         public IProdutoRepositorio Produtos { get; set; }
         //The repositories used in the application must be set here , Example Below
         public ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; set; }
+        public IUsuarioRepositorio Usuarios { get; set; }
         //public  Type { get; set; }
 
         //here the unit of work will instaniate the repositories and use it across all of the application
@@ -28,6 +29,7 @@ namespace RepublicManager.Api.Persistance
             Republicas = new RepublicaRepositorio(_context);
             Produtos = new ProdutoRepositorio(_context);
             CarrinhoDeCompras = new CarrinhoDeCompraRepositorio(_context);
+            Usuarios = new UsuarioRepositorio(_context);
 
 
         }
