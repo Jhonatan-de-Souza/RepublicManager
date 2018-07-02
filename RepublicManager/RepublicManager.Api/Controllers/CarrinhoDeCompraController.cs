@@ -67,6 +67,9 @@ namespace RepublicManager.Api.Controllers
 
             carrinhoDeCompra.RepublicaId = item.RepublicaId;
             carrinhoDeCompra.ListaProdutos = item.ListaProdutos;
+            carrinhoDeCompra.CriadoPor = item.CriadoPor;
+            carrinhoDeCompra.DataRegistro = item.DataRegistro;
+            carrinhoDeCompra.isAtivo = item.isAtivo;
 
             _unitOfWork.CarrinhoDeCompras.Update(carrinhoDeCompra);
             _unitOfWork.Complete();

@@ -69,6 +69,9 @@ namespace RepublicManager.Api.Controllers
 
             republica.Nome = item.Nome;
             republica.Vagas = item.Vagas;
+            republica.CriadoPor = item.CriadoPor;
+            republica.DataRegistro = item.DataRegistro;
+            republica.isAtivo = item.isAtivo;
 
             _unitOfWork.Republicas.Update(republica);
             _unitOfWork.Complete();

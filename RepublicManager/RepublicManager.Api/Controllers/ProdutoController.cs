@@ -72,6 +72,10 @@ namespace RepublicManager.Api.Controllers
             produto.CarrinhoDeCompraId = item.CarrinhoDeCompraId;
             produto.UsuarioId = item.UsuarioId;
 
+            produto.CriadoPor = item.CriadoPor;
+            produto.DataRegistro = item.DataRegistro;
+            produto.isAtivo = item.isAtivo;
+
             _unitOfWork.Produtos.Update(produto);
             _unitOfWork.Complete();
             return new NoContentResult();
