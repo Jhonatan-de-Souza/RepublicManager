@@ -21,13 +21,13 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public IEnumerable<CarrinhoDeCompra> GetAll()
         {
-            return _unitOfWork.CarrinhoDeCompras.GetAll();
+            return _unitOfWork.CarrinhoDeCompras.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var item = _unitOfWork.CarrinhoDeCompras.Find(id);
+            var item = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest();
             }
 
-            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.Find(id);
+            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
             if (carrinhoDeCompra == null)
             {
                 return NotFound();
@@ -77,7 +77,7 @@ namespace RepublicManager.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.Find(id);
+            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
             if (carrinhoDeCompra == null)
             {
                 return NotFound();

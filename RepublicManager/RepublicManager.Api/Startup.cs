@@ -35,6 +35,7 @@ namespace RepublicManager.Api
             services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 
             //injeção de dependencia
+            //services.AddScoped<>()
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

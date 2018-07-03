@@ -19,13 +19,13 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public IEnumerable<Republica> GetAll()
         {
-            return _unitOfWork.Republicas.GetAll();
+            return _unitOfWork.Republicas.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var item = _unitOfWork.Republicas.Find(id);
+            var item = _unitOfWork.Republicas.GetByIdAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest();
             }
 
-            var republica = _unitOfWork.Republicas.Find(id);
+            var republica = _unitOfWork.Republicas.GetByIdAsync(id);
             if (republica == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace RepublicManager.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var republica = _unitOfWork.Republicas.Find(id);
+            var republica = _unitOfWork.Republicas.GetByIdAsync(id);
             if (republica == null)
             {
                 return NotFound();

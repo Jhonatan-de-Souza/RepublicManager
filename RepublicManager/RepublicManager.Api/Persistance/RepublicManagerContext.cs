@@ -17,5 +17,6 @@ namespace RepublicManager.Api.Persistance
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
         }
+        public DbSet<RepublicManager.Api.Core.Domain.Aviso> Aviso { get; set; }
     }
 }

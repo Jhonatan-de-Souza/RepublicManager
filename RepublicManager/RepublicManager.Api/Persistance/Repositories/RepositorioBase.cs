@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RepublicManager.Api.Core.Repositories;
+using System.Web;
+using Microsoft.EntityFrameworkCore;
 
 namespace RepublicManager.Api.Persistance.Repositories
 {
@@ -20,26 +22,31 @@ namespace RepublicManager.Api.Persistance.Repositories
             _republicManagerContext.Set<TEntity>().Add(item);
         }
 
-        public TEntity Find(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            return _republicManagerContext.Set<TEntity>().Find(id);
+            return await _republicManagerContext.Set<TEntity>().FindAsync(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _republicManagerContext.Set<TEntity>().ToList();
+            return await _republicManagerContext.Set<TEntity>().ToListAsync();
         }
 
         public void Remove(int id)
         {
             var entity = _republicManagerContext.Set<TEntity>().Find(id);
             _republicManagerContext.Set<TEntity>().Remove(entity);
-           // _republicManagerContext.SaveChanges();
         }
 
         public void Update(TEntity item)
         {
             _republicManagerContext.Set<TEntity>().Update(item);
+        }
+         public void SetModifiedState(TEntity entity)
+        {
+            //This is the same doing the following ------->  db.Entry(person).State = EntityState.Modified;
+
+            //_republicManagerContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         }
     }
 }

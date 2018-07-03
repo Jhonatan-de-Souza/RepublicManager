@@ -19,13 +19,13 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public IEnumerable<Produto> GetAll()
         {
-            return _unitOfWork.Produtos.GetAll();
+            return _unitOfWork.Produtos.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var item = _unitOfWork.Produtos.Find(id);
+            var item = _unitOfWork.Produtos.GetByIdAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest();
             }
 
-            var produto = _unitOfWork.Produtos.Find(id);
+            var produto = _unitOfWork.Produtos.GetByIdAsync(id);
             if (produto == null)
             {
                 return NotFound();
@@ -81,7 +81,7 @@ namespace RepublicManager.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var produto = _unitOfWork.Produtos.Find(id);
+            var produto = _unitOfWork.Produtos.GetByIdAsync(id);
             if (produto == null)
             {
                 return NotFound();
