@@ -5,32 +5,37 @@ using System.Collections.Generic;
 
 namespace RepublicManager.Api.Migrations
 {
-    public partial class CriacaoBanco : Migration
+    public partial class AddUsuario : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+           
+
             migrationBuilder.CreateTable(
-                name: "Republicas",
+                name: "Usuario",
                 columns: table => new
                 {
-                    RepublicaId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CriadoPor = table.Column<int>(nullable: false),
+                    DataFinalContrato = table.Column<DateTime>(nullable: false),
                     DataRegistro = table.Column<DateTime>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    Vagas = table.Column<int>(nullable: false),
+                    Login = table.Column<string>(nullable: true),
+                    Senha = table.Column<string>(nullable: true),
                     isAtivo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Republicas", x => x.RepublicaId);
+                    table.PrimaryKey("PK_Usuario", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Republicas");
+                name: "Usuario");
+
+            
         }
     }
 }

@@ -13,11 +13,11 @@ namespace RepublicManager.Api.Core.Configuration
     {
         public void Configure(EntityTypeBuilder<CarrinhoDeCompra> builder)
         {
-            
+            builder.HasKey(c => c.Id);
 
             //1-1
 
-            builder.HasOne(p => p.ListaProdutos).WithOne(nameof(Produto));
+            // builder.HasOne(p => p.ListaProdutos).WithOne(nameof(Produto));
 
         }
     }

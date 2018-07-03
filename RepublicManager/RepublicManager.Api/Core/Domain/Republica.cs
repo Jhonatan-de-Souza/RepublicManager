@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RepublicManager.Api.Core.Domain
 {
-    public class Republica
+    public class Republica : Base
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

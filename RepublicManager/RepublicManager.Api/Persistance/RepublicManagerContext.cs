@@ -9,13 +9,14 @@ namespace RepublicManager.Api.Persistance
         public RepublicManagerContext(DbContextOptions<RepublicManagerContext> options)
             : base(options)
         { }
-
-        public DbSet<Republica> Republicas { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
+            modelBuilder.ApplyConfiguration(new CarrinhoDeCompraConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
         }
         public DbSet<RepublicManager.Api.Core.Domain.Aviso> Aviso { get; set; }
     }

@@ -5,7 +5,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class ProdutoController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -71,6 +71,10 @@ namespace RepublicManager.Api.Controllers
             produto.Valor = item.Valor;
             produto.CarrinhoDeCompraId = item.CarrinhoDeCompraId;
             produto.UsuarioId = item.UsuarioId;
+
+            produto.CriadoPor = item.CriadoPor;
+            produto.DataRegistro = item.DataRegistro;
+            produto.isAtivo = item.isAtivo;
 
             _unitOfWork.Produtos.Update(produto);
             _unitOfWork.Complete();
