@@ -1,94 +1,109 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using RepublicManager.Api.Core;
-using RepublicManager.Api.Core.Domain;
+﻿//using System.Collections.Generic;
+//using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Mvc;
+//using RepublicManager.Api.Core;
+//using RepublicManager.Api.Core.Domain;
 
-namespace RepublicManager.Api.Controllers
-{
-    [Route("api/[controller]")]
-    public class CarrinhoDeCompraController : Controller
-    {
-       
-       
-        private readonly IUnitOfWork _unitOfWork;
+//namespace RepublicManager.Api.Controllers
+//{
+//    [Route("api/[controller]")]
+//    public class CarrinhoDeCompraController : Controller
+//    {
 
 
-        public CarrinhoDeCompraController(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
-        [HttpGet]
-        public IEnumerable<CarrinhoDeCompra> GetAll()
-        {
-            return _unitOfWork.CarrinhoDeCompras.GetAllAsync();
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var item = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] CarrinhoDeCompra item)
-        {
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            _unitOfWork.CarrinhoDeCompras.Add(item);
-            _unitOfWork.Complete();
-
-       
-            return CreatedAtRoute( new { id = item.Id }, item);
-        }
+//        private readonly IUnitOfWork _unitOfWork;
 
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] CarrinhoDeCompra item)
-        {
-            if (item == null || item.Id != id)
-            {
-                return BadRequest();
-            }
+//        public CarrinhoDeCompraController(IUnitOfWork unitOfWork)
+//        {
+//            _unitOfWork = unitOfWork;
+//        }
 
-            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            if (carrinhoDeCompra == null)
-            {
-                return NotFound();
-            }
+//        [HttpGet]
+//        public async Task<IActionResult> GetAll()
+//        {
+//            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
+//            return Ok(carrinhoDeCompras);
+//        }
 
-            carrinhoDeCompra.RepublicaId = item.RepublicaId;
-            carrinhoDeCompra.ListaProdutos = item.ListaProdutos;
-            carrinhoDeCompra.CriadoPor = item.CriadoPor;
-            carrinhoDeCompra.DataRegistro = item.DataRegistro;
-            carrinhoDeCompra.isAtivo = item.isAtivo;
+//        [HttpGet("{id}")]
+//        public async Task<IActionResult> GetById(int id)
+//        {
+//            var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+//            if (carrinhoDeCompra == null)
+//            {
+//                return NotFound();
+//            }
 
-            _unitOfWork.CarrinhoDeCompras.Update(carrinhoDeCompra);
-            _unitOfWork.Complete();
-            return new NoContentResult();
-        }
+//            if (ModelState.IsValid)
+//            {
+//                return Ok(carrinhoDeCompra);
+//            }
+//            else
+//            {
+//                return BadRequest();
+//            }
+//        }
+
+//        [HttpPost]
+//        public async Task<IActionResult> Create([FromBody] CarrinhoDeCompra carrinhoDeCompra)
+//        {
+//            if (carrinhoDeCompra == null)
+//            {
+//                return NotFound();
+//            }
+
+//            if (ModelState.IsValid)
+//            {
+//                _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
+//                await _unitOfWork.CompleteAsync();
+//                return CreatedAtRoute("GetById", new { id = carrinhoDeCompra.Id }, carrinhoDeCompra);
+//            }
+//            else
+//            {
+//                return BadRequest();
+//            }
+//        }
 
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            if (carrinhoDeCompra == null)
-            {
-                return NotFound();
-            }
+//        [HttpPut("{id}")]
+//        public async Task<IActionResult> Update(int id, [FromBody] CarrinhoDeCompra carrinhoDeCompra)
+//        {
+//            if (carrinhoDeCompra == null || carrinhoDeCompra.Id != id)
+//            {
+//                return BadRequest();
+//            }
 
-            _unitOfWork.CarrinhoDeCompras.Remove(id);
-            _unitOfWork.Complete();
-            return new NoContentResult();
-        }
-    }
-}
+//            var carrinhoDeCompraFromDb = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+//            if (carrinhoDeCompraFromDb == null)
+//            {
+//                return NotFound();
+//            }
+
+//            carrinhoDeCompraFromDb.RepublicaId = carrinhoDeCompra.RepublicaId;
+//            carrinhoDeCompraFromDb.ListaProdutos = carrinhoDeCompra.ListaProdutos;
+//            carrinhoDeCompraFromDb.CriadoPor = carrinhoDeCompra.CriadoPor;
+//            carrinhoDeCompraFromDb.DataRegistro = carrinhoDeCompra.DataRegistro;
+//            carrinhoDeCompraFromDb.isAtivo = carrinhoDeCompra.isAtivo;
+
+//            _unitOfWork.CarrinhoDeCompras.Update(carrinhoDeCompra);
+//            _unitOfWork.Complete();
+//            return new NoContentResult();
+//        }
+
+
+//        [HttpDelete("{id}")]
+//        public IActionResult Delete(int id)
+//        {
+//            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+//            if (carrinhoDeCompra == null)
+//            {
+//                return NotFound();
+//            }
+
+//            _unitOfWork.CarrinhoDeCompras.Remove(id);
+//            _unitOfWork.Complete();
+//            return new NoContentResult();
+//        }
+//    }
+//}

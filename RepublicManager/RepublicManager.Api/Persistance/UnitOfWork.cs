@@ -16,7 +16,7 @@ namespace RepublicManager.Api.Persistance
         public IRepublicaRepositorio Republicas { get; set; }
         public IProdutoRepositorio Produtos { get; set; }
         public ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; set; }
-        public IAvisoRepositorio AvisoRepositorio { get; set; }
+        public IAvisoRepositorio Avisos { get; set; }
         public IUsuarioRepositorio Usuarios { get; set; }
         //public  Type { get; set; }
 
@@ -29,6 +29,7 @@ namespace RepublicManager.Api.Persistance
             Produtos = new ProdutoRepositorio(_context);
             CarrinhoDeCompras = new CarrinhoDeCompraRepositorio(_context);
             Usuarios = new UsuarioRepositorio(_context);
+            Avisos = new AvisoRepositorio(_context);
 
 
         }

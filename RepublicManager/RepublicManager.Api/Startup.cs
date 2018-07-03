@@ -29,13 +29,14 @@ namespace RepublicManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             //Jhonatan
-            //var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             //Matheus
-            var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 
             //injeção de dependencia
             //services.AddScoped<>()
+            services.AddScoped<IAvisoRepositorio, AvisoRepositorio>();
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICarrinhoDeCompraRepositorio, CarrinhoDeCompraRepositorio>();

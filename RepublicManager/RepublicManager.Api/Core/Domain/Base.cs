@@ -8,6 +8,10 @@ namespace RepublicManager.Api.Core.Domain
 {
     public class Base
     {
+        public Base()
+        {
+            isAtivo = true;
+        }
         public DateTime DataRegistro { get; set; }
         public bool isAtivo { get; set; }
         public int CriadoPor { get; set; }
