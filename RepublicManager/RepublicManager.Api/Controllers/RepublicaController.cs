@@ -1,96 +1,110 @@
-﻿//using System.Collections.Generic;
-//using Microsoft.AspNetCore.Mvc;
-//using RepublicManager.Api.Core;
-//using RepublicManager.Api.Core.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RepublicManager.Api.Core;
+using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Helpers;
 
-//namespace RepublicManager.Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    public class RepublicaController : Controller
-//    {
-//        private readonly IUnitOfWork _unitOfWork;
-
-
-//        public RepublicaController(IUnitOfWork unitOfWork)
-//        {
-//            _unitOfWork = unitOfWork;
-//        }
-
-//        [HttpGet]
-//        public IEnumerable<Republica> GetAll()
-//        {
-//            return _unitOfWork.Republicas.GetAllAsync();
-//        }
-
-//        [HttpGet("{id}")]
-//        public IActionResult GetById(int id)
-//        {
-//            var item = _unitOfWork.Republicas.GetByIdAsync(id);
-//            if (item == null)
-//            {
-//                return NotFound();
-//            }
-//            return new ObjectResult(item);
-//        }
-
-//        [HttpPost]
-//        public IActionResult Create([FromBody] Republica item)
-//        {
-//            if (item == null)
-//            {
-//                return BadRequest();
-//            }
-
-//            _unitOfWork.Republicas.Add(item);
-//            _unitOfWork.Complete();
-
-//            /*O método CreatedAtRoute retorna a resposta 201, a qual é a resposta padrão para
-//             um método HTTP POST que cria um novo recurso no servidor. CreatedAtRoute também 
-//             adiciona um cabeçalho Location ao response, que especifica a URI do novo item tarefa 
-//             recem criado. (Consulte 10.2.2 201 */
-
-//            return CreatedAtRoute(new { id = item.RepublicaId }, item);
-//        }
+namespace RepublicManager.Api.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class RepublicaController : Controller
+    {
 
 
-//        [HttpPut("{id}")]
-//        public IActionResult Update(int id, [FromBody] Republica item)
-//        {
-//            if (item == null || item.RepublicaId != id)
-//            {
-//                return BadRequest();
-//            }
-
-//            var republica = _unitOfWork.Republicas.GetByIdAsync(id);
-//            if (republica == null)
-//            {
-//                return NotFound();
-//            }
-
-//            republica.Nome = item.Nome;
-//            republica.Vagas = item.Vagas;
-//            republica.CriadoPor = item.CriadoPor;
-//            republica.DataRegistro = item.DataRegistro;
-//            republica.isAtivo = item.isAtivo;
-
-//            _unitOfWork.Republicas.Update(republica);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
+        private readonly IUnitOfWork _unitOfWork;
 
 
-//        [HttpDelete("{id}")]
-//        public IActionResult Delete(int id)
-//        {
-//            var republica = _unitOfWork.Republicas.GetByIdAsync(id);
-//            if (republica == null)
-//            {
-//                return NotFound();
-//            }
+        public RepublicaController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        // GET: api/Avisoz
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var republicas = await _unitOfWork.Republicas.GetAllAsync();
+            if (republicas == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(republicas);
+            }
+        }
 
-//            _unitOfWork.Republicas.Remove(id);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
-//    }
-//}
+        // GET: api/produto/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
+            return Ok(republica);
+        }
+
+        //POST: api/produto
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]Republica republica)
+        {
+            if (republica == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                if (ModelState.IsValid)
+                    _unitOfWork.Republicas.Add(republica);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(republica);
+            }
+            catch (Exception exception)
+            {
+                logError.LogErrorWithSentry(exception);
+                return BadRequest();
+            }
+
+        }
+        // PUT: api/produto/5
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody]Republica republica)
+        {
+            try
+            {
+                var republicaEdit = await _unitOfWork.Republicas.GetByIdAsync(id);
+
+                if (ModelState.IsValid)
+                    republicaEdit = republica;
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(republica);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }*/
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
+                if (republica != null)
+                    republica.isAtivo = false;
+                await _unitOfWork.CompleteAsync();
+                return Ok(republica);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }
+    }
+}

@@ -1,109 +1,110 @@
-﻿//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-//using RepublicManager.Api.Core;
-//using RepublicManager.Api.Core.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RepublicManager.Api.Core;
+using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Helpers;
 
-//namespace RepublicManager.Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    public class CarrinhoDeCompraController : Controller
-//    {
-
-
-//        private readonly IUnitOfWork _unitOfWork;
-
-
-//        public CarrinhoDeCompraController(IUnitOfWork unitOfWork)
-//        {
-//            _unitOfWork = unitOfWork;
-//        }
-
-//        [HttpGet]
-//        public async Task<IActionResult> GetAll()
-//        {
-//            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
-//            return Ok(carrinhoDeCompras);
-//        }
-
-//        [HttpGet("{id}")]
-//        public async Task<IActionResult> GetById(int id)
-//        {
-//            var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-//            if (carrinhoDeCompra == null)
-//            {
-//                return NotFound();
-//            }
-
-//            if (ModelState.IsValid)
-//            {
-//                return Ok(carrinhoDeCompra);
-//            }
-//            else
-//            {
-//                return BadRequest();
-//            }
-//        }
-
-//        [HttpPost]
-//        public async Task<IActionResult> Create([FromBody] CarrinhoDeCompra carrinhoDeCompra)
-//        {
-//            if (carrinhoDeCompra == null)
-//            {
-//                return NotFound();
-//            }
-
-//            if (ModelState.IsValid)
-//            {
-//                _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
-//                await _unitOfWork.CompleteAsync();
-//                return CreatedAtRoute("GetById", new { id = carrinhoDeCompra.Id }, carrinhoDeCompra);
-//            }
-//            else
-//            {
-//                return BadRequest();
-//            }
-//        }
+namespace RepublicManager.Api.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class CarrinhoDeCompraController : Controller
+    {
 
 
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> Update(int id, [FromBody] CarrinhoDeCompra carrinhoDeCompra)
-//        {
-//            if (carrinhoDeCompra == null || carrinhoDeCompra.Id != id)
-//            {
-//                return BadRequest();
-//            }
-
-//            var carrinhoDeCompraFromDb = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-//            if (carrinhoDeCompraFromDb == null)
-//            {
-//                return NotFound();
-//            }
-
-//            carrinhoDeCompraFromDb.RepublicaId = carrinhoDeCompra.RepublicaId;
-//            carrinhoDeCompraFromDb.ListaProdutos = carrinhoDeCompra.ListaProdutos;
-//            carrinhoDeCompraFromDb.CriadoPor = carrinhoDeCompra.CriadoPor;
-//            carrinhoDeCompraFromDb.DataRegistro = carrinhoDeCompra.DataRegistro;
-//            carrinhoDeCompraFromDb.isAtivo = carrinhoDeCompra.isAtivo;
-
-//            _unitOfWork.CarrinhoDeCompras.Update(carrinhoDeCompra);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
+        private readonly IUnitOfWork _unitOfWork;
 
 
-//        [HttpDelete("{id}")]
-//        public IActionResult Delete(int id)
-//        {
-//            var carrinhoDeCompra = _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-//            if (carrinhoDeCompra == null)
-//            {
-//                return NotFound();
-//            }
+        public CarrinhoDeCompraController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        // GET: api/Avisoz
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
+            if (carrinhoDeCompras == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(carrinhoDeCompras);
+            }
+        }
 
-//            _unitOfWork.CarrinhoDeCompras.Remove(id);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
-//    }
-//}
+        // GET: api/Aviso/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var aviso = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+            return Ok(aviso);
+        }
+
+        //POST: api/Aviso
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]CarrinhoDeCompra carrinhoDeCompra)
+        {
+            if (carrinhoDeCompra == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                if (ModelState.IsValid)
+                    _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(carrinhoDeCompra);
+            }
+            catch (Exception exception)
+            {
+                logError.LogErrorWithSentry(exception);
+                return BadRequest();
+            }
+
+        }
+        // PUT: api/Aviso/5
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody]CarrinhoDeCompra carrinhoDeCompra)
+        {
+            try
+            {
+                var carrinhoDeCompraEdit = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+
+                if (ModelState.IsValid)
+                    carrinhoDeCompraEdit = carrinhoDeCompra;
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(carrinhoDeCompra);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }*/
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+                if (carrinhoDeCompra != null)
+                    carrinhoDeCompra.isAtivo = false;
+                await _unitOfWork.CompleteAsync();
+                return Ok(carrinhoDeCompra);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }
+    }
+}

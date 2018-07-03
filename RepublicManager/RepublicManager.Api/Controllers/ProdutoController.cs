@@ -1,99 +1,110 @@
-﻿//using System.Collections.Generic;
-//using Microsoft.AspNetCore.Mvc;
-//using RepublicManager.Api.Core;
-//using RepublicManager.Api.Core.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RepublicManager.Api.Core;
+using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Helpers;
 
-//namespace RepublicManager.Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    public class ProdutoController : Controller
-//    {
-//        private readonly IUnitOfWork _unitOfWork;
-
-
-//        public ProdutoController(IUnitOfWork unitOfWork)
-//        {
-//            _unitOfWork = unitOfWork;
-//        }
-
-//        [HttpGet]
-//        public IEnumerable<Produto> GetAll()
-//        {
-//            return _unitOfWork.Produtos.GetAllAsync();
-//        }
-
-//        [HttpGet("{id}")]
-//        public IActionResult GetById(int id)
-//        {
-//            var item = _unitOfWork.Produtos.GetByIdAsync(id);
-//            if (item == null)
-//            {
-//                return NotFound();
-//            }
-//            return new ObjectResult(item);
-//        }
-
-//        [HttpPost]
-//        public IActionResult Create([FromBody] Produto item)
-//        {
-//            if (item == null)
-//            {
-//                return BadRequest();
-//            }
-
-//            _unitOfWork.Produtos.Add(item);
-//            _unitOfWork.Complete();
-
-//            /*O método CreatedAtRoute retorna a resposta 201, a qual é a resposta padrão para
-//             um método HTTP POST que cria um novo recurso no servidor. CreatedAtRoute também 
-//             adiciona um cabeçalho Location ao response, que especifica a URI do novo item tarefa 
-//             recem criado. (Consulte 10.2.2 201 */
-
-//            return CreatedAtRoute(new { id = item.Id }, item);
-//        }
+namespace RepublicManager.Api.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class ProdutoController : Controller
+    {
 
 
-//        [HttpPut("{id}")]
-//        public IActionResult Update(int id, [FromBody] Produto item)
-//        {
-//            if (item == null || item.Id != id)
-//            {
-//                return BadRequest();
-//            }
-
-//            var produto = _unitOfWork.Produtos.GetByIdAsync(id);
-//            if (produto == null)
-//            {
-//                return NotFound();
-//            }
-
-//            produto.Descricao = item.Descricao;
-//            produto.Valor = item.Valor;
-//            produto.CarrinhoDeCompraId = item.CarrinhoDeCompraId;
-//            produto.UsuarioId = item.UsuarioId;
-
-//            produto.CriadoPor = item.CriadoPor;
-//            produto.DataRegistro = item.DataRegistro;
-//            produto.isAtivo = item.isAtivo;
-
-//            _unitOfWork.Produtos.Update(produto);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
+        private readonly IUnitOfWork _unitOfWork;
 
 
-//        [HttpDelete("{id}")]
-//        public IActionResult Delete(int id)
-//        {
-//            var produto = _unitOfWork.Produtos.GetByIdAsync(id);
-//            if (produto == null)
-//            {
-//                return NotFound();
-//            }
+        public ProdutoController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        // GET: api/Avisoz
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var produtos = await _unitOfWork.Produtos.GetAllAsync();
+            if (produtos == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(produtos);
+            }
+        }
 
-//            _unitOfWork.Produtos.Remove(id);
-//            _unitOfWork.Complete();
-//            return new NoContentResult();
-//        }
-//    }
-//}
+        // GET: api/produto/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
+            return Ok(produto);
+        }
+
+        //POST: api/produto
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]Produto produto)
+        {
+            if (produto == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                if (ModelState.IsValid)
+                    _unitOfWork.Produtos.Add(produto);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(produto);
+            }
+            catch (Exception exception)
+            {
+                logError.LogErrorWithSentry(exception);
+                return BadRequest();
+            }
+
+        }
+        // PUT: api/produto/5
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody]Produto Produto)
+        {
+            try
+            {
+                var produtoEdit = await _unitOfWork.Produtos.GetByIdAsync(id);
+
+                if (ModelState.IsValid)
+                    produtoEdit = produto;
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(produto);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }*/
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
+                if (produto != null)
+                    produto.isAtivo = false;
+                await _unitOfWork.CompleteAsync();
+                return Ok(produto);
+            }
+            catch (Exception e)
+            {
+                logError.LogErrorWithSentry(e);
+                return BadRequest();
+            }
+        }
+    }
+}
