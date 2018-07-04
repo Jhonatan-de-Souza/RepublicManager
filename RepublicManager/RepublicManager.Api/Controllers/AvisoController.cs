@@ -76,10 +76,11 @@ namespace RepublicManager.Api.Controllers
             try
             {
                 var avisoToEdit = await _unitOfWork.Avisos.GetByIdAsync(id);
-                _unitOfWork.Avisos.SetModifiedState(avisoToEdit);
+                //_unitOfWork.Avisos.SetModifiedState(avisoToEdit);
 
                 if (ModelState.IsValid)
-                    avisoToEdit = aviso;
+                    avisoToEdit.Descricao = aviso.Descricao;
+                    //avisoToEdit = aviso;
                     await _unitOfWork.CompleteAsync();
 
                     return Ok(avisoToEdit);
