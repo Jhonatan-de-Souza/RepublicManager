@@ -76,17 +76,18 @@ namespace RepublicManager.Api.Controllers
             try
             {
                 var avisoToEdit = await _unitOfWork.Avisos.GetByIdAsync(id);
+                _unitOfWork.Avisos.SetModifiedState(avisoToEdit);
 
                 if (ModelState.IsValid)
                     avisoToEdit = aviso;
                     await _unitOfWork.CompleteAsync();
 
-                    return Ok(aviso);
+                    return Ok(avisoToEdit);
             }
             catch (Exception e)
             {
                 logError.LogErrorWithSentry(e);
-                return BadRequest();
+                return BadRequest(ModelState);
             }
         }
         

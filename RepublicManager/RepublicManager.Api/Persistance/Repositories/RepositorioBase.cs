@@ -45,8 +45,7 @@ namespace RepublicManager.Api.Persistance.Repositories
          public void SetModifiedState(TEntity entity)
         {
             //This is the same doing the following ------->  db.Entry(person).State = EntityState.Modified;
-
-            //_republicManagerContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            _republicManagerContext.Entry(entity).State = EntityState.Modified;
         }
 
 
