@@ -73,14 +73,11 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var republicaToEdit = await _unitOfWork.Republicas.GetByIdAsync(id);
-                _unitOfWork.Republicas.SetModifiedState(republicaToEdit);
+               _unitOfWork.Republicas.Update(republica);
 
-                if (ModelState.IsValid)
-                    republicaToEdit = republica;
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(republicaToEdit);
+                return Ok(republica);
             }
             catch (Exception e)
             {
