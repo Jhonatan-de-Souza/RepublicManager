@@ -47,5 +47,15 @@ namespace RepublicManager.Api.Persistance.Repositories
             //This is the same doing the following ------->  db.Entry(person).State = EntityState.Modified;
             _republicManagerContext.Entry(entity).State = EntityState.Modified;
         }
+
+
+ /*       public Task SaveEntity(TEntity entity)
+        {
+
+           // _republicManagerContext.Set<TEntity>().Attach(entity);
+            _republicManagerContext.Entry(entity).State = EntityState.Modified;
+         //   await _republicManagerContext.SaveChangesAsync();
+
+        }*/
     }
 }

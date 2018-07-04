@@ -89,6 +89,26 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Produto");
                 });
 
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Republica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CriadoPor");
+
+                    b.Property<DateTime>("DataRegistro");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<int>("Vagas");
+
+                    b.Property<bool>("isAtivo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Republica");
+                });
+
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Usuario", b =>
                 {
                     b.Property<int>("Id")

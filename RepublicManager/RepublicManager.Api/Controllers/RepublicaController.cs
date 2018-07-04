@@ -21,7 +21,7 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        // GET: api/Avisoz
+        // GET: api/republicaz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -68,25 +68,28 @@ namespace RepublicManager.Api.Controllers
 
         }
         // PUT: api/produto/5
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, [FromBody]Republica republica)
         {
             try
             {
-                var republicaEdit = await _unitOfWork.Republicas.GetByIdAsync(id);
+                var republicaToEdit = await _unitOfWork.Republicas.GetByIdAsync(id);
+                _unitOfWork.Republicas.SetModifiedState(republicaToEdit);
 
                 if (ModelState.IsValid)
-                    republicaEdit = republica;
+                    republicaToEdit = republica;
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(republica);
+                return Ok(republicaToEdit);
             }
             catch (Exception e)
             {
                 logError.LogErrorWithSentry(e);
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-        }*/
+        }
+
+       
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -108,3 +111,4 @@ namespace RepublicManager.Api.Controllers
         }
     }
 }
+ 
