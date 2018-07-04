@@ -50,12 +50,12 @@ namespace RepublicManager.Api.Persistance.Repositories
         }
 
 
-        public async Task SaveEntity(TEntity entity)
+        public Task SaveEntity(TEntity entity)
         {
 
-            _republicManagerContext.Set<TEntity>().Attach(entity);
+           // _republicManagerContext.Set<TEntity>().Attach(entity);
             _republicManagerContext.Entry(entity).State = EntityState.Modified;
-            await _republicManagerContext.SaveChangesAsync();
+         //   await _republicManagerContext.SaveChangesAsync();
 
         }
     }

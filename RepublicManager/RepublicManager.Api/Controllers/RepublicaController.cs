@@ -69,10 +69,12 @@ namespace RepublicManager.Api.Controllers
         }
         // PUT: api/produto/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit([FromBody]Republica entity)
+        public async Task<IActionResult> Edit(int id, [FromBody]Republica entity)
         {
             try
             {
+                var republica = _unitOfWork.Republicas.GetByIdAsync(id);
+                
                 await _unitOfWork.Republicas.SaveEntity(entity);
             }
             catch (Exception ex)
