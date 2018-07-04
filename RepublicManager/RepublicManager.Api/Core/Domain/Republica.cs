@@ -11,7 +11,7 @@ namespace RepublicManager.Api.Core.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RepublicaId { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int Vagas { get; set; }
     }

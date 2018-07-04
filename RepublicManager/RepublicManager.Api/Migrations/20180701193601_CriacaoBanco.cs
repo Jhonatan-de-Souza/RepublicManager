@@ -10,10 +10,10 @@ namespace RepublicManager.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Republicas",
+                name: "Republica",
                 columns: table => new
                 {
-                    RepublicaId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CriadoPor = table.Column<int>(nullable: false),
                     DataRegistro = table.Column<DateTime>(nullable: false),
@@ -23,14 +23,14 @@ namespace RepublicManager.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Republicas", x => x.RepublicaId);
+                    table.PrimaryKey("PK_Republica", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Republicas");
+                name: "Republica");
         }
     }
 }

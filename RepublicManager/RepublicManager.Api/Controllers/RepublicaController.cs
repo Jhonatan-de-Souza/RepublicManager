@@ -68,25 +68,22 @@ namespace RepublicManager.Api.Controllers
 
         }
         // PUT: api/produto/5
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]Republica republica)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit([FromBody]Republica entity)
         {
             try
             {
-                var republicaEdit = await _unitOfWork.Republicas.GetByIdAsync(id);
-
-                if (ModelState.IsValid)
-                    republicaEdit = republica;
-                await _unitOfWork.CompleteAsync();
-
-                return Ok(republica);
+                await _unitOfWork.Republicas.SaveEntity(entity);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logError.LogErrorWithSentry(e);
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
-        }*/
+
+            return Ok(entity);
+        }
+
+       
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -108,3 +105,4 @@ namespace RepublicManager.Api.Controllers
         }
     }
 }
+ 

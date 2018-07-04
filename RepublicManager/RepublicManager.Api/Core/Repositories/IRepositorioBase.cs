@@ -8,6 +8,7 @@ namespace RepublicManager.Api.Core.Repositories
     public interface IRepositorioBase<TEntity> where TEntity : class
     {
         void Remove(int id);
+        Task SaveEntity(TEntity entity);
         void Update(TEntity item);
         void Add(TEntity item);
         Task<TEntity> GetByIdAsync(int id);

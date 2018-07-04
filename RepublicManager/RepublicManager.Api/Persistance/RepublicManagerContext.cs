@@ -18,6 +18,10 @@ namespace RepublicManager.Api.Persistance
             modelBuilder.ApplyConfiguration(new CarrinhoDeCompraConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
         }
-        public DbSet<RepublicManager.Api.Core.Domain.Aviso> Aviso { get; set; }
+        public DbSet<Aviso> Aviso { get; set; }
+        public DbSet<Republica> Republica { get; set; }
+        public DbSet<CarrinhoDeCompra> CarrinhoDeCompra { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
     }
 }
