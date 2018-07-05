@@ -32,8 +32,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var avisos =  await _unitOfWork.Avisos.GetAllAsync();
-            
-            ConvertModelToResource.ConvertAvisoToAvisoResource(avisos);
+            List<AvisoResource> avisoResource = new List<AvisoResource>();
 
             if (avisos == null)
             {
@@ -41,7 +40,11 @@ namespace RepublicManager.Api.Controllers
             }
             else
             {
-                return Ok(avisos);
+                foreach (var aviso in avisos)
+                {
+                    avisoResource.Add(ConvertModelToResource.AvisoToAvisoResource(aviso));
+                }
+                return Ok(avisoResource);
             }
         }
 
