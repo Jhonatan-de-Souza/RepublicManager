@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
+using RepublicManager.Api.Resources.Mapping;
 
 namespace RepublicManager.Api.Controllers
 {
@@ -25,6 +26,8 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var republicas = await _unitOfWork.Republicas.GetAllAsync();
+            ConvertModelToResource.ConvertRepublicaToRepublicaResource(republicas);
+
             if (republicas == null)
             {
                 return NoContent();
@@ -33,6 +36,7 @@ namespace RepublicManager.Api.Controllers
             {
                 return Ok(republicas);
             }
+
         }
 
         // GET: api/produto/5
@@ -40,6 +44,8 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
+            ConvertModelToResource.ConvertRepublicaToRepublicaResource(republica);
+
             return Ok(republica);
         }
 
