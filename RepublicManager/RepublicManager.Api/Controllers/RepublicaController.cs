@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
-using RepublicManager.Api.Resources.Mapping;
+using RepublicManager.Api.Resources;
 
 namespace RepublicManager.Api.Controllers
 {
@@ -26,16 +27,17 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var republicas = await _unitOfWork.Republicas.GetAllAsync();
-            ConvertModelToResource.ConvertRepublicaToRepublicaResource(republicas);
+            List<RepublicaResource> repbiblicaResource = new List<RepublicaResource>();
 
             if (republicas == null)
             {
                 return NoContent();
             }
-            else
+            foreach (var republica in republicas)
             {
-                return Ok(republicas);
+                repbiblicaResource.Add(RepublicaMapper.ModelToResource(republica));
             }
+            return Ok(repbiblicaResource);
 
         }
 
@@ -44,23 +46,23 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
-            ConvertModelToResource.ConvertRepublicaToRepublicaResource(republica);
-
-            return Ok(republica);
+            return Ok(RepublicaMapper.ModelToResource(republica));
         }
 
         //POST: api/produto
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Republica republica)
+        public async Task<IActionResult> Create([FromBody]RepublicaResource republicaResource)
         {
-            if (republica == null)
+            if (republicaResource == null)
             {
                 return NotFound();
             }
             try
             {
+                var republica = new Republica();
                 if (ModelState.IsValid)
-                    _unitOfWork.Republicas.Add(republica);
+                    republica = RepublicaMapper.ResourceToModel(republicaResource);
+                _unitOfWork.Republicas.Add(republica);
                 await _unitOfWork.CompleteAsync();
 
                 return Ok(republica);
@@ -72,16 +74,21 @@ namespace RepublicManager.Api.Controllers
             }
 
         }
-        // PUT: api/produto/5
+        // PUT: api/Republica/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]Republica republica)
+        public async Task<IActionResult> Edit(int id, [FromBody]RepublicaResource republicaResource)
         {
             try
             {
-               _unitOfWork.Republicas.Update(republica);
+                var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
 
-                await _unitOfWork.CompleteAsync();
-
+                if (ModelState.IsValid)
+                {
+                    _unitOfWork.Republicas.SetModifiedState(republica);
+                    republica = RepublicaMapper.ResourceToModel(republicaResource);
+                    await _unitOfWork.CompleteAsync();
+                    RepublicaMapper.ModelToResource(republica);
+                }
                 return Ok(republica);
             }
             catch (Exception e)
@@ -90,8 +97,6 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest(ModelState);
             }
         }
-
-       
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -113,4 +118,3 @@ namespace RepublicManager.Api.Controllers
         }
     }
 }
- 

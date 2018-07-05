@@ -52,7 +52,7 @@ namespace RepublicManager.Api.Controllers
         }
 
         //POST: api/Aviso
-       [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody]AvisoResource avisoResource)
         {
             if (avisoResource == null)
