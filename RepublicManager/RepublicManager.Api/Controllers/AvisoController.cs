@@ -9,7 +9,6 @@ using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
 using RepublicManager.Api.Resources;
-using RepublicManager.Api.Resources.Mapping;
 using SharpRaven;
 using SharpRaven.Data;
 
@@ -25,7 +24,6 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
        
         // GET: api/Avisoz
         [HttpGet]
@@ -38,14 +36,11 @@ namespace RepublicManager.Api.Controllers
             {
                 return NoContent();
             }
-            else
+            foreach (var aviso in avisos)
             {
-                foreach (var aviso in avisos)
-                {
-                    avisoResource.Add(ConvertModelToResource.AvisoToAvisoResource(aviso));
-                }
-                return Ok(avisoResource);
+                avisoResource.Add(AvisoMapper.ModelToResource(aviso));
             }
+            return Ok(avisoResource);
         }
 
         // GET: api/Aviso/5
@@ -53,31 +48,22 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult>Get(int id)
         {
             var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
-            var avisoResource = new AvisoResource()
-            {
-                Descricao = aviso.Descricao,
-                DataAviso = aviso.DataAviso,
-                isAtivo = aviso.isAtivo,
-                Id = aviso.Id,
-                CriadoPor = aviso.CriadoPor,
-                DataRegistro = aviso.DataRegistro
-            };
-
-            
-            return Ok(avisoResource);
+            return Ok(AvisoMapper.ModelToResource(aviso));
         }
 
         //POST: api/Aviso
        [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Aviso aviso)
+        public async Task<IActionResult> Create([FromBody]AvisoResource avisoResource)
         {
-            if (aviso == null)
+            if (avisoResource == null)
             {
                 return NotFound();
             }
             try
             {
+                var aviso = new Aviso();
                 if (ModelState.IsValid)
+                    aviso = AvisoMapper.ResourceToModel(avisoResource);
                     _unitOfWork.Avisos.Add(aviso);
                     await _unitOfWork.CompleteAsync();
 
@@ -92,19 +78,20 @@ namespace RepublicManager.Api.Controllers
         }
         // PUT: api/Aviso/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]Aviso aviso)
+        public async Task<IActionResult> Edit(int id, [FromBody]AvisoResource avisoResource)
         {
             try
             {
-                var avisoToEdit = await _unitOfWork.Avisos.GetByIdAsync(id);
-                //_unitOfWork.Avisos.SetModifiedState(avisoToEdit);
+                var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
 
                 if (ModelState.IsValid)
-                    avisoToEdit.Descricao = aviso.Descricao;
-                    //avisoToEdit = aviso;
+                {
+                    _unitOfWork.Avisos.SetModifiedState(aviso);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource);
                     await _unitOfWork.CompleteAsync();
-
-                    return Ok(avisoToEdit);
+                    AvisoMapper.ModelToResource(aviso);
+                }
+                return Ok(aviso);
             }
             catch (Exception e)
             {

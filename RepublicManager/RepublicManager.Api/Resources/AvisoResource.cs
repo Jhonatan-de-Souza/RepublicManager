@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Resources
 }
 public static class AvisoMapper
 {
-    public static AvisoResource AvisoToAvisoResource(Aviso aviso)
+    public static AvisoResource ModelToResource(Aviso aviso)
     {
         var avisoResource = new AvisoResource()
         {
@@ -37,7 +37,7 @@ public static class AvisoMapper
         };
         return avisoResource;
     }
-    public static Aviso AvisoResourceToAviso(AvisoResource avisoResource)
+    public static Aviso ResourceToModel(AvisoResource avisoResource)
     {
         var aviso = new Aviso()
         {
