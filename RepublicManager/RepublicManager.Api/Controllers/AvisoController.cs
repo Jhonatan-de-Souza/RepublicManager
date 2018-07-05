@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
+using RepublicManager.Api.Resources;
+using RepublicManager.Api.Resources.Mapping;
 using SharpRaven;
 using SharpRaven.Data;
 
@@ -23,11 +25,16 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
+       
         // GET: api/Avisoz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var avisos =  await _unitOfWork.Avisos.GetAllAsync();
+            
+            ConvertModelToResource.ConvertAvisoToAvisoResource(avisos);
+
             if (avisos == null)
             {
                 return NoContent();
@@ -43,7 +50,18 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult>Get(int id)
         {
             var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
-            return Ok(aviso);
+            var avisoResource = new AvisoResource()
+            {
+                Descricao = aviso.Descricao,
+                DataAviso = aviso.DataAviso,
+                isAtivo = aviso.isAtivo,
+                Id = aviso.Id,
+                CriadoPor = aviso.CriadoPor,
+                DataRegistro = aviso.DataRegistro
+            };
+
+            
+            return Ok(avisoResource);
         }
 
         //POST: api/Aviso
