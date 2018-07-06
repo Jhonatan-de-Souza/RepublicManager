@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Core.Resources;
 using RepublicManager.Api.Helpers;
-using RepublicManager.Api.Resources;
 using SharpRaven;
 using SharpRaven.Data;
 
