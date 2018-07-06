@@ -60,7 +60,7 @@ namespace RepublicManager.Api.Controllers
             {
                 var carrinhoDeCompra = new CarrinhoDeCompra();
                 if (ModelState.IsValid)
-                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource);
+                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource,carrinhoDeCompra);
                 _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
                 await _unitOfWork.CompleteAsync();
 
@@ -83,8 +83,8 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _unitOfWork.CarrinhoDeCompras.SetModifiedState(carrinhoDeCompra);
-                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource);
+                    
+                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource,carrinhoDeCompra);
                     await _unitOfWork.CompleteAsync();
                     CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra);
                 }

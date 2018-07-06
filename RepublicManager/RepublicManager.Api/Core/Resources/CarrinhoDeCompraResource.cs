@@ -37,18 +37,17 @@ namespace RepublicManager.Api.Core.Resources
             };
             return carrinhoDeCompraResource;
         }
-        public static CarrinhoDeCompra ResourceToModel(CarrinhoDeCompraResource carrinhoDeCompraResource)
+        public static CarrinhoDeCompra ResourceToModel(CarrinhoDeCompraResource carrinhoDeCompraResource,CarrinhoDeCompra carrinhoDeCompra)
         {
-            var carrinhoDeCompra = new CarrinhoDeCompra()
-            {
-                RepublicaId = carrinhoDeCompraResource.RepublicaId,
-                ListaProdutos = carrinhoDeCompraResource.ListaProdutos,
 
-                Id = carrinhoDeCompraResource.Id,
-                isAtivo = carrinhoDeCompraResource.isAtivo,
-                CriadoPor = carrinhoDeCompraResource.CriadoPor,
-                DataRegistro = carrinhoDeCompraResource.DataRegistro
-            };
+            carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
+            carrinhoDeCompra.ListaProdutos = carrinhoDeCompraResource.ListaProdutos;
+
+            carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
+            carrinhoDeCompra.isAtivo = carrinhoDeCompraResource.isAtivo;
+            carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
+            carrinhoDeCompra.DataRegistro = carrinhoDeCompraResource.DataRegistro;
+            
             return carrinhoDeCompra;
         }
     }
