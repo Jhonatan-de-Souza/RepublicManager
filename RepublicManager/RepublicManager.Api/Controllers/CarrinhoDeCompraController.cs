@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
+using RepublicManager.Api.Resources;
 
 namespace RepublicManager.Api.Controllers
 {
@@ -21,49 +22,49 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        // GET: api/Avisoz
+        // GET: api/CarrinhoDeCompraz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var avisos = await _unitOfWork.Avisos.GetAllAsync();
-            List<AvisoResource> avisoResource = new List<AvisoResource>();
+            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
+            List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
 
-            if (avisos == null)
+            if (carrinhoDeCompras == null)
             {
                 return NoContent();
             }
-            foreach (var aviso in avisos)
+            foreach (var carrinhoDeCompra in carrinhoDeCompras)
             {
-                avisoResource.Add(AvisoMapper.ModelToResource(aviso));
+                carrinhoDeCompraResource.Add(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
             }
-            return Ok(avisoResource);
+            return Ok(carrinhoDeCompraResource);
         }
 
-        // GET: api/Aviso/5
+        // GET: api/CarrinhoDeCompra/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
-            return Ok(AvisoMapper.ModelToResource(aviso));
+            var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+            return Ok(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
         }
 
-        //POST: api/Aviso
+        //POST: api/CarrinhoDeCompra
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]AvisoResource avisoResource)
+        public async Task<IActionResult> Create([FromBody]CarrinhoDeCompraResource carrinhoDeCompraResource)
         {
-            if (avisoResource == null)
+            if (carrinhoDeCompraResource == null)
             {
                 return NotFound();
             }
             try
             {
-                var aviso = new Aviso();
+                var carrinhoDeCompra = new CarrinhoDeCompra();
                 if (ModelState.IsValid)
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
-                _unitOfWork.Avisos.Add(aviso);
+                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource);
+                _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(aviso);
+                return Ok(carrinhoDeCompra);
             }
             catch (Exception exception)
             {
@@ -72,22 +73,22 @@ namespace RepublicManager.Api.Controllers
             }
 
         }
-        // PUT: api/Aviso/5
+        // PUT: api/CarrinhoDeCompra/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]AvisoResource avisoResource)
+        public async Task<IActionResult> Edit(int id, [FromBody]CarrinhoDeCompraResource carrinhoDeCompraResource)
         {
             try
             {
-                var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
+                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
 
                 if (ModelState.IsValid)
                 {
-                    _unitOfWork.Avisos.SetModifiedState(aviso);
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    _unitOfWork.CarrinhoDeCompras.SetModifiedState(carrinhoDeCompra);
+                    carrinhoDeCompra = CarrinhoDeCompraMapper.ResourceToModel(carrinhoDeCompraResource);
                     await _unitOfWork.CompleteAsync();
-                    AvisoMapper.ModelToResource(aviso);
+                    CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra);
                 }
-                return Ok(aviso);
+                return Ok(carrinhoDeCompra);
             }
             catch (Exception e)
             {
@@ -102,11 +103,11 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
-                if (aviso != null)
-                    aviso.isAtivo = false;
+                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+                if (carrinhoDeCompra != null)
+                    carrinhoDeCompra.isAtivo = false;
                 await _unitOfWork.CompleteAsync();
-                return Ok(aviso);
+                return Ok(carrinhoDeCompra);
             }
             catch (Exception e)
             {
