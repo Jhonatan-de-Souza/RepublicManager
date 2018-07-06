@@ -13,6 +13,7 @@ namespace RepublicManager.Api.Persistance
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
+            modelBuilder.ApplyConfiguration(new RepublicaConfiguration());
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new CarrinhoDeCompraConfiguration());

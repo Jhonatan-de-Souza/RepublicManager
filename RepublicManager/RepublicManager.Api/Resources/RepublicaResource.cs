@@ -37,17 +37,16 @@ namespace RepublicManager.Api.Resources
             };
             return republicaResource;
         }
-        public static Republica ResourceToModel(RepublicaResource republicaResource)
+        public static Republica ResourceToModel(RepublicaResource republicaResource, Republica republica)
         {
-            var republica = new Republica()
-            {
-                Nome = republicaResource.Nome,
-                Vagas = republicaResource.Vagas,
-                Id = republicaResource.Id,
-                isAtivo = republicaResource.isAtivo,
-                CriadoPor = republicaResource.CriadoPor,
-                DataRegistro = republicaResource.DataRegistro
-            };
+
+            republica.Nome = republicaResource.Nome;
+            republica.Vagas = republicaResource.Vagas;
+            republica.Id = republicaResource.Id;
+            republica.isAtivo = republicaResource.isAtivo;
+            republica.CriadoPor = republicaResource.CriadoPor;
+            republica.DataRegistro = republicaResource.DataRegistro;
+            
             return republica;
         }
     }
