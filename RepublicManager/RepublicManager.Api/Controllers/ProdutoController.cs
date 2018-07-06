@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
+using RepublicManager.Api.Resources;
 
 namespace RepublicManager.Api.Controllers
 {
@@ -21,41 +22,46 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        // GET: api/Avisoz
+        // GET: api/Produtoz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var produtos = await _unitOfWork.Produtos.GetAllAsync();
+            List<ProdutoResource> produtoResource = new List<ProdutoResource>();
+
             if (produtos == null)
             {
                 return NoContent();
             }
-            else
+            foreach (var produto in produtos)
             {
-                return Ok(produtos);
+                produtoResource.Add(ProdutoMapper.ModelToResource(produto));
             }
+            return Ok(produtoResource);
         }
 
-        // GET: api/produto/5
+        // GET: api/Produto/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
-            return Ok(produto);
+            return Ok(ProdutoMapper.ModelToResource(produto));
         }
 
-        //POST: api/produto
+        //POST: api/Produto
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Produto produto)
+        public async Task<IActionResult> Create([FromBody]ProdutoResource produtoResource)
         {
-            if (produto == null)
+            if (produtoResource == null)
             {
                 return NotFound();
             }
             try
             {
+                var produto = new Produto();
                 if (ModelState.IsValid)
-                    _unitOfWork.Produtos.Add(produto);
+                    produto = ProdutoMapper.ResourceToModel(produtoResource);
+                _unitOfWork.Produtos.Add(produto);
                 await _unitOfWork.CompleteAsync();
 
                 return Ok(produto);
@@ -67,26 +73,29 @@ namespace RepublicManager.Api.Controllers
             }
 
         }
-        // PUT: api/produto/5
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]Produto Produto)
+        // PUT: api/Produto/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody]ProdutoResource produtoResource)
         {
             try
             {
-                var produtoEdit = await _unitOfWork.Produtos.GetByIdAsync(id);
+                var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
 
                 if (ModelState.IsValid)
-                    produtoEdit = produto;
-                await _unitOfWork.CompleteAsync();
-
+                {
+                    _unitOfWork.Produtos.SetModifiedState(produto);
+                    produto = ProdutoMapper.ResourceToModel(produtoResource);
+                    await _unitOfWork.CompleteAsync();
+                    ProdutoMapper.ModelToResource(produto);
+                }
                 return Ok(produto);
             }
             catch (Exception e)
             {
                 logError.LogErrorWithSentry(e);
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-        }*/
+        }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
