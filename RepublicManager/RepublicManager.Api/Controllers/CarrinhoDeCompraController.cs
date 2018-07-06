@@ -25,40 +25,45 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
-            if (carrinhoDeCompras == null)
+            var avisos = await _unitOfWork.Avisos.GetAllAsync();
+            List<AvisoResource> avisoResource = new List<AvisoResource>();
+
+            if (avisos == null)
             {
                 return NoContent();
             }
-            else
+            foreach (var aviso in avisos)
             {
-                return Ok(carrinhoDeCompras);
+                avisoResource.Add(AvisoMapper.ModelToResource(aviso));
             }
+            return Ok(avisoResource);
         }
 
         // GET: api/Aviso/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var aviso = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            return Ok(aviso);
+            var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
+            return Ok(AvisoMapper.ModelToResource(aviso));
         }
 
         //POST: api/Aviso
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CarrinhoDeCompra carrinhoDeCompra)
+        public async Task<IActionResult> Create([FromBody]AvisoResource avisoResource)
         {
-            if (carrinhoDeCompra == null)
+            if (avisoResource == null)
             {
                 return NotFound();
             }
             try
             {
+                var aviso = new Aviso();
                 if (ModelState.IsValid)
-                    _unitOfWork.CarrinhoDeCompras.Add(carrinhoDeCompra);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                _unitOfWork.Avisos.Add(aviso);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(carrinhoDeCompra);
+                return Ok(aviso);
             }
             catch (Exception exception)
             {
@@ -68,25 +73,28 @@ namespace RepublicManager.Api.Controllers
 
         }
         // PUT: api/Aviso/5
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]CarrinhoDeCompra carrinhoDeCompra)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody]AvisoResource avisoResource)
         {
             try
             {
-                var carrinhoDeCompraEdit = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+                var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
 
                 if (ModelState.IsValid)
-                    carrinhoDeCompraEdit = carrinhoDeCompra;
-                await _unitOfWork.CompleteAsync();
-
-                return Ok(carrinhoDeCompra);
+                {
+                    _unitOfWork.Avisos.SetModifiedState(aviso);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    await _unitOfWork.CompleteAsync();
+                    AvisoMapper.ModelToResource(aviso);
+                }
+                return Ok(aviso);
             }
             catch (Exception e)
             {
                 logError.LogErrorWithSentry(e);
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-        }*/
+        }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -94,11 +102,11 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-                if (carrinhoDeCompra != null)
-                    carrinhoDeCompra.isAtivo = false;
+                var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
+                if (aviso != null)
+                    aviso.isAtivo = false;
                 await _unitOfWork.CompleteAsync();
-                return Ok(carrinhoDeCompra);
+                return Ok(aviso);
             }
             catch (Exception e)
             {
