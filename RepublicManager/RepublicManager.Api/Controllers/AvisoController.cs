@@ -87,7 +87,6 @@ namespace RepublicManager.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
-                    //_unitOfWork.Avisos.SetModifiedState(aviso);
                     await _unitOfWork.CompleteAsync();
                     AvisoMapper.ModelToResource(aviso);
                 }

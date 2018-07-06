@@ -1,10 +1,7 @@
-﻿using RepublicManager.Api.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using RepublicManager.Api.Core.Domain;
 
-namespace RepublicManager.Api.Resources
+namespace RepublicManager.Api.Core.Resources
 {
     public class ProdutoResource
     {
