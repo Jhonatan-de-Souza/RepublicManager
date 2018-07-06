@@ -88,6 +88,8 @@ namespace RepublicManager.Api.Controllers
                     republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
                     await _unitOfWork.CompleteAsync();
                     RepublicaMapper.ModelToResource(republica);
+
+                   
                 }
                 return Ok(republica);
             }

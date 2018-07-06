@@ -44,20 +44,19 @@ namespace RepublicManager.Api.Resources
             };
             return produtoResource;
         }
-        public static Produto ResourceToModel(ProdutoResource produtoResource)
+        public static Produto ResourceToModel(ProdutoResource produtoResource, Produto produto)
         {
-            var produto = new Produto()
-            {
-                Descricao = produtoResource.Descricao,
-                Valor = produtoResource.Valor,
-                CarrinhoDeCompraId = produtoResource.CarrinhoDeCompraId,
-                CarrinhoDeCompra = produtoResource.CarrinhoDeCompra,
-                UsuarioId = produtoResource.UsuarioId,
-                Id = produtoResource.Id,
-                isAtivo = produtoResource.isAtivo,
-                CriadoPor = produtoResource.CriadoPor,
-                DataRegistro = produtoResource.DataRegistro
-            };
+
+            produto.Descricao = produtoResource.Descricao;
+            produto.Valor = produtoResource.Valor;
+            produto.CarrinhoDeCompraId = produtoResource.CarrinhoDeCompraId;
+            produto.CarrinhoDeCompra = produtoResource.CarrinhoDeCompra;
+            produto.UsuarioId = produtoResource.UsuarioId;
+            produto.Id = produtoResource.Id;
+            produto.isAtivo = produtoResource.isAtivo;
+            produto.CriadoPor = produtoResource.CriadoPor;
+            produto.DataRegistro = produtoResource.DataRegistro;
+
             return produto;
         }
     }

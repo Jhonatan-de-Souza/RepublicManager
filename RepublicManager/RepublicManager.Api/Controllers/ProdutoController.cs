@@ -60,7 +60,7 @@ namespace RepublicManager.Api.Controllers
             {
                 var produto = new Produto();
                 if (ModelState.IsValid)
-                    produto = ProdutoMapper.ResourceToModel(produtoResource);
+                    produto = ProdutoMapper.ResourceToModel(produtoResource,produto);
                 _unitOfWork.Produtos.Add(produto);
                 await _unitOfWork.CompleteAsync();
 
@@ -83,8 +83,8 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _unitOfWork.Produtos.SetModifiedState(produto);
-                    produto = ProdutoMapper.ResourceToModel(produtoResource);
+                   
+                    produto = ProdutoMapper.ResourceToModel(produtoResource,produto);
                     await _unitOfWork.CompleteAsync();
                     ProdutoMapper.ModelToResource(produto);
                 }
