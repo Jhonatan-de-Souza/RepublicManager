@@ -61,7 +61,7 @@ namespace RepublicManager.Api.Controllers
             {
                 var republica = new Republica();
                 if (ModelState.IsValid)
-                    republica = RepublicaMapper.ResourceToModel(republicaResource);
+                    republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
                 _unitOfWork.Republicas.Add(republica);
                 await _unitOfWork.CompleteAsync();
 
@@ -84,8 +84,8 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _unitOfWork.Republicas.SetModifiedState(republica);
-                    republica = RepublicaMapper.ResourceToModel(republicaResource);
+                   
+                    republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
                     await _unitOfWork.CompleteAsync();
                     RepublicaMapper.ModelToResource(republica);
                 }
