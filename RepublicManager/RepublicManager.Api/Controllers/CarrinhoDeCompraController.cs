@@ -35,7 +35,10 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var carrinhoDeCompra in carrinhoDeCompras)
             {
-                carrinhoDeCompraResource.Add(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
+                if (carrinhoDeCompra.isAtivo == true)
+                {
+                    carrinhoDeCompraResource.Add(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
+                }
             }
             return Ok(carrinhoDeCompraResource);
         }
@@ -45,7 +48,14 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            return Ok(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
+            if (carrinhoDeCompra.isAtivo == true)
+            {
+                return Ok(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         //POST: api/CarrinhoDeCompra

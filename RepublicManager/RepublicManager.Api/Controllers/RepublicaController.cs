@@ -35,7 +35,10 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var republica in republicas)
             {
-                repbiblicaResource.Add(RepublicaMapper.ModelToResource(republica));
+                if (republica.isAtivo == true)
+                {
+                    repbiblicaResource.Add(RepublicaMapper.ModelToResource(republica));
+                }
             }
             return Ok(repbiblicaResource);
 
@@ -46,7 +49,14 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
-            return Ok(RepublicaMapper.ModelToResource(republica));
+            if (republica.isAtivo == true)
+            {
+                return Ok(RepublicaMapper.ModelToResource(republica));
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         //POST: api/produto

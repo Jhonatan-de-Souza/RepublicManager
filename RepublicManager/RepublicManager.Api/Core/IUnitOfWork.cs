@@ -13,6 +13,7 @@ namespace RepublicManager.Api.Core
         ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; }
         IAvisoRepositorio Avisos { get; }
         IUsuarioRepositorio Usuarios { get; }
+        IRegraRepositorio Regras { get; }
         Task CompleteAsync();
     }
 }

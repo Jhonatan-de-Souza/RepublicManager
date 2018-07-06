@@ -35,7 +35,10 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var produto in produtos)
             {
-                produtoResource.Add(ProdutoMapper.ModelToResource(produto));
+                if (produto.isAtivo == true)
+                {
+                    produtoResource.Add(ProdutoMapper.ModelToResource(produto));
+                }
             }
             return Ok(produtoResource);
         }
@@ -45,7 +48,14 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
-            return Ok(ProdutoMapper.ModelToResource(produto));
+            if (produto.isAtivo == true)
+            {
+                return Ok(ProdutoMapper.ModelToResource(produto));
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         //POST: api/Produto

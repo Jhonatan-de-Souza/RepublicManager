@@ -18,6 +18,7 @@ namespace RepublicManager.Api.Persistance
         public ICarrinhoDeCompraRepositorio CarrinhoDeCompras { get; set; }
         public IAvisoRepositorio Avisos { get; set; }
         public IUsuarioRepositorio Usuarios { get; set; }
+        public IRegraRepositorio Regras { get; set; }
         //public  Type { get; set; }
 
         //here the unit of work will instaniate the repositories and use it across all of the application
@@ -30,6 +31,7 @@ namespace RepublicManager.Api.Persistance
             CarrinhoDeCompras = new CarrinhoDeCompraRepositorio(_context);
             Usuarios = new UsuarioRepositorio(_context);
             Avisos = new AvisoRepositorio(_context);
+            Regras = new RegraRepositorio(_context);
 
 
         }

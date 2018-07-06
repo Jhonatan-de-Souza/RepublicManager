@@ -11,68 +11,69 @@ namespace RepublicManager.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class UsuarioController : Controller
+    public class RegraController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsuarioController(IUnitOfWork unitOfWork)
+        public RegraController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Usuarioz
+        // GET: api/Regraz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var usuarios = await _unitOfWork.Usuarios.GetAllAsync();
-            List<UsuarioResource> usuarioResource = new List<UsuarioResource>();
+            var regras = await _unitOfWork.Regras.GetAllAsync();
+            List<RegraResource> regraResource = new List<RegraResource>();
 
-            if (usuarios == null)
+            if (regras == null)
             {
                 return NoContent();
             }
-            foreach (var usuario in usuarios)
+            foreach (var regra in regras)
             {
-                if (usuario.isAtivo == true)
+                if (regra.isAtivo == true)
                 {
-                    usuarioResource.Add(UsuarioMapper.ModelToResource(usuario));
+                    regraResource.Add(RegraMapper.ModelToResource(regra));
                 }
             }
-            return Ok(usuarioResource);
+            return Ok(regraResource);
         }
 
-        // GET: api/Usuario/5
+        // GET: api/Regra/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-            if (usuario.isAtivo == true)
+            var regra = await _unitOfWork.Regras.GetByIdAsync(id);
+            if (regra.isAtivo == true)
             {
-                return Ok(UsuarioMapper.ModelToResource(usuario));
+                return Ok(RegraMapper.ModelToResource(regra));
             }
             else
             {
                 return NoContent();
             }
+
         }
 
-        //POST: api/Usuario
+        //POST: api/Regra
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]UsuarioResource usuarioResource)
+        public async Task<IActionResult> Create([FromBody]RegraResource regraResource)
         {
-            if (usuarioResource == null)
+            if (regraResource == null)
             {
                 return NotFound();
             }
             try
             {
-                var usuario = new Usuario();
+                var regra = new Regra();
                 if (ModelState.IsValid)
-                    usuario = UsuarioMapper.ResourceToModel(usuarioResource, usuario);
-                _unitOfWork.Usuarios.Add(usuario);
+                    regra = RegraMapper.ResourceToModel(regraResource, regra);
+                _unitOfWork.Regras.Add(regra);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(usuario);
+                return Ok(regra);
             }
             catch (Exception exception)
             {
@@ -81,21 +82,21 @@ namespace RepublicManager.Api.Controllers
             }
 
         }
-        // PUT: api/Usuario/5
+        // PUT: api/Regra/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]UsuarioResource usuarioResource)
+        public async Task<IActionResult> Edit(int id, [FromBody]RegraResource regraResource)
         {
             try
             {
-                var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
+                var regra = await _unitOfWork.Regras.GetByIdAsync(id);
 
                 if (ModelState.IsValid)
                 {
-                    usuario = UsuarioMapper.ResourceToModel(usuarioResource, usuario);
+                    regra = RegraMapper.ResourceToModel(regraResource, regra);
                     await _unitOfWork.CompleteAsync();
-                    UsuarioMapper.ModelToResource(usuario);
+                    RegraMapper.ModelToResource(regra);
                 }
-                return Ok(usuario);
+                return Ok(regra);
             }
             catch (Exception e)
             {
@@ -110,11 +111,11 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-                if (usuario != null)
-                    usuario.isAtivo = false;
+                var regra = await _unitOfWork.Regras.GetByIdAsync(id);
+                if (regra != null)
+                    regra.isAtivo = false;
                 await _unitOfWork.CompleteAsync();
-                return Ok(usuario);
+                return Ok(regra);
             }
             catch (Exception e)
             {
