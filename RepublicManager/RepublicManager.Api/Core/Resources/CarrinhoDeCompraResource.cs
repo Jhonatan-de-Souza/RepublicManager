@@ -13,7 +13,7 @@ namespace RepublicManager.Api.Core.Resources
         public CarrinhoDeCompraResource()
         {
             isAtivo = true;
-        }
+        } 
         public DateTime DataRegistro { get; set; }
         public bool isAtivo { get; set; }
         public int CriadoPor { get; set; }

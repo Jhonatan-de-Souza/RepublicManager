@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RepublicManager.Api.Core.Configuration;
 using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Persistance.Configuration;
 
 namespace RepublicManager.Api.Persistance
 {

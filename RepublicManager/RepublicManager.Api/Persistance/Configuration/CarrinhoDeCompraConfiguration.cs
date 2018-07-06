@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RepublicManager.Api.Core.Domain;
 
-namespace RepublicManager.Api.Core.Configuration
+namespace RepublicManager.Api.Persistance.Configuration
 {
     public class CarrinhoDeCompraConfiguration : IEntityTypeConfiguration<CarrinhoDeCompra>
     {
