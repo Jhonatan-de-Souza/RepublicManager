@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Helpers;
+using RepublicManager.Api.Resources;
 
 namespace RepublicManager.Api.Controllers
 {
@@ -59,7 +60,7 @@ namespace RepublicManager.Api.Controllers
             {
                 var aviso = new Aviso();
                 if (ModelState.IsValid)
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
                 _unitOfWork.Avisos.Add(aviso);
                 await _unitOfWork.CompleteAsync();
 
@@ -83,7 +84,7 @@ namespace RepublicManager.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     _unitOfWork.Avisos.SetModifiedState(aviso);
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
                     await _unitOfWork.CompleteAsync();
                     AvisoMapper.ModelToResource(aviso);
                 }

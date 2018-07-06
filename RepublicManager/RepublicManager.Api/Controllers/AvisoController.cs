@@ -63,7 +63,7 @@ namespace RepublicManager.Api.Controllers
             {
                 var aviso = new Aviso();
                 if (ModelState.IsValid)
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
                     _unitOfWork.Avisos.Add(aviso);
                     await _unitOfWork.CompleteAsync();
 
@@ -86,8 +86,8 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _unitOfWork.Avisos.SetModifiedState(aviso);
-                    aviso = AvisoMapper.ResourceToModel(avisoResource);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
+                    //_unitOfWork.Avisos.SetModifiedState(aviso);
                     await _unitOfWork.CompleteAsync();
                     AvisoMapper.ModelToResource(aviso);
                 }
