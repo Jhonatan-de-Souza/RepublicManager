@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20180707010627_ClassesDeTarefaERegra")]
+    partial class ClassesDeTarefaERegra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
