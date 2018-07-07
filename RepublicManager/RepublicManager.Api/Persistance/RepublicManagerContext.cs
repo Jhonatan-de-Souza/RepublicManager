@@ -19,6 +19,7 @@ namespace RepublicManager.Api.Persistance
             modelBuilder.ApplyConfiguration(new CarrinhoDeCompraConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new TarefaConfiguration());
+            modelBuilder.ApplyConfiguration(new TarefaUsuarioConfiguration());
         }
         public DbSet<Aviso> Aviso { get; set; }
         public DbSet<Republica> Republica { get; set; }
@@ -26,5 +27,6 @@ namespace RepublicManager.Api.Persistance
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
+        public DbSet<TarefaUsuario> TarefasUsuario { get; set; }
     }
 }

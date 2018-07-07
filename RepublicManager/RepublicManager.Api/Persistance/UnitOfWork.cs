@@ -20,6 +20,7 @@ namespace RepublicManager.Api.Persistance
         public IUsuarioRepositorio Usuarios { get; set; }
         public IRegraRepositorio Regras { get; set; }
         public ITarefaRepositorio Tarefas { get; set; }
+        public ITarefaUsuarioRepositorio TarefasUsuario { get; set; }
         //public  Type { get; set; }
 
         //here the unit of work will instaniate the repositories and use it across all of the application
