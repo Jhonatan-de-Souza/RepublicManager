@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20180708202353_TornadoCampoDescricaoNaTabelaRegraObrigatorio")]
+    partial class TornadoCampoDescricaoNaTabelaRegraObrigatorio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,9 +121,7 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Nome");
 
                     b.Property<int>("Vagas");
 

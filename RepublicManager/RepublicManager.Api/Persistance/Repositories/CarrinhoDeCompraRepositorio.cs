@@ -16,16 +16,8 @@ namespace RepublicManager.Api.Persistance.Repositories
 
         public CarrinhoDeCompraRepositorio(RepublicManagerContext republicManagerContext) : base(republicManagerContext)
         {
-        }
-
-        public Task<IEnumerable<CarrinhoDeCompra>> GetCarrinhoWithProdutosAsync()
-        {
-            
-        }
-
-        public void teste()
-        {
-            throw new NotImplementedException();
+            _republicManagerContext = republicManagerContext;
         }
     }
 }
+

@@ -47,7 +47,12 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult>Get(int id)
         {
+            
             var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
+            if (aviso == null)
+            {
+                return NotFound();
+            }
             return Ok(AvisoMapper.ModelToResource(aviso));
         }
 
