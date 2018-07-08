@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20180708201701_TornandoCamposLoginESenhaObrigatorios")]
+    partial class TornandoCamposLoginESenhaObrigatorios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,28 +90,6 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Regra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CriadoPor");
-
-                    b.Property<DateTime>("DataRegistro");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(250);
-
-                    b.Property<int>("RepublicaId");
-
-                    b.Property<bool>("isAtivo");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Regra");
-                });
-
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Republica", b =>
                 {
                     b.Property<int>("Id")
@@ -120,9 +99,7 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Nome");
 
                     b.Property<int>("Vagas");
 

@@ -20,6 +20,7 @@ namespace RepublicManager.Api.Persistance
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new TarefaConfiguration());
             modelBuilder.ApplyConfiguration(new TarefaUsuarioConfiguration());
+            modelBuilder.ApplyConfiguration(new RegraConfiguration());
         }
         public DbSet<Aviso> Aviso { get; set; }
         public DbSet<Republica> Republica { get; set; }

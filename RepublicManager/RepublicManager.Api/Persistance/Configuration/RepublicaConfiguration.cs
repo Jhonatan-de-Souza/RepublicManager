@@ -11,6 +11,8 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.ToTable("Republica");
             //Definindo Primary Key
             builder.HasKey(r => r.Id);
+            builder.Property(r => r.Nome).IsRequired().HasMaxLength(100);
+            builder.Property(r => r.Vagas).IsRequired();
         }
     }
 }
