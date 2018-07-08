@@ -15,6 +15,7 @@ namespace RepublicManager.Api.Core
         IUsuarioRepositorio Usuarios { get; }
         IRegraRepositorio Regras { get; }
         ITarefaRepositorio Tarefas { get; }
+        ITarefaUsuarioRepositorio TarefasUsuario { get; }
         Task CompleteAsync();
     }
 }

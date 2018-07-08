@@ -36,6 +36,8 @@ namespace RepublicManager.Api
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICarrinhoDeCompraRepositorio, CarrinhoDeCompraRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
+            services.AddScoped<ITarefaUsuarioRepositorio, TarefaUsuarioRepositorio>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc();
