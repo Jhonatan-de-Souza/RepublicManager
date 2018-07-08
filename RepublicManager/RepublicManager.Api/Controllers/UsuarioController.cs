@@ -33,7 +33,7 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var usuario in usuarios)
             {
-                if (usuario.isAtivo == true)
+                if (usuario.IsAtivo == true)
                 {
                     usuarioResource.Add(UsuarioMapper.ModelToResource(usuario));
                 }
@@ -46,7 +46,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-            if (usuario.isAtivo == true)
+            if (usuario.IsAtivo == true)
             {
                 return Ok(UsuarioMapper.ModelToResource(usuario));
             }
@@ -69,14 +69,17 @@ namespace RepublicManager.Api.Controllers
                 var usuario = new Usuario();
                 if (ModelState.IsValid)
                     usuario = UsuarioMapper.ResourceToModel(usuarioResource, usuario);
+
+
                 _unitOfWork.Usuarios.Add(usuario);
+                
                 await _unitOfWork.CompleteAsync();
 
                 return Ok(usuario);
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
 
@@ -99,7 +102,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -112,13 +115,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
                 if (usuario != null)
-                    usuario.isAtivo = false;
+                    usuario.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
                 return Ok(usuario);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }

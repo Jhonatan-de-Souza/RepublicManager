@@ -28,8 +28,8 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                _unitOfWork.CarrinhoDeCompras.teste();
-                var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetCarrinhoWithProdutosAsync();
+                
+            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
                
 
             List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
@@ -38,18 +38,20 @@ namespace RepublicManager.Api.Controllers
             {
                 return NoContent();
             }
+
             foreach (var carrinhoDeCompra in carrinhoDeCompras)
             {
-                if (carrinhoDeCompra.isAtivo == true)
+                if (carrinhoDeCompra.IsAtivo)
                 {
                     carrinhoDeCompraResource.Add(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
                 }
             }
+            
             return Ok(carrinhoDeCompraResource);
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
         }
@@ -60,14 +62,12 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
-            if (carrinhoDeCompra.isAtivo == true)
+            if (carrinhoDeCompra.IsAtivo)
             {
                 return Ok(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
             }
-            else
-            {
-                return NoContent();
-            }
+
+            return NoContent();
         }
 
         //POST: api/CarrinhoDeCompra
@@ -90,7 +90,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
 
@@ -114,7 +114,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -127,13 +127,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
                 if (carrinhoDeCompra != null)
-                    carrinhoDeCompra.isAtivo = false;
+                    carrinhoDeCompra.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
                 return Ok(carrinhoDeCompra);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }

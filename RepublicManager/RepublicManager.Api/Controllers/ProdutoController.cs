@@ -35,7 +35,7 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var produto in produtos)
             {
-                if (produto.isAtivo == true)
+                if (produto.IsAtivo == true)
                 {
                     produtoResource.Add(ProdutoMapper.ModelToResource(produto));
                 }
@@ -48,7 +48,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
-            if (produto.isAtivo == true)
+            if (produto.IsAtivo == true)
             {
                 return Ok(ProdutoMapper.ModelToResource(produto));
             }
@@ -72,13 +72,20 @@ namespace RepublicManager.Api.Controllers
                 if (ModelState.IsValid)
                     produto = ProdutoMapper.ResourceToModel(produtoResource,produto);
                 _unitOfWork.Produtos.Add(produto);
+
+
+                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(produto.CarrinhoDeCompraId);
+                ///carrinhoDeCompra.ListaProdutos.Add(produto);
+                CarrinhoDeCompraMapper
+                    .ResourceToModel(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra), carrinhoDeCompra);
+               
                 await _unitOfWork.CompleteAsync();
 
                 return Ok(produto);
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
 
@@ -102,7 +109,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -115,13 +122,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var produto = await _unitOfWork.Produtos.GetByIdAsync(id);
                 if (produto != null)
-                    produto.isAtivo = false;
+                    produto.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
                 return Ok(produto);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }

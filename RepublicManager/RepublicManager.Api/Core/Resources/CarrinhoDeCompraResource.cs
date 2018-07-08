@@ -12,10 +12,10 @@ namespace RepublicManager.Api.Core.Resources
 
         public CarrinhoDeCompraResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         } 
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
     }
 
@@ -29,9 +29,10 @@ namespace RepublicManager.Api.Core.Resources
             {
                 RepublicaId = carrinhoDeCompra.RepublicaId,
                 ListaProdutos = carrinhoDeCompra.ListaProdutos,
+                
 
                 Id = carrinhoDeCompra.Id,
-                isAtivo = carrinhoDeCompra.isAtivo,
+                IsAtivo = carrinhoDeCompra.IsAtivo,
                 CriadoPor = carrinhoDeCompra.CriadoPor,
                 DataRegistro = carrinhoDeCompra.DataRegistro
             };
@@ -44,7 +45,7 @@ namespace RepublicManager.Api.Core.Resources
             carrinhoDeCompra.ListaProdutos = carrinhoDeCompraResource.ListaProdutos;
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
-            carrinhoDeCompra.isAtivo = carrinhoDeCompraResource.isAtivo;
+            carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.IsAtivo;
             carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
             carrinhoDeCompra.DataRegistro = carrinhoDeCompraResource.DataRegistro;
             

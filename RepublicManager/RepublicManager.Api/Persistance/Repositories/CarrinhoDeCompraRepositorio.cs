@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Repositories;
 
@@ -18,6 +20,7 @@ namespace RepublicManager.Api.Persistance.Repositories
         {
             _republicManagerContext = republicManagerContext;
         }
+        
     }
 }
 
