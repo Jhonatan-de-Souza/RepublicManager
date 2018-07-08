@@ -26,7 +26,12 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
+            try
+            {
+                _unitOfWork.CarrinhoDeCompras.teste();
+                var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetCarrinhoWithProdutosAsync();
+               
+
             List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
 
             if (carrinhoDeCompras == null)
@@ -41,8 +46,15 @@ namespace RepublicManager.Api.Controllers
                 }
             }
             return Ok(carrinhoDeCompraResource);
+            }
+            catch (Exception exception)
+            {
+                logError.LogErrorWithSentry(exception);
+                return BadRequest();
+            }
         }
 
+        
         // GET: api/CarrinhoDeCompra/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

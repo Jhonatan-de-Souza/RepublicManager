@@ -16,8 +16,7 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.Property(p => p.Valor).HasColumnType("decimal(18, 2)");
 
             //1-1
-
-           // builder.HasOne(p => p.CarrinhoDeCompra).WithOne(nameof(CarrinhoDeCompra));
+            //builder.HasOne(c => c.CarrinhoDeCompra);
         }
 
     }
