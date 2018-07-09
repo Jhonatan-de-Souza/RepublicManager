@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RepublicManager.Api.Controllers;
@@ -13,7 +12,7 @@ namespace RepublicManager.Tests
     [TestClass]
     public class AvisoControllerTest
     {
-        private AvisoController _avisoController;
+        private readonly AvisoController _avisoController;
 
         public AvisoControllerTest()
         {
