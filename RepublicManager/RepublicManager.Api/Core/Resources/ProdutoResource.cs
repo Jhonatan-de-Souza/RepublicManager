@@ -47,9 +47,8 @@ namespace RepublicManager.Api.Core.Resources
             produto.Descricao = produtoResource.Descricao;
             produto.Valor = produtoResource.Valor;
             produto.CarrinhoDeCompraId = produtoResource.CarrinhoDeCompraId;
-            produto.CarrinhoDeCompra = produtoResource.CarrinhoDeCompra;
             produto.UsuarioId = produtoResource.UsuarioId;
-            produto.Id = produtoResource.Id;
+            produto.Id = produtoResource.Id;    
             produto.isAtivo = produtoResource.isAtivo;
             produto.CriadoPor = produtoResource.CriadoPor;
             produto.DataRegistro = produtoResource.DataRegistro;

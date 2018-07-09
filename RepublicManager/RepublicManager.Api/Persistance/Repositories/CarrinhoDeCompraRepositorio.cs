@@ -17,9 +17,8 @@ namespace RepublicManager.Api.Persistance.Repositories
             _republicManagerContext = republicManagerContext;
         }
 
-        
 
-
+       
     }
 }
 

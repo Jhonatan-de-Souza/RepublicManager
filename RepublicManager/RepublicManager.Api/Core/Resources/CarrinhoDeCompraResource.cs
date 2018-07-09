@@ -8,7 +8,7 @@ namespace RepublicManager.Api.Core.Resources
     {
         public int Id { get; set; }
         public int RepublicaId { get; set; }
-        public List<Produto> ListaProdutos { get; set; }
+        public ICollection<Produto> ListaProdutos { get; set; }
 
         public CarrinhoDeCompraResource()
         {
@@ -28,7 +28,7 @@ namespace RepublicManager.Api.Core.Resources
             var carrinhoDeCompraResource = new CarrinhoDeCompraResource()
             {
                 RepublicaId = carrinhoDeCompra.RepublicaId,
-                ListaProdutos = carrinhoDeCompra.ListaProdutos,
+                ListaProdutos = carrinhoDeCompra.Produtos,
 
                 Id = carrinhoDeCompra.Id,
                 isAtivo = carrinhoDeCompra.isAtivo,
@@ -41,7 +41,7 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
-            carrinhoDeCompra.ListaProdutos = carrinhoDeCompraResource.ListaProdutos;
+            carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos;
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
             carrinhoDeCompra.isAtivo = carrinhoDeCompraResource.isAtivo;

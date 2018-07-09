@@ -108,6 +108,8 @@ namespace RepublicManager.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RepublicaId");
+
                     b.ToTable("Regra");
                 });
 
@@ -212,8 +214,16 @@ namespace RepublicManager.Api.Migrations
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Produto", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.CarrinhoDeCompra", "CarrinhoDeCompra")
-                        .WithMany("ListaProdutos")
+                        .WithMany("Produtos")
                         .HasForeignKey("CarrinhoDeCompraId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Regra", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
+                        .WithMany()
+                        .HasForeignKey("RepublicaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

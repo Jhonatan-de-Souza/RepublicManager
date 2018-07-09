@@ -41,14 +41,14 @@ namespace RepublicManager.Api.Core.Resources
         public static Usuario ResourceToModel(UsuarioResource usuarioResource, Usuario usuario)
         {
 
-            usuario.Login = usuario.Login;
-            usuario.Senha = usuario.Senha;
-            usuario.DataFinalContrato = usuario.DataFinalContrato;
+            usuario.Login = usuarioResource.Login;
+            usuario.Senha = usuarioResource.Senha;
+            usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
 
-            usuario.Id = usuario.Id;
-            usuario.isAtivo = usuario.isAtivo;
-            usuario.CriadoPor = usuario.CriadoPor;
-            usuario.DataRegistro = usuario.DataRegistro;
+            usuario.Id = usuarioResource.Id;
+            usuario.isAtivo = usuarioResource.isAtivo;
+            usuario.CriadoPor = usuarioResource.CriadoPor;
+            usuario.DataRegistro = usuarioResource.DataRegistro;
 
             return usuario;
         }

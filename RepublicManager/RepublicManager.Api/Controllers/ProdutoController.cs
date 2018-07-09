@@ -42,8 +42,8 @@ namespace RepublicManager.Api.Controllers
             }
             return Ok(produtoResource);
         }
-
         // GET: api/Produto/5
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

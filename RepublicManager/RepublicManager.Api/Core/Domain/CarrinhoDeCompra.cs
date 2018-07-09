@@ -13,6 +13,7 @@ namespace RepublicManager.Api.Core.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int RepublicaId { get; set; }
-        public List<Produto> ListaProdutos { get; set; }
+        public virtual  ICollection<Produto> Produtos { get; set; }
+
     }
 }
