@@ -10,11 +10,11 @@ namespace RepublicManager.Api.Core.Resources
     {
         public TarefaUsuarioResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         }
 
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
 
 
@@ -25,7 +25,7 @@ namespace RepublicManager.Api.Core.Resources
         public Tarefa Tarefa { get; set; }
         public int NotaAvaliacao { get; set; }
         public string ComentarioAvaliacao { get; set; }
-        public bool isCompleted { get; set; }
+        public bool IsCompleted { get; set; }
         public DateTime DataDaTarefa { get; set; }
         public DateTime DataFimDaTarefa { get; set; }
     }
@@ -42,12 +42,12 @@ namespace RepublicManager.Api.Core.Resources
                 Tarefa = tarefaUsuario.Tarefa,
                 NotaAvaliacao = tarefaUsuario.NotaAvaliacao,
                 ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao,
-                isCompleted = tarefaUsuario.isCompleted,
+                IsCompleted = tarefaUsuario.IsCompleted,
                 DataDaTarefa = tarefaUsuario.DataDaTarefa,
                 DataFimDaTarefa = tarefaUsuario.DataFimDaTarefa,
 
                 Id = tarefaUsuario.Id,
-                isAtivo = tarefaUsuario.isAtivo,
+                IsAtivo = tarefaUsuario.IsAtivo,
                 CriadoPor = tarefaUsuario.CriadoPor,
                 DataRegistro = tarefaUsuario.DataRegistro
             };
@@ -64,12 +64,12 @@ namespace RepublicManager.Api.Core.Resources
             tarefaUsuario.Tarefa = tarefaUsuario.Tarefa;
             tarefaUsuario.NotaAvaliacao = tarefaUsuario.NotaAvaliacao;
             tarefaUsuario.ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao;
-            tarefaUsuario.isCompleted = tarefaUsuario.isCompleted;
+            tarefaUsuario.IsCompleted = tarefaUsuario.IsCompleted;
             tarefaUsuario.DataDaTarefa = tarefaUsuario.DataDaTarefa;
             tarefaUsuario.DataFimDaTarefa = tarefaUsuario.DataFimDaTarefa;
 
             tarefaUsuario.Id = tarefaUsuarioResource.Id;
-            tarefaUsuario.isAtivo = tarefaUsuarioResource.isAtivo;
+            tarefaUsuario.IsAtivo = tarefaUsuarioResource.IsAtivo;
             tarefaUsuario.CriadoPor = tarefaUsuarioResource.CriadoPor;
             tarefaUsuario.DataRegistro = tarefaUsuarioResource.DataRegistro;
 

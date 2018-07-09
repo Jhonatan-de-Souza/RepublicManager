@@ -33,7 +33,7 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var regra in regras)
             {
-                if (regra.isAtivo == true)
+                if (regra.IsAtivo == true)
                 {
                     regraResource.Add(RegraMapper.ModelToResource(regra));
                 }
@@ -46,7 +46,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var regra = await _unitOfWork.Regras.GetByIdAsync(id);
-            if (regra.isAtivo == true)
+            if (regra.IsAtivo == true)
             {
                 return Ok(RegraMapper.ModelToResource(regra));
             }
@@ -77,7 +77,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
 
@@ -100,7 +100,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -113,13 +113,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var regra = await _unitOfWork.Regras.GetByIdAsync(id);
                 if (regra != null)
-                    regra.isAtivo = false;
+                    regra.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
                 return Ok(regra);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }

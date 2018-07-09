@@ -11,10 +11,10 @@ namespace RepublicManager.Api.Core.Resources
 
         public RepublicaResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         }
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
 
     }
@@ -28,7 +28,7 @@ namespace RepublicManager.Api.Core.Resources
                 Nome = republica.Nome,
                 Vagas = republica.Vagas,
                 Id = republica.Id,
-                isAtivo = republica.isAtivo,
+                IsAtivo = republica.IsAtivo,
                 CriadoPor = republica.CriadoPor,
                 DataRegistro = republica.DataRegistro
             };
@@ -40,7 +40,7 @@ namespace RepublicManager.Api.Core.Resources
             republica.Nome = republicaResource.Nome;
             republica.Vagas = republicaResource.Vagas;
             republica.Id = republicaResource.Id;
-            republica.isAtivo = republicaResource.isAtivo;
+            republica.IsAtivo = republicaResource.IsAtivo;
             republica.CriadoPor = republicaResource.CriadoPor;
             republica.DataRegistro = republicaResource.DataRegistro;
             

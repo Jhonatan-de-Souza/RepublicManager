@@ -7,7 +7,7 @@ using SharpRaven.Data;
 
 namespace RepublicManager.Api.Helpers
 {
-    public static class logError
+    public static class LogError
     {
         public static void LogErrorWithSentry(Exception exception)
         {

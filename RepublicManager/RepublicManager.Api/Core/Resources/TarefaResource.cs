@@ -10,10 +10,10 @@ namespace RepublicManager.Api.Core.Resources
     {
         public TarefaResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         }
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
         public int Id { get; set; }
         public string Descricao { get; set; }
@@ -28,7 +28,7 @@ namespace RepublicManager.Api.Core.Resources
                 Descricao = tarefa.Descricao,
                 
                 Id = tarefa.Id,
-                isAtivo = tarefa.isAtivo,
+                IsAtivo = tarefa.IsAtivo,
                 CriadoPor = tarefa.CriadoPor,
                 DataRegistro = tarefa.DataRegistro
             };
@@ -40,7 +40,7 @@ namespace RepublicManager.Api.Core.Resources
             tarefa.Descricao = tarefaResource.Descricao;
             
             tarefa.Id = tarefaResource.Id;
-            tarefa.isAtivo = tarefaResource.isAtivo;
+            tarefa.IsAtivo = tarefaResource.IsAtivo;
             tarefa.CriadoPor = tarefaResource.CriadoPor;
             tarefa.DataRegistro = tarefaResource.DataRegistro;
 

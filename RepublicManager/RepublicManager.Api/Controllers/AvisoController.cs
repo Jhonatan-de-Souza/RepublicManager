@@ -76,7 +76,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
            
@@ -99,7 +99,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -112,13 +112,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
                 if (aviso != null)
-                    aviso.isAtivo = false;
+                    aviso.IsAtivo = false;
                     await _unitOfWork.CompleteAsync();
                     return Ok(aviso);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }

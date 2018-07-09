@@ -23,9 +23,9 @@ namespace RepublicManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             //Jhonatan
-            var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             //Matheus
-            //var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             //var connection = @"Server='amazonaws.cf79yuvlvuez.us-east-2.rds.amazonaws.com';Database=RepublicManager;User Id=fuktik;Password:dsjhonatan1337;";
             services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 

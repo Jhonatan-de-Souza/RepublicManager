@@ -8,10 +8,10 @@ namespace RepublicManager.Api.Core.Resources
     {
         public AvisoResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         }
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
         [Key]
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace RepublicManager.Api.Core.Resources
                 Descricao = aviso.Descricao,
                 DataAviso = aviso.DataAviso,
                 Id = aviso.Id,
-                isAtivo = aviso.isAtivo,
+                IsAtivo = aviso.IsAtivo,
                 CriadoPor = aviso.CriadoPor,
                 DataRegistro = aviso.DataRegistro
             };
@@ -40,7 +40,7 @@ namespace RepublicManager.Api.Core.Resources
             aviso.Descricao = avisoResource.Descricao;
             aviso.DataAviso = avisoResource.DataAviso;
             aviso.Id = avisoResource.Id;
-            aviso.isAtivo = avisoResource.isAtivo;
+            aviso.IsAtivo = avisoResource.IsAtivo;
             aviso.CriadoPor = avisoResource.CriadoPor;
             aviso.DataRegistro = avisoResource.DataRegistro;
         

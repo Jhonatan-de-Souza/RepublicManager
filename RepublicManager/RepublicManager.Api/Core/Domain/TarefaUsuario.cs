@@ -14,7 +14,7 @@ namespace RepublicManager.Api.Core.Domain
         public Tarefa Tarefa { get; set; }
         public int NotaAvaliacao { get; set; }
         public string ComentarioAvaliacao { get; set; }
-        public bool isCompleted { get; set; }
+        public bool IsCompleted { get; set; }
         public DateTime DataDaTarefa { get; set; }
         public DateTime DataFimDaTarefa { get; set; }
     }

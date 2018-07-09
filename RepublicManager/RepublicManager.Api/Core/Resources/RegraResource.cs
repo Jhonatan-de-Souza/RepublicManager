@@ -14,10 +14,10 @@ namespace RepublicManager.Api.Core.Resources
 
         public RegraResource()
         {
-            isAtivo = true;
+            IsAtivo = true;
         }
         public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
+        public bool IsAtivo { get; set; }
         public int CriadoPor { get; set; }
     }
 
@@ -31,7 +31,7 @@ namespace RepublicManager.Api.Core.Resources
                 RepublicaId = regra.RepublicaId,
 
                 Id = regra.Id,
-                isAtivo = regra.isAtivo,
+                IsAtivo = regra.IsAtivo,
                 CriadoPor = regra.CriadoPor,
                 DataRegistro = regra.DataRegistro
             };
@@ -44,7 +44,7 @@ namespace RepublicManager.Api.Core.Resources
             regra.RepublicaId = regraResource.RepublicaId;
 
             regra.Id = regraResource.Id;
-            regra.isAtivo = regraResource.isAtivo;
+            regra.IsAtivo = regraResource.IsAtivo;
             regra.CriadoPor = regraResource.CriadoPor;
             regra.DataRegistro = regraResource.DataRegistro;
 

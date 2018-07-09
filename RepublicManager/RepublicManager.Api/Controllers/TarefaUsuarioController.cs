@@ -66,7 +66,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception exception)
             {
-                logError.LogErrorWithSentry(exception);
+                LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
 
@@ -89,7 +89,7 @@ namespace RepublicManager.Api.Controllers
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }
         }
@@ -102,13 +102,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdAsync(id);
                 if (tarefaUsuario != null)
-                    tarefaUsuario.isAtivo = false;
+                    tarefaUsuario.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
                 return Ok(tarefaUsuario);
             }
             catch (Exception e)
             {
-                logError.LogErrorWithSentry(e);
+                LogError.LogErrorWithSentry(e);
                 return BadRequest();
             }
         }
