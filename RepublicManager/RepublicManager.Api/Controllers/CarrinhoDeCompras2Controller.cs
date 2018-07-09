@@ -23,10 +23,10 @@ namespace RepublicManager.Api.Controllers
 
         // GET: api/CarrinhoDeCompras2
         [HttpGet]
-        public IEnumerable<CarrinhoDeCompra> GetCarrinhoDeCompra()
+        public OkObjectResult GetCarrinhoDeCompra()
         {
-            var test = _context.CarrinhoDeCompra.Include(x => x.Produtos);
-            return test;
+            var test = _context.CarrinhoDeCompra.Include(x => x.Produtos).ToList();
+            return Ok(test);
         }
 
         // GET: api/CarrinhoDeCompras2/5

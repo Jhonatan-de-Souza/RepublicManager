@@ -15,8 +15,6 @@ namespace RepublicManager.Api.Persistance.Configuration
                 .HasMaxLength(250);
             builder.Property(p => p.Valor).HasColumnType("decimal(18, 2)");
 
-            //1-1
-            //builder.HasOne(c => c.CarrinhoDeCompra);
         }
 
     }

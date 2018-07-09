@@ -31,7 +31,7 @@ namespace RepublicManager.Api.Core.Resources
                 ListaProdutos = carrinhoDeCompra.Produtos,
 
                 Id = carrinhoDeCompra.Id,
-                isAtivo = carrinhoDeCompra.isAtivo,
+                isAtivo = carrinhoDeCompra.IsAtivo,
                 CriadoPor = carrinhoDeCompra.CriadoPor,
                 DataRegistro = carrinhoDeCompra.DataRegistro
             };
@@ -44,7 +44,7 @@ namespace RepublicManager.Api.Core.Resources
             carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos;
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
-            carrinhoDeCompra.isAtivo = carrinhoDeCompraResource.isAtivo;
+            carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.isAtivo;
             carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
             carrinhoDeCompra.DataRegistro = carrinhoDeCompraResource.DataRegistro;
             

@@ -10,8 +10,8 @@ namespace RepublicManager.Api.Persistance.Configuration
         {
             builder.HasKey(c => c.Id);
             builder.HasMany(x => x.Produtos)
-                .WithOne(c => c.CarrinhoDeCompra);
-
+                .WithOne(c => c.CarrinhoDeCompra)
+                .IsRequired();
         }
     }
 }

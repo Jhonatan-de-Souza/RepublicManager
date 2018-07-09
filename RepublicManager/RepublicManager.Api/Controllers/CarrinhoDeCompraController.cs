@@ -28,11 +28,12 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                
-            var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
-               
 
-            List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
+                //var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
+                var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllWithProdutosAsync();
+
+
+                List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
 
             if (carrinhoDeCompras == null)
             {
@@ -46,7 +47,7 @@ namespace RepublicManager.Api.Controllers
                     carrinhoDeCompraResource.Add(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
                 }
             }
-            
+
             return Ok(carrinhoDeCompraResource);
             }
             catch (Exception exception)

@@ -32,7 +32,7 @@ namespace RepublicManager.Api.Core.Resources
                 DataFinalContrato = usuario.DataFinalContrato,
 
                 Id = usuario.Id,
-                isAtivo = usuario.isAtivo,
+                isAtivo = usuario.IsAtivo,
                 CriadoPor = usuario.CriadoPor,
                 DataRegistro = usuario.DataRegistro
             };
@@ -46,7 +46,7 @@ namespace RepublicManager.Api.Core.Resources
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
 
             usuario.Id = usuarioResource.Id;
-            usuario.isAtivo = usuarioResource.isAtivo;
+            usuario.IsAtivo = usuarioResource.isAtivo;
             usuario.CriadoPor = usuarioResource.CriadoPor;
             usuario.DataRegistro = usuarioResource.DataRegistro;
 

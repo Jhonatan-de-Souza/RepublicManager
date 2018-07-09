@@ -35,7 +35,7 @@ namespace RepublicManager.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<bool>("isAtivo");
+                    b.Property<bool>("IsAtivo");
 
                     b.HasKey("Id");
 
@@ -51,9 +51,9 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
-                    b.Property<int>("RepublicaId");
+                    b.Property<bool>("IsAtivo");
 
-                    b.Property<bool>("isAtivo");
+                    b.Property<int>("RepublicaId");
 
                     b.HasKey("Id");
 
@@ -75,12 +75,12 @@ namespace RepublicManager.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
+                    b.Property<bool>("IsAtivo");
+
                     b.Property<int>("UsuarioId");
 
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18, 2)");
-
-                    b.Property<bool>("isAtivo");
 
                     b.HasKey("Id");
 
@@ -102,9 +102,9 @@ namespace RepublicManager.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<int>("RepublicaId");
+                    b.Property<bool>("IsAtivo");
 
-                    b.Property<bool>("isAtivo");
+                    b.Property<int>("RepublicaId");
 
                     b.HasKey("Id");
 
@@ -122,13 +122,13 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
+                    b.Property<bool>("IsAtivo");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<int>("Vagas");
-
-                    b.Property<bool>("isAtivo");
 
                     b.HasKey("Id");
 
@@ -146,7 +146,7 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<bool>("isAtivo");
+                    b.Property<bool>("IsAtivo");
 
                     b.HasKey("Id");
 
@@ -168,15 +168,15 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
+                    b.Property<bool>("IsAtivo");
+
+                    b.Property<bool>("IsCompleted");
+
                     b.Property<int>("NotaAvaliacao");
 
                     b.Property<int>("TarefaId");
 
                     b.Property<int>("UsuarioId");
-
-                    b.Property<bool>("isAtivo");
-
-                    b.Property<bool>("isCompleted");
 
                     b.HasKey("Id");
 
@@ -198,13 +198,13 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
+                    b.Property<bool>("IsAtivo");
+
                     b.Property<string>("Login")
                         .IsRequired();
 
                     b.Property<string>("Senha")
                         .IsRequired();
-
-                    b.Property<bool>("isAtivo");
 
                     b.HasKey("Id");
 

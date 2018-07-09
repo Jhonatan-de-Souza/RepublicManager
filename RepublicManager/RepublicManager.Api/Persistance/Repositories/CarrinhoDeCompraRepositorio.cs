@@ -18,7 +18,11 @@ namespace RepublicManager.Api.Persistance.Repositories
         }
 
 
-       
+        public async Task<IEnumerable<CarrinhoDeCompra>> GetAllWithProdutosAsync()
+        {
+            return  await _republicManagerContext.CarrinhoDeCompra.Include(x => x.Produtos).ToListAsync();
+                
+        }
     }
 }
 

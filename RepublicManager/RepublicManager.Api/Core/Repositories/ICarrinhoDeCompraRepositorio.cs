@@ -9,6 +9,7 @@ namespace RepublicManager.Api.Core.Repositories
     public interface ICarrinhoDeCompraRepositorio : IRepositorioBase<CarrinhoDeCompra>
     {
 
-        
+        Task<IEnumerable<CarrinhoDeCompra>> GetAllWithProdutosAsync();
+
     }
 }
