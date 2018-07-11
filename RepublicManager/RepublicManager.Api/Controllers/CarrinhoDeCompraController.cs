@@ -29,7 +29,6 @@ namespace RepublicManager.Api.Controllers
             try
             {
 
-                //var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllAsync();
                 var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllWithProdutosAsync();
 
 
@@ -49,7 +48,7 @@ namespace RepublicManager.Api.Controllers
             }
 
             return Ok(carrinhoDeCompraResource);
-            }
+                }
             catch (Exception exception)
             {
                 LogError.LogErrorWithSentry(exception);

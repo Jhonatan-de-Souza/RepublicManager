@@ -32,7 +32,6 @@ namespace RepublicManager.Api.Core.Resources
                 Descricao = produto.Descricao,
                 Valor = produto.Valor,
                 CarrinhoDeCompraId = produto.CarrinhoDeCompraId,
-                CarrinhoDeCompra = produto.CarrinhoDeCompra,
                 UsuarioId = produto.UsuarioId,
                 Id = produto.Id,
                 isAtivo = produto.IsAtivo,

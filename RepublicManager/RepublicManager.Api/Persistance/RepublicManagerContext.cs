@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.EntityFrameworkCore;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Persistance.Configuration;
 
@@ -8,7 +9,10 @@ namespace RepublicManager.Api.Persistance
     {
         public RepublicManagerContext(DbContextOptions<RepublicManagerContext> options)
             : base(options)
-        { }
+        {
+                
+        }
+
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

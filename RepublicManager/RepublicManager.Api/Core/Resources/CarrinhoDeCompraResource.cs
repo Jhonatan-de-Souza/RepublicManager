@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Core.Resources;
 
 namespace RepublicManager.Api.Core.Resources
 {
@@ -8,12 +10,12 @@ namespace RepublicManager.Api.Core.Resources
     {
         public int Id { get; set; }
         public int RepublicaId { get; set; }
-        public ICollection<Produto> ListaProdutos { get; set; }
+        public IEnumerable<ProdutoResource> ListaProdutos { get; set; }
 
         public CarrinhoDeCompraResource()
         {
             isAtivo = true;
-        } 
+        }
         public DateTime DataRegistro { get; set; }
         public bool isAtivo { get; set; }
         public int CriadoPor { get; set; }
@@ -28,7 +30,7 @@ namespace RepublicManager.Api.Core.Resources
             var carrinhoDeCompraResource = new CarrinhoDeCompraResource()
             {
                 RepublicaId = carrinhoDeCompra.RepublicaId,
-                ListaProdutos = carrinhoDeCompra.Produtos,
+                ListaProdutos = carrinhoDeCompra.Produtos.Select(produto => produto.ProdutoToProdutoResource()),
 
                 Id = carrinhoDeCompra.Id,
                 isAtivo = carrinhoDeCompra.IsAtivo,
@@ -37,18 +39,34 @@ namespace RepublicManager.Api.Core.Resources
             };
             return carrinhoDeCompraResource;
         }
-        public static CarrinhoDeCompra ResourceToModel(CarrinhoDeCompraResource carrinhoDeCompraResource,CarrinhoDeCompra carrinhoDeCompra)
+        public static CarrinhoDeCompra ResourceToModel(CarrinhoDeCompraResource carrinhoDeCompraResource, CarrinhoDeCompra carrinhoDeCompra)
         {
 
             carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
-            carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos;
+            carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos.Select(produto => produto.ProdutoResourceToProduto());
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
             carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.isAtivo;
             carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
             carrinhoDeCompra.DataRegistro = carrinhoDeCompraResource.DataRegistro;
-            
+
             return carrinhoDeCompra;
         }
+
+    }
+
+
+}
+
+
+public static class ProdutoExtensions
+{
+    public static Produto ProdutoResourceToProduto(this ProdutoResource produtoResoure)
+    {
+        return new Produto();
+    }
+    public static ProdutoResource ProdutoToProdutoResource(this Produto produto)
+    {
+      return  ProdutoMapper.ModelToResource(produto);
     }
 }

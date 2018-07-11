@@ -74,10 +74,9 @@ namespace RepublicManager.Api.Controllers
                 _unitOfWork.Produtos.Add(produto);
 
 
-                var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(produto.CarrinhoDeCompraId);
-                ///carrinhoDeCompra.ListaProdutos.Add(produto);
-                CarrinhoDeCompraMapper
-                    .ResourceToModel(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra), carrinhoDeCompra);
+                //var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(produto.CarrinhoDeCompraId);
+                //CarrinhoDeCompraMapper
+                //    .ResourceToModel(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra), carrinhoDeCompra);
                
                 await _unitOfWork.CompleteAsync();
 
