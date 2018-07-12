@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RepublicManager.Api.Core.Domain
 {
-    public class ContasAReceber : Base
+    public class ContaAReceber : Base
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

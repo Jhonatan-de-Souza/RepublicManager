@@ -9,7 +9,7 @@ namespace RepublicManager.Api.Core.Resources
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
         public int CarrinhoDeCompraId { get; set; }
-        public CarrinhoDeCompra CarrinhoDeCompra { get; set; }
+        public CarrinhoDeCompraResource CarrinhoDeCompra { get; set; }
         public int UsuarioId { get; set; }
 
         public ProdutoResource()
@@ -33,6 +33,7 @@ namespace RepublicManager.Api.Core.Resources
                 Valor = produto.Valor,
                 CarrinhoDeCompraId = produto.CarrinhoDeCompraId,
                 UsuarioId = produto.UsuarioId,
+
                 Id = produto.Id,
                 isAtivo = produto.IsAtivo,
                 CriadoPor = produto.CriadoPor,
@@ -47,6 +48,7 @@ namespace RepublicManager.Api.Core.Resources
             produto.Valor = produtoResource.Valor;
             produto.CarrinhoDeCompraId = produtoResource.CarrinhoDeCompraId;
             produto.UsuarioId = produtoResource.UsuarioId;
+
             produto.Id = produtoResource.Id;    
             produto.IsAtivo = produtoResource.isAtivo;
             produto.CriadoPor = produtoResource.CriadoPor;

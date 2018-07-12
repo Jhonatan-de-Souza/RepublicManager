@@ -30,7 +30,7 @@ namespace RepublicManager.Api.Core.Resources
             var carrinhoDeCompraResource = new CarrinhoDeCompraResource()
             {
                 RepublicaId = carrinhoDeCompra.RepublicaId,
-                ListaProdutos = carrinhoDeCompra.Produtos.Select(produto => produto.ProdutoToProdutoResource()),
+                ListaProdutos = carrinhoDeCompra.Produtos.Select(ProdutoMapper.ModelToResource),
 
                 Id = carrinhoDeCompra.Id,
                 isAtivo = carrinhoDeCompra.IsAtivo,
@@ -43,6 +43,7 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
+            //deve refazer este mapeamento
             carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos.Select(produto => produto.ProdutoResourceToProduto());
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
@@ -65,8 +66,8 @@ public static class ProdutoExtensions
     {
         return new Produto();
     }
-    public static ProdutoResource ProdutoToProdutoResource(this Produto produto)
+    /*public static ProdutoResource ProdutoToProdutoResource(this Produto produto)
     {
       return  ProdutoMapper.ModelToResource(produto);
-    }
+    }*/
 }
