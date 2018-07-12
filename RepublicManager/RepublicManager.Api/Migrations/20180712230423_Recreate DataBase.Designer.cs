@@ -2,15 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using RepublicManager.Api.Persistance;
 using System;
 
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20180712230423_Recreate DataBase")]
+    partial class RecreateDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +59,86 @@ namespace RepublicManager.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarrinhoDeCompra");
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Conta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CriadoPor");
+
+                    b.Property<DateTime>("DataRegistro");
+
+                    b.Property<bool>("IsAtivo");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Contas");
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAPagar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ContaId");
+
+                    b.Property<int>("CriadoPor");
+
+                    b.Property<DateTime>("DataRegistro");
+
+                    b.Property<bool>("IsAtivo");
+
+                    b.Property<int>("TipoContaId");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.Property<decimal>("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContaId");
+
+                    b.HasIndex("TipoContaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("ContasAPagar");
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAReceber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ContaId");
+
+                    b.Property<int>("CriadoPor");
+
+                    b.Property<DateTime>("DataRegistro");
+
+                    b.Property<bool>("IsAtivo");
+
+                    b.Property<int>("TipoContaId");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.Property<decimal>("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContaId");
+
+                    b.HasIndex("TipoContaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("ContasAReceber");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Produto", b =>
@@ -107,7 +191,7 @@ namespace RepublicManager.Api.Migrations
 
                     b.HasIndex("RepublicaId");
 
-                    b.ToTable("Regra");
+                    b.ToTable("Regras");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Republica", b =>
@@ -141,7 +225,8 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("DataRegistro");
 
-                    b.Property<string>("Descricao");
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(150);
 
                     b.Property<bool>("IsAtivo");
 
@@ -155,13 +240,12 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ComentarioAvaliacao");
+                    b.Property<string>("ComentarioAvaliacao")
+                        .HasMaxLength(250);
 
                     b.Property<int>("CriadoPor");
 
                     b.Property<DateTime>("DataDaTarefa");
-
-                    b.Property<DateTime>("DataFimDaTarefa");
 
                     b.Property<DateTime>("DataRegistro");
 
@@ -170,6 +254,8 @@ namespace RepublicManager.Api.Migrations
                     b.Property<bool>("IsCompleted");
 
                     b.Property<int>("NotaAvaliacao");
+
+                    b.Property<DateTime>("PrevisaoDeConclusao");
 
                     b.Property<int>("TarefaId");
 
@@ -182,6 +268,24 @@ namespace RepublicManager.Api.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("TarefasUsuario");
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.TipoConta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CriadoPor");
+
+                    b.Property<DateTime>("DataRegistro");
+
+                    b.Property<string>("Descricao");
+
+                    b.Property<bool>("IsAtivo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoContas");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Usuario", b =>
@@ -208,20 +312,64 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Conta", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAPagar", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Conta", "Conta")
+                        .WithMany("ContasAPagar")
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RepublicManager.Api.Core.Domain.TipoConta", "TipoConta")
+                        .WithMany()
+                        .HasForeignKey("TipoContaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAReceber", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Conta", "Conta")
+                        .WithMany("ContasAReceber")
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RepublicManager.Api.Core.Domain.TipoConta", "TipoConta")
+                        .WithMany()
+                        .HasForeignKey("TipoContaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Produto", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.CarrinhoDeCompra", "CarrinhoDeCompra")
                         .WithMany("Produtos")
                         .HasForeignKey("CarrinhoDeCompraId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Regra", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
-                        .WithMany()
+                        .WithMany("Regras")
                         .HasForeignKey("RepublicaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.TarefaUsuario", b =>
@@ -229,12 +377,12 @@ namespace RepublicManager.Api.Migrations
                     b.HasOne("RepublicManager.Api.Core.Domain.Tarefa", "Tarefa")
                         .WithMany()
                         .HasForeignKey("TarefaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

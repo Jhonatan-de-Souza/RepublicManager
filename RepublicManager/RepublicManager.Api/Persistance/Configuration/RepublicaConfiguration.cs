@@ -13,6 +13,9 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Nome).IsRequired().HasMaxLength(100);
             builder.Property(r => r.Vagas).IsRequired();
+            builder.HasMany(x => x.Regras)
+                .WithOne(x => x.Republica)
+                .IsRequired();
         }
     }
 }

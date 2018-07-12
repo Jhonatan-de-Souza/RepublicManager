@@ -26,7 +26,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var republicas = await _unitOfWork.Republicas.GetAllAsync();
+            var republicas = await _unitOfWork.Republicas.GetRepublicaWithRegras();
             List<RepublicaResource> repbiblicaResource = new List<RepublicaResource>();
 
             if (republicas == null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Persistance.Configuration;
 
@@ -15,7 +16,11 @@ namespace RepublicManager.Api.Persistance
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.SetNull;
+            }
+
             modelBuilder.ApplyConfiguration(new RepublicaConfiguration());
             modelBuilder.ApplyConfiguration(new AvisosConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
@@ -36,5 +41,6 @@ namespace RepublicManager.Api.Persistance
         public DbSet<ContaAPagar> ContasAPagar { get; set; }
         public DbSet<ContaAReceber> ContasAReceber { get; set; }
         public DbSet<TipoConta> TipoContas { get; set; }
+        public DbSet<Regra> Regras { get; set; }
     }
 }
