@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting.Internal;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Persistance.Configuration;
 
