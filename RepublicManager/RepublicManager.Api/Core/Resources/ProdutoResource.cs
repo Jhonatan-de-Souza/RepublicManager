@@ -3,7 +3,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class ProdutoResource
+    public class ProdutoResource : Base
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
@@ -12,13 +12,6 @@ namespace RepublicManager.Api.Core.Resources
         public CarrinhoDeCompraResource CarrinhoDeCompra { get; set; }
         public int UsuarioId { get; set; }
 
-        public ProdutoResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
     }
 
 
@@ -35,7 +28,7 @@ namespace RepublicManager.Api.Core.Resources
                 UsuarioId = produto.UsuarioId,
 
                 Id = produto.Id,
-                isAtivo = produto.IsAtivo,
+                IsAtivo = produto.IsAtivo,
                 CriadoPor = produto.CriadoPor,
                 DataRegistro = produto.DataRegistro
             };
@@ -50,9 +43,9 @@ namespace RepublicManager.Api.Core.Resources
             produto.UsuarioId = produtoResource.UsuarioId;
 
             produto.Id = produtoResource.Id;    
-            produto.IsAtivo = produtoResource.isAtivo;
+            produto.IsAtivo = produtoResource.IsAtivo;
             produto.CriadoPor = produtoResource.CriadoPor;
-            produto.DataRegistro = produtoResource.DataRegistro;
+            produto.DataRegistro = (produtoResource.Id > 0) ? produto.DataRegistro : DateTime.Now;
 
             return produto;
         }

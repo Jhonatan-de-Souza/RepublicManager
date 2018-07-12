@@ -3,15 +3,8 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class TarefaResource
+    public class TarefaResource : Base
     {
-        public TarefaResource()
-        {
-            IsAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool IsAtivo { get; set; }
-        public int CriadoPor { get; set; }
         public int Id { get; set; }
         public string Descricao { get; set; }
 
@@ -39,8 +32,7 @@ namespace RepublicManager.Api.Core.Resources
             tarefa.Id = tarefaResource.Id;
             tarefa.IsAtivo = tarefaResource.IsAtivo;
             tarefa.CriadoPor = tarefaResource.CriadoPor;
-            tarefa.DataRegistro = tarefaResource.DataRegistro;
-
+            tarefa.DataRegistro = (tarefaResource.Id > 0) ? tarefa.DataRegistro : DateTime.Now;
             return tarefa;
         }
     }

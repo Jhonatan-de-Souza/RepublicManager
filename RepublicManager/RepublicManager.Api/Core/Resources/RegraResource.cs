@@ -3,19 +3,11 @@ using System;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class RegraResource
+    public class RegraResource : Base
     {
         public int Id { get; set; }
         public int RepublicaId { get; set; }
         public string Descricao { get; set; }
-
-        public RegraResource()
-        {
-            IsAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool IsAtivo { get; set; }
-        public int CriadoPor { get; set; }
     }
 
     public static class RegraMapper
@@ -43,7 +35,7 @@ namespace RepublicManager.Api.Core.Resources
             regra.Id = regraResource.Id;
             regra.IsAtivo = regraResource.IsAtivo;
             regra.CriadoPor = regraResource.CriadoPor;
-            regra.DataRegistro = regraResource.DataRegistro;
+            regra.DataRegistro = (regraResource.Id > 0) ? regra.DataRegistro : DateTime.Now;
 
             return regra;
         }

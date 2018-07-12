@@ -3,20 +3,13 @@ using System;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class UsuarioResource
+    public class UsuarioResource : Base
     {
         public int Id { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
         public DateTime DataFinalContrato { get; set; }
 
-        public UsuarioResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
     }
     public static class UsuarioMapper
     {
@@ -29,7 +22,7 @@ namespace RepublicManager.Api.Core.Resources
                 DataFinalContrato = usuario.DataFinalContrato,
 
                 Id = usuario.Id,
-                isAtivo = usuario.IsAtivo,
+                IsAtivo = usuario.IsAtivo,
                 CriadoPor = usuario.CriadoPor,
                 DataRegistro = usuario.DataRegistro
             };
@@ -43,9 +36,9 @@ namespace RepublicManager.Api.Core.Resources
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
 
             usuario.Id = usuarioResource.Id;
-            usuario.IsAtivo = usuarioResource.isAtivo;
+            usuario.IsAtivo = usuarioResource.IsAtivo;
             usuario.CriadoPor = usuarioResource.CriadoPor;
-            usuario.DataRegistro = usuarioResource.DataRegistro;
+            usuario.DataRegistro = (usuarioResource.Id > 0) ? usuario.DataRegistro : DateTime.Now;
 
             return usuario;
         }

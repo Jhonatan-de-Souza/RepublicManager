@@ -6,19 +6,13 @@ using RepublicManager.Api.Core.Resources;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class CarrinhoDeCompraResource
+    public class CarrinhoDeCompraResource :Base
     {
         public int Id { get; set; }
         public int RepublicaId { get; set; }
         public IEnumerable<ProdutoResource> ListaProdutos { get; set; }
 
-        public CarrinhoDeCompraResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
+       
     }
 
 
@@ -33,7 +27,7 @@ namespace RepublicManager.Api.Core.Resources
                 ListaProdutos = carrinhoDeCompra.Produtos.Select(ProdutoMapper.ModelToResource),
 
                 Id = carrinhoDeCompra.Id,
-                isAtivo = carrinhoDeCompra.IsAtivo,
+                IsAtivo = carrinhoDeCompra.IsAtivo,
                 CriadoPor = carrinhoDeCompra.CriadoPor,
                 DataRegistro = carrinhoDeCompra.DataRegistro
             };
@@ -47,9 +41,9 @@ namespace RepublicManager.Api.Core.Resources
             carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos.Select(produto => produto.ProdutoResourceToProduto());
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
-            carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.isAtivo;
+            carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.IsAtivo;
             carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
-            carrinhoDeCompra.DataRegistro = carrinhoDeCompraResource.DataRegistro;
+            carrinhoDeCompra.DataRegistro = (carrinhoDeCompraResource.Id > 0) ? carrinhoDeCompra.DataRegistro : DateTime.Now;
 
             return carrinhoDeCompra;
         }
