@@ -14,10 +14,10 @@ namespace RepublicManager.Api.Core
         IRegraRepositorio Regras { get; }
         ITarefaRepositorio Tarefas { get; }
         ITarefaUsuarioRepositorio TarefasUsuario { get; }
-        IContaRepositorio ContaRepositorio { get; }
-        IContaAPagarRepositorio ContaAPagarRepositorio { get; }
-        IContaAReceberRepositorio ContaAReceberRepositorio { get; }
-        ITipoContaRepositorio TipoContaRepositorio { get; }
+        IContaRepositorio Contas { get; }
+        IContaAPagarRepositorio ContasAPagar { get; }
+        IContaAReceberRepositorio ContasAReceber { get; }
+        ITipoContaRepositorio TipoContas { get; }
         Task CompleteAsync();
     }
 }

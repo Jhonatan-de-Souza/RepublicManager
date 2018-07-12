@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RepublicManager.Api.Core.Domain;
@@ -20,6 +21,13 @@ namespace RepublicManager.Api.Persistance.Repositories
         {
             return  await _republicManagerContext.CarrinhoDeCompra.Include(x => x.Produtos).ToListAsync();
                 
+        }
+
+        public async Task<CarrinhoDeCompra> GetByIdWithProdutosAsync(int id)
+        {
+            return await _republicManagerContext.CarrinhoDeCompra
+                .Where(x => x.Id == id)
+                .Include(x => x.Produtos).FirstOrDefaultAsync();
         }
     }
 }

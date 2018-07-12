@@ -8,6 +8,7 @@ namespace RepublicManager.Api.Core.Repositories
     {
 
         Task<IEnumerable<CarrinhoDeCompra>> GetAllWithProdutosAsync();
+        Task<CarrinhoDeCompra> GetByIdWithProdutosAsync(int id);
 
     }
 }

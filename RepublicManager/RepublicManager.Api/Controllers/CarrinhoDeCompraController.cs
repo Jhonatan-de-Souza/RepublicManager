@@ -58,7 +58,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdAsync(id);
+            var carrinhoDeCompra = await _unitOfWork.CarrinhoDeCompras.GetByIdWithProdutosAsync(id);
             if (carrinhoDeCompra.IsAtivo)
             {
                 return Ok(CarrinhoDeCompraMapper.ModelToResource(carrinhoDeCompra));
