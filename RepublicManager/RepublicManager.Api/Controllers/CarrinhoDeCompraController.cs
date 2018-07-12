@@ -28,10 +28,7 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-
                 var carrinhoDeCompras = await _unitOfWork.CarrinhoDeCompras.GetAllWithProdutosAsync();
-
-
                 List<CarrinhoDeCompraResource> carrinhoDeCompraResource = new List<CarrinhoDeCompraResource>();
 
             if (carrinhoDeCompras == null)

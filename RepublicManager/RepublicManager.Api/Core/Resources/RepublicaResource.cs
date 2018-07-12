@@ -3,20 +3,11 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class RepublicaResource
+    public class RepublicaResource : Base
     {
         public int Id { get; set; }
         public string Nome { get; set; }
         public int Vagas { get; set; }
-
-        public RepublicaResource()
-        {
-            IsAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool IsAtivo { get; set; }
-        public int CriadoPor { get; set; }
-
     }
 
     public static class RepublicaMapper
@@ -42,7 +33,7 @@ namespace RepublicManager.Api.Core.Resources
             republica.Id = republicaResource.Id;
             republica.IsAtivo = republicaResource.IsAtivo;
             republica.CriadoPor = republicaResource.CriadoPor;
-            republica.DataRegistro = republicaResource.DataRegistro;
+            republica.DataRegistro = (republicaResource.Id> 0) ? republica.DataRegistro : DateTime.Now;
             
             return republica;
         }
