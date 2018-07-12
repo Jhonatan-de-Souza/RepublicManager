@@ -13,5 +13,7 @@ namespace RepublicManager.Api.Core.Domain
         public Usuario Usuario { get; set; }
         public int TipoContaId { get; set; }
         public TipoConta TipoConta { get; set; }
+        public int ContaId { get; set; }
+        public virtual Conta Conta { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace RepublicManager.Api.Core.Resources
         public UsuarioResource Usuario { get; set; }
         public int TipoContaId { get; set; }
         public TipoContaResource TipoConta { get; set; }
+        public int ContaId { get; set; }
+        public virtual ContaResource Conta { get; set; }
         public ContaAReceberResource()
         {
             isAtivo = true;

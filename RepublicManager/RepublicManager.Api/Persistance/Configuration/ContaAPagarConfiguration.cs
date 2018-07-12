@@ -1,0 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RepublicManager.Api.Core.Domain;
+
+namespace RepublicManager.Api.Persistance.Configuration
+{
+    public class ContaAPagarConfiguration : IEntityTypeConfiguration<ContaAPagar>
+    {
+        public void Configure(EntityTypeBuilder<ContaAPagar> builder)
+        {
+            builder.HasKey(c => c.Id);
+        }
+    }
+}

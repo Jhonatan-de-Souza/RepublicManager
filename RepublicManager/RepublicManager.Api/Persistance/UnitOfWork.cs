@@ -18,6 +18,10 @@ namespace RepublicManager.Api.Persistance
         public IRegraRepositorio Regras { get; set; }
         public ITarefaRepositorio Tarefas { get; set; }
         public ITarefaUsuarioRepositorio TarefasUsuario { get; set; }
+        public IContaRepositorio  ContaRepositorio { get; set; }
+        public IContaAPagarRepositorio ContaAPagarRepositorio { get; set; }
+        public IContaAReceberRepositorio ContaAReceberRepositorio { get; set; }
+        public ITipoContaRepositorio TipoContaRepositorio { get; set; }
         //public  Type { get; set; }
 
         //here the unit of work will instaniate the repositories and use it across all of the application
@@ -26,12 +30,20 @@ namespace RepublicManager.Api.Persistance
             _context = context;
             //Example Below
             Republicas = new RepublicaRepositorio(_context);
+
             Produtos = new ProdutoRepositorio(_context);
             CarrinhoDeCompras = new CarrinhoDeCompraRepositorio(_context);
+
             Usuarios = new UsuarioRepositorio(_context);
+
             Avisos = new AvisoRepositorio(_context);
             Regras = new RegraRepositorio(_context);
             Tarefas = new TarefaRepositorio(_context);
+
+            ContaRepositorio = new ContaRepositorio(_context);
+            ContaAPagarRepositorio = new ContaAPagarRepositorio(_context);
+            ContaAReceberRepositorio = new ContaAReceberRepositorio(_context);
+            TipoContaRepositorio = new TipoContaRepositorio(_context);
 
 
         }

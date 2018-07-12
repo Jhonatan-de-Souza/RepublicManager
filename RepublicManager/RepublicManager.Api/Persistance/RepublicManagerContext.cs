@@ -32,5 +32,9 @@ namespace RepublicManager.Api.Persistance
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
         public DbSet<TarefaUsuario> TarefasUsuario { get; set; }
+        public DbSet<Conta> Contas { get; set; }
+        public DbSet<ContaAPagar> ContasAPagar { get; set; }
+        public DbSet<ContaAReceber> ContasAReceber { get; set; }
+        public DbSet<TipoConta> TipoContas { get; set; }
     }
 }
