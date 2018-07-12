@@ -22,27 +22,36 @@ namespace RepublicManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             //Jhonatan
-            var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             //Matheus
-            //var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
             //var connection = @"Server='amazonaws.cf79yuvlvuez.us-east-2.rds.amazonaws.com';Database=RepublicManager;User Id=fuktik;Password:dsjhonatan1337;";
             services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 
             //injeção de dependencia
             //services.AddScoped<>()
             services.AddScoped<IAvisoRepositorio, AvisoRepositorio>();
+
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
+
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICarrinhoDeCompraRepositorio, CarrinhoDeCompraRepositorio>();
+
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
             services.AddScoped<ITarefaUsuarioRepositorio, TarefaUsuarioRepositorio>();
+
+            services.AddScoped<IContaRepositorio, ContaRepositorio>();
+            services.AddScoped<IContaAPagarRepositorio, ContaAPagarRepositorio>();
+            services.AddScoped<IContaAReceberRepositorio, ContaAReceberRepositorio>();
+            services.AddScoped<ITipoContaRepositorio, TipoContaRepositorio>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc();
-            
-           
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
