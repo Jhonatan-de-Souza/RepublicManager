@@ -13,6 +13,6 @@ namespace RepublicManager.Api.Core.Domain
         public string ComentarioAvaliacao { get; set; }
         public bool IsCompleted { get; set; }
         public DateTime DataDaTarefa { get; set; }
-        public DateTime DataFimDaTarefa { get; set; }
+        public DateTime PrevisaoDeConclusao { get; set; }
     }
 }
