@@ -32,7 +32,7 @@ namespace RepublicManager.Api.Core.Resources
                 ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao,
                 IsCompleted = tarefaUsuario.IsCompleted,
                 DataDaTarefa = tarefaUsuario.DataDaTarefa,
-                DataFimDaTarefa = tarefaUsuario.DataFimDaTarefa,
+                DataFimDaTarefa = tarefaUsuario.PrevisaoDeConclusao,
 
                 Id = tarefaUsuario.Id,
                 IsAtivo = tarefaUsuario.IsAtivo,
@@ -54,7 +54,7 @@ namespace RepublicManager.Api.Core.Resources
             tarefaUsuario.ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao;
             tarefaUsuario.IsCompleted = tarefaUsuario.IsCompleted;
             tarefaUsuario.DataDaTarefa = tarefaUsuario.DataDaTarefa;
-            tarefaUsuario.DataFimDaTarefa = tarefaUsuario.DataFimDaTarefa;
+            tarefaUsuario.PrevisaoDeConclusao = tarefaUsuario.PrevisaoDeConclusao;
 
             tarefaUsuario.Id = tarefaUsuarioResource.Id;
             tarefaUsuario.IsAtivo = tarefaUsuarioResource.IsAtivo;

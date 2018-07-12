@@ -9,6 +9,7 @@ namespace RepublicManager.Api.Persistance.Configuration
         public void Configure(EntityTypeBuilder<Tarefa> builder)
         {
             builder.HasKey(tarefa => tarefa.Id);
+            builder.Property(x => x.Descricao).HasMaxLength(150);
         }
     }
 }

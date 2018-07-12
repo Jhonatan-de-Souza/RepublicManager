@@ -11,6 +11,7 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Login).IsRequired();
             builder.Property(u => u.Senha).IsRequired();
+            builder.Property(x => x.DataFinalContrato).IsRequired();
 
         }
     }
