@@ -30,7 +30,7 @@ namespace RepublicManager.Api.Core.Resources
 
             republica.Nome = republicaResource.Nome;
             republica.Vagas = republicaResource.Vagas;
-            republica.Id = republicaResource.Id;
+            republica.Id =(republica.Id > 0) ? republica.Id: republicaResource.Id;
             republica.IsAtivo = republicaResource.IsAtivo;
             republica.CriadoPor = republicaResource.CriadoPor;
             republica.DataRegistro = (republicaResource.Id> 0) ? republica.DataRegistro : DateTime.Now;

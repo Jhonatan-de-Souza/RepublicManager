@@ -32,7 +32,7 @@ namespace RepublicManager.Api.Core.Resources
             regra.Descricao = regraResource.Descricao;
             regra.RepublicaId = regraResource.RepublicaId;
 
-            regra.Id = regraResource.Id;
+            regra.Id =(regra.Id >0)? regra.Id: regraResource.Id;
             regra.IsAtivo = regraResource.IsAtivo;
             regra.CriadoPor = regraResource.CriadoPor;
             regra.DataRegistro = (regraResource.Id > 0) ? regra.DataRegistro : DateTime.Now;

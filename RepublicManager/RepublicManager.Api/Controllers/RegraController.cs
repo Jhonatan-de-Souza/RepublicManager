@@ -99,7 +99,7 @@ namespace RepublicManager.Api.Controllers
                 return Ok(regra);
             }
             catch (Exception e)
-            {
+                {
                 LogError.LogErrorWithSentry(e);
                 return BadRequest(ModelState);
             }

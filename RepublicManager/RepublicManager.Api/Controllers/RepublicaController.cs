@@ -94,12 +94,9 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                   
                     republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
                     await _unitOfWork.CompleteAsync();
                     RepublicaMapper.ModelToResource(republica);
-
-                   
                 }
                 return Ok(republica);
             }
