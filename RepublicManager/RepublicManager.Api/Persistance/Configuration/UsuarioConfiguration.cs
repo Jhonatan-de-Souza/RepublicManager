@@ -13,6 +13,9 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.Property(u => u.Senha).IsRequired();
             builder.Property(x => x.DataFinalContrato).IsRequired();
 
+            //builder.has
+            builder.HasOne(x => x.Conta)
+                .WithOne(x => x.Usuario).HasForeignKey<Usuario>(x =>x.ContaId);
         }
     }
 }

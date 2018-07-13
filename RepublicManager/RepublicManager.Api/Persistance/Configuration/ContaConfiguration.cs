@@ -17,6 +17,7 @@ namespace RepublicManager.Api.Persistance.Configuration
                 .WithOne(c => c.Conta).IsRequired();
 
             
+
         }
     }
 }

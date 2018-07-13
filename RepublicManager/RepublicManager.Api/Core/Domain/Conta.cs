@@ -10,7 +10,7 @@ namespace RepublicManager.Api.Core.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public IEnumerable<ContaAPagar> ContasAPagar { get; set; }
         public IEnumerable<ContaAReceber> ContasAReceber { get; set; }
     }
