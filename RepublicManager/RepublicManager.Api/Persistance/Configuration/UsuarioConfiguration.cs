@@ -15,7 +15,7 @@ namespace RepublicManager.Api.Persistance.Configuration
 
             //builder.has
             builder.HasOne(x => x.Conta)
-                .WithOne(x => x.Usuario).HasForeignKey<Usuario>(x =>x.ContaId);
+                .WithOne(x => x.Usuario).HasForeignKey<Conta>(x => x.UsuarioId);
         }
     }
 }
