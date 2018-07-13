@@ -33,6 +33,7 @@ namespace RepublicManager.Api.Core.Resources
                 Valor = contaAPagar.Valor,
                 UsuarioId = contaAPagar.UsuarioId,
                 TipoContaId = contaAPagar.TipoContaId,
+                ContaId = contaAPagar.ContaId,
 
                 Id = contaAPagar.Id,
                 isAtivo = contaAPagar.IsAtivo,
@@ -47,6 +48,7 @@ namespace RepublicManager.Api.Core.Resources
             contaAPagar.Valor = contaAPagarResource.Valor;
             contaAPagar.UsuarioId = contaAPagarResource.UsuarioId;
             contaAPagar.TipoContaId = contaAPagarResource.TipoContaId;
+            contaAPagar.ContaId = contaAPagarResource.ContaId;
 
             contaAPagar.Id = contaAPagarResource.Id;
             contaAPagar.IsAtivo = contaAPagarResource.isAtivo;

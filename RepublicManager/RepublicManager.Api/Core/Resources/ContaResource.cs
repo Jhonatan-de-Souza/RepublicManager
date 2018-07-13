@@ -43,8 +43,8 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             conta.UsuarioId = contaResource.UsuarioId;
-            conta.ContasAPagar = contaResource.ContasAPagar.Select(c => c.ContaAPagarResourceToContaAPagar());
-            conta.ContasAReceber = contaResource.ContasAReceber.Select(c => c.ContaAReceberResourceToContaAReceber());
+            //conta.ContasAPagar = contaResource.ContasAPagar.Select(c => c.ContaAPagarResourceToContaAPagar());
+            //conta.ContasAReceber = contaResource.ContasAReceber.Select(c => c.ContaAReceberResourceToContaAReceber());
 
             conta.Id = contaResource.Id;
             conta.IsAtivo = contaResource.isAtivo;

@@ -33,6 +33,7 @@ namespace RepublicManager.Api.Core.Resources
                 Valor = contaAReceber.Valor,
                 UsuarioId = contaAReceber.UsuarioId,
                 TipoContaId = contaAReceber.TipoContaId,
+                ContaId = contaAReceber.ContaId,
 
                 Id = contaAReceber.Id,
                 isAtivo = contaAReceber.IsAtivo,
@@ -47,6 +48,7 @@ namespace RepublicManager.Api.Core.Resources
             contaAReceber.Valor = contaAReceberResource.Valor;
             contaAReceber.UsuarioId = contaAReceberResource.UsuarioId;
             contaAReceber.TipoContaId = contaAReceberResource.TipoContaId;
+            contaAReceber.ContaId = contaAReceberResource.ContaId;
 
             contaAReceber.Id = contaAReceberResource.Id;
             contaAReceber.IsAtivo = contaAReceberResource.isAtivo;

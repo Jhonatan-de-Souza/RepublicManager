@@ -11,12 +11,12 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.HasKey(c => c.Id);
 
             builder.HasMany(x => x.ContasAPagar)
-                .WithOne(c => c.Conta)
-                .IsRequired();
+                .WithOne(c => c.Conta).IsRequired();
 
             builder.HasMany(x => x.ContasAReceber)
-                .WithOne(c => c.Conta)
-                .IsRequired();
+                .WithOne(c => c.Conta).IsRequired();
+
+            
         }
     }
 }

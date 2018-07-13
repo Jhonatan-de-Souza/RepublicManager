@@ -6,7 +6,7 @@ namespace RepublicManager.Api.Core.Repositories
 {
     public interface IContaRepositorio : IRepositorioBase<Conta>
     {
-        Task<IEnumerable<Conta>> GetAllContaWithPagarEReceber();
+        Task<IEnumerable<Conta>> GetAllContaWithPagarEReceberEUsuario();
         Task<Conta> GetByIdContaWithPagarEReceber(int id);
     }
 }

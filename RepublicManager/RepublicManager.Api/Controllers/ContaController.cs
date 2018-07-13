@@ -28,7 +28,7 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var contas = await _unitOfWork.Contas.GetAllContaWithPagarEReceber();
+                var contas = await _unitOfWork.Contas.GetAllContaWithPagarEReceberEUsuario();
                 List<ContaResource> contaResource = new List<ContaResource>();
 
                 if (contas == null)

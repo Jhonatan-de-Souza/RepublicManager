@@ -16,9 +16,9 @@ namespace RepublicManager.Api.Persistance.Repositories
             _republicManagerContext = republicManagerContext;
         }
 
-        public async Task<IEnumerable<Conta>> GetAllContaWithPagarEReceber()
+        public async Task<IEnumerable<Conta>> GetAllContaWithPagarEReceberEUsuario()
         {
-            return await _republicManagerContext.Contas.Include(x => x.ContasAPagar).Include(x => x.ContasAReceber)
+            return await _republicManagerContext.Contas.Include(x => x.ContasAPagar).Include(x => x.ContasAReceber).Include(x => x.Usuario)
                 .ToListAsync();
         }
 

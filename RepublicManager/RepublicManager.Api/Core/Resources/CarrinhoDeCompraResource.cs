@@ -38,7 +38,7 @@ namespace RepublicManager.Api.Core.Resources
 
             carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
             //deve refazer este mapeamento
-            carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos.Select(produto => produto.ProdutoResourceToProduto());
+            //carrinhoDeCompra.Produtos = carrinhoDeCompraResource.ListaProdutos.Select(produto => produto.ProdutoResourceToProduto());
 
             carrinhoDeCompra.Id = carrinhoDeCompraResource.Id;
             carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.IsAtivo;
