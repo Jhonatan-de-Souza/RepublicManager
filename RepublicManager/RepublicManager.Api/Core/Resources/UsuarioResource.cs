@@ -35,7 +35,7 @@ namespace RepublicManager.Api.Core.Resources
             usuario.Senha = usuarioResource.Senha;
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
 
-            usuario.Id = usuarioResource.Id;
+            usuario.Id = (usuario.Id>0)? usuario.Id: usuarioResource.Id;
             usuario.IsAtivo = usuarioResource.IsAtivo;
             usuario.CriadoPor = usuarioResource.CriadoPor;
             usuario.DataRegistro = (usuarioResource.Id > 0) ? usuario.DataRegistro : DateTime.Now;
