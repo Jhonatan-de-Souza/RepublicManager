@@ -12,6 +12,7 @@ namespace RepublicManager.Api.Core.Resources
         public CarrinhoDeCompraResource CarrinhoDeCompra { get; set; }
         public int UsuarioId { get; set; }
 
+
     }
 
 

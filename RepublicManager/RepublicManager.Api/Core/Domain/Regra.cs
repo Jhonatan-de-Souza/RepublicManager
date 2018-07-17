@@ -5,8 +5,6 @@ namespace RepublicManager.Api.Core.Domain
 {
     public class Regra : Base
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int RepublicaId { get; set; }
         public string Descricao { get; set; }

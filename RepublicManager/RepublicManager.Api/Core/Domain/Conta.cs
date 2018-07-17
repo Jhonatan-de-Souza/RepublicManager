@@ -6,8 +6,7 @@ namespace RepublicManager.Api.Core.Domain
 {
     public class Conta : Base
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
         public int UsuarioId { get; set; }
         public virtual Usuario Usuario { get; set; }

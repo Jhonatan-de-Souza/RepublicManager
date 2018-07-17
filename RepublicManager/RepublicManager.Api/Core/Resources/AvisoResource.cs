@@ -6,10 +6,11 @@ namespace RepublicManager.Api.Core.Resources
 {
     public class AvisoResource :Base
     {
-        [Key]
+        
         public int Id { get; set; }
         public DateTime DataAviso { get; set; }
         public string Descricao { get; set; }
+        public int RepublicaId { get; set; }
     }
 
     public static class AvisoMapper
@@ -20,6 +21,8 @@ namespace RepublicManager.Api.Core.Resources
             {
                 Descricao = aviso.Descricao,
                 DataAviso = aviso.DataAviso,
+                RepublicaId = aviso.RepublicaId,
+
                 Id = aviso.Id,
                 IsAtivo = aviso.IsAtivo,
                 CriadoPor = aviso.CriadoPor,
@@ -30,8 +33,10 @@ namespace RepublicManager.Api.Core.Resources
         {
             aviso.Descricao = avisoResource.Descricao;
             aviso.DataAviso = avisoResource.DataAviso;
+            aviso.RepublicaId = avisoResource.RepublicaId;
+            
             aviso.Id = avisoResource.Id;
-                aviso.IsAtivo = avisoResource.IsAtivo;
+            aviso.IsAtivo = avisoResource.IsAtivo;
             aviso.CriadoPor = avisoResource.CriadoPor;
             aviso.DataRegistro = (avisoResource.Id >0)? aviso.DataRegistro : DateTime.Now;
         

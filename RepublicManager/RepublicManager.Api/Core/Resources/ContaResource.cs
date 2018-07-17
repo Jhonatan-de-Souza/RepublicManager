@@ -5,7 +5,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class ContaResource
+    public class ContaResource : Base
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
@@ -13,13 +13,6 @@ namespace RepublicManager.Api.Core.Resources
         public IEnumerable<ContaAPagarResource> ContasAPagar { get; set; }
         public IEnumerable<ContaAReceberResource> ContasAReceber { get; set; }
 
-        public ContaResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
     }
 
     public static class ContaMapper
@@ -31,23 +24,23 @@ namespace RepublicManager.Api.Core.Resources
                 UsuarioId = conta.UsuarioId,
                 ContasAPagar = conta.ContasAPagar.Select(ContaAPagarMapper.ModelToResource),
                 ContasAReceber = conta.ContasAReceber.Select(ContaAReceberMapper.ModelToResource),
+                Usuario = UsuarioMapper.ModelToResource(conta.Usuario),
 
                 Id = conta.Id,
-                isAtivo = conta.IsAtivo,
+                IsAtivo = conta.IsAtivo,
                 CriadoPor = conta.CriadoPor,
                 DataRegistro = conta.DataRegistro
             };
             return contaResource;
         }
+
         public static Conta ResourceToModel(ContaResource contaResource, Conta conta)
         {
 
             conta.UsuarioId = contaResource.UsuarioId;
-            //conta.ContasAPagar = contaResource.ContasAPagar.Select(c => c.ContaAPagarResourceToContaAPagar());
-            //conta.ContasAReceber = contaResource.ContasAReceber.Select(c => c.ContaAReceberResourceToContaAReceber());
 
             conta.Id = contaResource.Id;
-            conta.IsAtivo = contaResource.isAtivo;
+            conta.IsAtivo = contaResource.IsAtivo;
             conta.CriadoPor = contaResource.CriadoPor;
             conta.DataRegistro = contaResource.DataRegistro;
 
@@ -56,20 +49,4 @@ namespace RepublicManager.Api.Core.Resources
 
     }
 
-
-    public static class ContaAPagarExtensions
-    {
-        public static ContaAPagar ContaAPagarResourceToContaAPagar(this ContaAPagarResource contaAPagarResoure)
-        {
-            return new ContaAPagar();
-        }
-    }
-
-    public static class ContaAReceberExtensions
-    {
-        public static ContaAReceber ContaAReceberResourceToContaAReceber(this ContaAReceberResource contaAReceberResoure)
-        {
-            return new ContaAReceber();
-        }
-    }
 }

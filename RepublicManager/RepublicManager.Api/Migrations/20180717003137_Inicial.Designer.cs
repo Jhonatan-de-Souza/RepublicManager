@@ -11,8 +11,8 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    [Migration("20180713005856_ModuloContasV2")]
-    partial class ModuloContasV2
+    [Migration("20180717003137_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,11 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<bool>("IsAtivo");
 
+                    b.Property<int>("RepublicaId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RepublicaId");
 
                     b.ToTable("Aviso");
                 });
@@ -58,6 +62,8 @@ namespace RepublicManager.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RepublicaId");
+
                     b.ToTable("CarrinhoDeCompra");
                 });
 
@@ -75,6 +81,9 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("Contas");
                 });
@@ -94,8 +103,6 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<int>("TipoContaId");
 
-                    b.Property<int>("UsuarioId");
-
                     b.Property<decimal>("Valor");
 
                     b.HasKey("Id");
@@ -103,8 +110,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasIndex("ContaId");
 
                     b.HasIndex("TipoContaId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("ContasAPagar");
                 });
@@ -124,8 +129,6 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<int>("TipoContaId");
 
-                    b.Property<int>("UsuarioId");
-
                     b.Property<decimal>("Valor");
 
                     b.HasKey("Id");
@@ -133,8 +136,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasIndex("ContaId");
 
                     b.HasIndex("TipoContaId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("ContasAReceber");
                 });
@@ -261,9 +262,11 @@ namespace RepublicManager.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TarefaId");
+                    b.HasIndex("TarefaId")
+                        .IsUnique();
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("TarefasUsuario");
                 });
@@ -304,15 +307,40 @@ namespace RepublicManager.Api.Migrations
                     b.Property<string>("Login")
                         .IsRequired();
 
+                    b.Property<int>("RepublicaId");
+
                     b.Property<string>("Senha")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContaId")
-                        .IsUnique();
+                    b.HasIndex("RepublicaId");
 
                     b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Aviso", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
+                        .WithMany("Avisos")
+                        .HasForeignKey("RepublicaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.CarrinhoDeCompra", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
+                        .WithMany("CarrinhosDeCompra")
+                        .HasForeignKey("RepublicaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Conta", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
+                        .WithOne("Conta")
+                        .HasForeignKey("RepublicManager.Api.Core.Domain.Conta", "UsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAPagar", b =>
@@ -326,11 +354,6 @@ namespace RepublicManager.Api.Migrations
                         .WithMany()
                         .HasForeignKey("TipoContaId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.ContaAReceber", b =>
@@ -343,11 +366,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasOne("RepublicManager.Api.Core.Domain.TipoConta", "TipoConta")
                         .WithMany()
                         .HasForeignKey("TipoContaId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
@@ -370,21 +388,21 @@ namespace RepublicManager.Api.Migrations
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.TarefaUsuario", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.Tarefa", "Tarefa")
-                        .WithMany()
-                        .HasForeignKey("TarefaId")
+                        .WithOne()
+                        .HasForeignKey("RepublicManager.Api.Core.Domain.TarefaUsuario", "TarefaId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .WithOne()
+                        .HasForeignKey("RepublicManager.Api.Core.Domain.TarefaUsuario", "UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Usuario", b =>
                 {
-                    b.HasOne("RepublicManager.Api.Core.Domain.Conta", "Conta")
-                        .WithOne("Usuario")
-                        .HasForeignKey("RepublicManager.Api.Core.Domain.Usuario", "ContaId")
+                    b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("RepublicaId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

@@ -9,6 +9,8 @@ namespace RepublicManager.Api.Persistance.Configuration
         public void Configure(EntityTypeBuilder<ContaAPagar> builder)
         {
             builder.HasKey(c => c.Id);
+
+            builder.Property(c => c.Id).ValueGeneratedOnAdd();
         }
     }
 }

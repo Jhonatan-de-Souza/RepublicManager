@@ -8,9 +8,9 @@ namespace RepublicManager.Api.Core.Resources
 
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public UsuarioResource Usuario { get; set; }
         public int TarefaId { get; set; }
-        public Tarefa Tarefa { get; set; }
+        public TarefaResource Tarefa { get; set; }
         public int NotaAvaliacao { get; set; }
         public string ComentarioAvaliacao { get; set; }
         public bool IsCompleted { get; set; }
@@ -25,9 +25,10 @@ namespace RepublicManager.Api.Core.Resources
             var tarefaUsuarioResource = new TarefaUsuarioResource()
             {
                 UsuarioId = tarefaUsuario.UsuarioId,
-                Usuario = tarefaUsuario.Usuario,
+                Usuario = UsuarioMapper.ModelToResource(tarefaUsuario.Usuario),
                 TarefaId = tarefaUsuario.TarefaId,
-                Tarefa = tarefaUsuario.Tarefa,
+                Tarefa = TarefaMapper.ModelToResource(tarefaUsuario.Tarefa),
+
                 NotaAvaliacao = tarefaUsuario.NotaAvaliacao,
                 ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao,
                 IsCompleted = tarefaUsuario.IsCompleted,
@@ -47,9 +48,8 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             tarefaUsuario.UsuarioId = tarefaUsuario.UsuarioId;
-            tarefaUsuario.Usuario = tarefaUsuario.Usuario;
             tarefaUsuario.TarefaId = tarefaUsuario.TarefaId;
-            tarefaUsuario.Tarefa = tarefaUsuario.Tarefa;
+
             tarefaUsuario.NotaAvaliacao = tarefaUsuario.NotaAvaliacao;
             tarefaUsuario.ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao;
             tarefaUsuario.IsCompleted = tarefaUsuario.IsCompleted;

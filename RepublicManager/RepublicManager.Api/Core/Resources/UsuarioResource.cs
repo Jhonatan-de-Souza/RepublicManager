@@ -9,6 +9,9 @@ namespace RepublicManager.Api.Core.Resources
         public string Login { get; set; }
         public string Senha { get; set; }
         public DateTime DataFinalContrato { get; set; }
+        public int ContaId { get; set; }
+        public virtual ContaResource Conta { get; set; }
+        public int RepublicaId { get; set; }
 
     }
     public static class UsuarioMapper
@@ -20,6 +23,9 @@ namespace RepublicManager.Api.Core.Resources
                 Login = usuario.Login,
                 Senha = usuario.Senha,
                 DataFinalContrato = usuario.DataFinalContrato,
+                ContaId = usuario.ContaId,
+                Conta = ContaMapper.ModelToResource(usuario.Conta),
+                RepublicaId = usuario.RepublicaId,
 
                 Id = usuario.Id,
                 IsAtivo = usuario.IsAtivo,
@@ -34,6 +40,8 @@ namespace RepublicManager.Api.Core.Resources
             usuario.Login = usuarioResource.Login;
             usuario.Senha = usuarioResource.Senha;
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
+            usuario.ContaId = usuarioResource.ContaId;
+            usuario.RepublicaId = usuarioResource.RepublicaId;
 
             usuario.Id = (usuario.Id>0)? usuario.Id: usuarioResource.Id;
             usuario.IsAtivo = usuarioResource.IsAtivo;
