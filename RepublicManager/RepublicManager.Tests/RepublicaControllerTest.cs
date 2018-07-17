@@ -1,54 +1,32 @@
-﻿using RepublicManager.Api.Controllers;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using RepublicManager.Api.Controllers;
 using RepublicManager.Api.Core;
-using RepublicManager.Api.Persistance;
-using System;
-using System.Linq;
-using Xunit;
+using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Core.Repositories;
 
 namespace RepublicManager.Tests
 {
+    [TestClass]
     public class RepublicaControllerTest
     {
-        private readonly IUnitOfWork unitOfWork;
-        [Fact(DisplayName = "Deve retornar uma Republica")]
-        public void Deve_retornar_uma_republica()
+        private readonly RepublicaController _republicaController;
+        public RepublicaControllerTest()
         {
-            bool existe;
-
-            using (var contexto = Carregar.DadosMemoria())
-            using (var republica = new RepublicaController(unitOfWork))
-            {
-                var pessoaPTBR = republica.Get(1);
-
-                if (pessoaPTBR != null)
-                {
-                    existe = true;
-                }
-                else
-                {
-                    existe = false;
-                }
-            }
-            Assert.True(existe);
-
+            var mockRepository = new Mock<IRepublicaRepositorio>();
+            var mockUoW = new Mock<IUnitOfWork>();
+            mockUoW.SetupGet(a => a.Republicas).Returns(mockRepository.Object);
+            _republicaController = new RepublicaController(mockUoW.Object);
         }
 
-        /*
-        [Theory(DisplayName = "Deve retornar  a pessoa pelo nome")]
-        [InlineData("Junior")]
-        public void deve_retornar_a_pessoa_pelo_nome(string nome)
+        [TestMethod]
+        public async Task GetAll_returnsSuccess()
         {
-
-
-            using (var contexto = Carregar.DadosMemoria())
-            using (var pessoa = new PessoaController(contexto))
-            {
-                var pessoaporNome = pessoa.porNome(nome);
-
-                Assert.NotNull(pessoaporNome);
-                Assert.NotEmpty(pessoaporNome.Nome);
-            }
-        }*/
-
+            var result = await _republicaController.GetAll();
+            //result.Should().
+        }
     }
 }
