@@ -7,6 +7,7 @@ namespace RepublicManager.Api.Core.Domain
         public Base()
         {
             IsAtivo = true;
+
         }
 
         public DateTime DataRegistro { get; set; }
