@@ -30,11 +30,7 @@ namespace RepublicManager.Tests
             result.Should().BeOfType<NotFoundResult>();
         }
 
-        [TestMethod]
-        public async Task MethodName_Condition_ExpectedResult()
-        {
-
-        }
+        
 
     }
 }

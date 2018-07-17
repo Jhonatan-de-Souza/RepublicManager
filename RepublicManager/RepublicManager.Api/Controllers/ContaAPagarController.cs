@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var contasAPagars = await _unitOfWork.ContasAPagar.GetAllAsync();
+            var contasAPagars = await _unitOfWork.ContasAPagar.GetAllWithTipoContaAsync();
             List<ContaAPagarResource> contasAPagarResource = new List<ContaAPagarResource>();
 
             if (contasAPagars == null)
@@ -43,7 +43,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
 
-            var contasAPagar = await _unitOfWork.ContasAPagar.GetByIdAsync(id);
+            var contasAPagar = await _unitOfWork.ContasAPagar.GetByIdWithTipoContaAsync(id);
             if (contasAPagar == null)
             {
                 return NotFound();

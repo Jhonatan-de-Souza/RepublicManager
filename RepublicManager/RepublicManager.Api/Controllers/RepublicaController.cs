@@ -26,7 +26,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var republicas = await _unitOfWork.Republicas.GetRepublicaWithRegras();
+            var republicas = await _unitOfWork.Republicas.GetRepublicaWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync();
             List<RepublicaResource> repbiblicaResource = new List<RepublicaResource>();
 
             if (republicas == null)
@@ -48,7 +48,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
+            var republica = await _unitOfWork.Republicas.GetByIdWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync(id);
             if (republica.IsAtivo == true)
             {
                 return Ok(RepublicaMapper.ModelToResource(republica));
