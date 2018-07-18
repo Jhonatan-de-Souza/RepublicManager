@@ -28,12 +28,14 @@ namespace RepublicManager.Tests
             _republicaController = new RepublicaController(mockUoW.Object);
 
 
-            List<Republica> republicas = new List<Republica>();
-            republicas.Add(new  Republica()
+            List<Republica> republicas = new List<Republica>
             {
-                Nome = "Nome Teste",
-                Vagas = 3
-            });
+                new Republica()
+                {
+                    Nome = "Nome Teste",
+                    Vagas = 3
+                }
+            };
 
             mockRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(republicas);            
 
@@ -45,14 +47,7 @@ namespace RepublicManager.Tests
 
             // Act
             var result = await _republicaController.GetAll();
-            result.Should().BeOfType<OkObjectResult>();
-
-           /* var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var republicas = okResult.Value.Should().BeAssignableTo<List<RepublicaResource>>().Subject;
-
-
-            republicas.Count().Should().Be(0);*/
-
+            result.Should().BeOfType<OkObjectResult>();         
         }
 
 
@@ -60,15 +55,21 @@ namespace RepublicManager.Tests
         public async Task Values_GetAll_N_Results()
         {
 
+            var novo = new Republica
+            {
+                Id = 1,
+                Nome = "Nome Teste",
+                Vagas = 3
+            };
+
             // Act
-            var result = await _republicaController.GetAll();
-           
+            var result = await _republicaController.Create(RepublicaMapper.ModelToResource(novo));
 
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var republicas = okResult.Value.Should().BeAssignableTo<List<RepublicaResource>>().Subject;
+            var republicas = okResult.Value.Should().BeAssignableTo<RepublicaResource>().Subject;
 
 
-            republicas.Count().Should().Be(0);
+            republicas.Nome.Should().Be("Nome Teste");
 
         }
 
