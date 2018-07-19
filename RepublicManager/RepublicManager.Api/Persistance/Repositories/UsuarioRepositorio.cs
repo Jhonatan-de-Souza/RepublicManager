@@ -15,9 +15,16 @@ namespace RepublicManager.Api.Persistance.Repositories
             _republicManagerContext = republicManagerContext;
         }
 
-        public async Task<IEnumerable<Usuario>> GetallTEste()
+        public async Task<IEnumerable<Usuario>> GetAllUsuarioWithAllInformation()
         {
-            return await _republicManagerContext.Usuario.Include(x => x.Conta).ThenInclude(x => x.ContasAPagar).ThenInclude(x => x.TipoConta).ToListAsync();
+            return await _republicManagerContext.Usuario
+                .Include(x => x.Conta)
+                    .ThenInclude(x => x.ContasAPagar)
+                        .ThenInclude(x => x.TipoConta)
+                .Include(x => x.Conta)
+                    .ThenInclude(x => x.ContasAReceber)
+                        .ThenInclude(x => x.TipoConta)
+                .ToListAsync();
         }
     }
 }

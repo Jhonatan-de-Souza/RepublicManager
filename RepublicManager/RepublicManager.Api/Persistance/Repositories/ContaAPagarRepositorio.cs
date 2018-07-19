@@ -17,14 +17,17 @@ namespace RepublicManager.Api.Persistance.Repositories
 
         public async Task<IEnumerable<ContaAPagar>> GetAllWithTipoContaAsync()
         {
-            return await _republicManagerContext.ContasAPagar.Include(x => x.TipoConta).ToListAsync();
+            return await _republicManagerContext.ContasAPagar
+                .Include(x => x.TipoConta)
+                .ToListAsync();
         }
 
         public async Task<ContaAPagar> GetByIdWithTipoContaAsync(int id)
         {
             return await _republicManagerContext.ContasAPagar
                 .Where(x => x.Id == id)
-                .Include(x => x.TipoConta).FirstOrDefaultAsync();
+                .Include(x => x.TipoConta)
+                .FirstOrDefaultAsync();
         }
     }
 }

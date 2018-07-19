@@ -18,14 +18,23 @@ namespace RepublicManager.Api.Persistance.Repositories
 
         public async Task<IEnumerable<Conta>> GetAllContaWithPagarEReceberEUsuario()
         {
-            return await _republicManagerContext.Contas.Include(x => x.ContasAPagar).Include(x => x.ContasAReceber).Include(x => x.Usuario)
+            return await _republicManagerContext.Contas
+                .Include(x => x.ContasAPagar)                
+                        .ThenInclude(x => x.TipoConta)
+                .Include(x => x.ContasAReceber)
+                    .ThenInclude(x => x.TipoConta)
                 .ToListAsync();
         }
 
         public async Task<Conta> GetByIdContaWithPagarEReceber(int id)
         {
-            return await _republicManagerContext.Contas.Where(x => x.Id == id).Include(x => x.ContasAPagar)
-                .Include(x => x.ContasAReceber).FirstOrDefaultAsync();
+            return await _republicManagerContext.Contas
+                .Where(x => x.Id == id)
+                 .Include(x => x.ContasAPagar)
+                        .ThenInclude(x => x.TipoConta)
+                .Include(x => x.ContasAReceber)
+                    .ThenInclude(x => x.TipoConta)
+                .FirstOrDefaultAsync();
         }
     }
 }
