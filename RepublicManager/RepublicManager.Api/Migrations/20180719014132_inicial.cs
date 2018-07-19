@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
+using System.Collections.Generic;
 
 namespace RepublicManager.Api.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,13 +13,13 @@ namespace RepublicManager.Api.Migrations
                 name: "Republica",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    Nome = table.Column<string>(maxLength: 100),
-                    Vagas = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    Nome = table.Column<string>(maxLength: 100, nullable: false),
+                    Vagas = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,12 +30,12 @@ namespace RepublicManager.Api.Migrations
                 name: "Tarefa",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
                     Descricao = table.Column<string>(maxLength: 150, nullable: true),
-                    IsAtivo = table.Column<bool>()
+                    IsAtivo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,12 +46,12 @@ namespace RepublicManager.Api.Migrations
                 name: "TipoContas",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
                     Descricao = table.Column<string>(nullable: true),
-                    IsAtivo = table.Column<bool>()
+                    IsAtivo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,14 +62,14 @@ namespace RepublicManager.Api.Migrations
                 name: "Aviso",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataAviso = table.Column<DateTime>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    Descricao = table.Column<string>(maxLength: 250),
-                    IsAtivo = table.Column<bool>(),
-                    RepublicaId = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataAviso = table.Column<DateTime>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    Descricao = table.Column<string>(maxLength: 250, nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    RepublicaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,19 +78,20 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_Aviso_Republica_RepublicaId",
                         column: x => x.RepublicaId,
                         principalTable: "Republica",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CarrinhoDeCompra",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    RepublicaId = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    RepublicaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,20 +100,21 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_CarrinhoDeCompra_Republica_RepublicaId",
                         column: x => x.RepublicaId,
                         principalTable: "Republica",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Regras",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    Descricao = table.Column<string>(maxLength: 250),
-                    IsAtivo = table.Column<bool>(),
-                    RepublicaId = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    Descricao = table.Column<string>(maxLength: 250, nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    RepublicaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,23 +123,24 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_Regras_Republica_RepublicaId",
                         column: x => x.RepublicaId,
                         principalTable: "Republica",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Usuario",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContaId = table.Column<int>(),
-                    CriadoPor = table.Column<int>(),
-                    DataFinalContrato = table.Column<DateTime>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    Login = table.Column<string>(),
-                    RepublicaId = table.Column<int>(),
-                    Senha = table.Column<string>()
+                    ContaId = table.Column<int>(nullable: true),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataFinalContrato = table.Column<DateTime>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    Login = table.Column<string>(nullable: false),
+                    RepublicaId = table.Column<int>(nullable: true),
+                    Senha = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,22 +149,23 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_Usuario_Republica_RepublicaId",
                         column: x => x.RepublicaId,
                         principalTable: "Republica",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Produto",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CarrinhoDeCompraId = table.Column<int>(),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    Descricao = table.Column<string>(maxLength: 250),
-                    IsAtivo = table.Column<bool>(),
-                    UsuarioId = table.Column<int>(),
-                    Valor = table.Column<decimal>(type: "decimal(18, 2)")
+                    CarrinhoDeCompraId = table.Column<int>(nullable: false),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    Descricao = table.Column<string>(maxLength: 250, nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,19 +174,20 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_Produto_CarrinhoDeCompra_CarrinhoDeCompraId",
                         column: x => x.CarrinhoDeCompraId,
                         principalTable: "CarrinhoDeCompra",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Contas",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    UsuarioId = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,25 +196,26 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_Contas_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuario",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "TarefasUsuario",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ComentarioAvaliacao = table.Column<string>(maxLength: 250, nullable: true),
-                    CriadoPor = table.Column<int>(),
-                    DataDaTarefa = table.Column<DateTime>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    IsCompleted = table.Column<bool>(),
-                    NotaAvaliacao = table.Column<int>(),
-                    PrevisaoDeConclusao = table.Column<DateTime>(),
-                    TarefaId = table.Column<int>(),
-                    UsuarioId = table.Column<int>()
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataDaTarefa = table.Column<DateTime>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    NotaAvaliacao = table.Column<int>(nullable: false),
+                    PrevisaoDeConclusao = table.Column<DateTime>(nullable: false),
+                    TarefaId = table.Column<int>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,26 +224,28 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_TarefasUsuario_Tarefa_TarefaId",
                         column: x => x.TarefaId,
                         principalTable: "Tarefa",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_TarefasUsuario_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuario",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ContasAPagar",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContaId = table.Column<int>(),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    TipoContaId = table.Column<int>(),
-                    Valor = table.Column<decimal>()
+                    ContaId = table.Column<int>(nullable: false),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    TipoContaId = table.Column<int>(nullable: false),
+                    Valor = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,26 +254,28 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_ContasAPagar_Contas_ContaId",
                         column: x => x.ContaId,
                         principalTable: "Contas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_ContasAPagar_TipoContas_TipoContaId",
                         column: x => x.TipoContaId,
                         principalTable: "TipoContas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ContasAReceber",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContaId = table.Column<int>(),
-                    CriadoPor = table.Column<int>(),
-                    DataRegistro = table.Column<DateTime>(),
-                    IsAtivo = table.Column<bool>(),
-                    TipoContaId = table.Column<int>(),
-                    Valor = table.Column<decimal>()
+                    ContaId = table.Column<int>(nullable: false),
+                    CriadoPor = table.Column<int>(nullable: false),
+                    DataRegistro = table.Column<DateTime>(nullable: false),
+                    IsAtivo = table.Column<bool>(nullable: false),
+                    TipoContaId = table.Column<int>(nullable: false),
+                    Valor = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -273,12 +284,14 @@ namespace RepublicManager.Api.Migrations
                         name: "FK_ContasAReceber_Contas_ContaId",
                         column: x => x.ContaId,
                         principalTable: "Contas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_ContasAReceber_TipoContas_TipoContaId",
                         column: x => x.TipoContaId,
                         principalTable: "TipoContas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

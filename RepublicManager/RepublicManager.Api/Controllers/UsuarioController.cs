@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var usuarios = await _unitOfWork.Usuarios.GetAllAsync();
+            var usuarios = await _unitOfWork.Usuarios.GetallTEste();
             List<UsuarioResource> usuarioResource = new List<UsuarioResource>();
 
             if (usuarios == null)

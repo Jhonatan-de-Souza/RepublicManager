@@ -10,7 +10,6 @@ namespace RepublicManager.Api.Core.Resources
         public int TipoContaId { get; set; }
         public virtual TipoContaResource TipoConta { get; set; }
         public int ContaId { get; set; }
-        public virtual ContaResource Conta { get; set; }
         }
 
 
@@ -25,7 +24,6 @@ namespace RepublicManager.Api.Core.Resources
                 TipoContaId = contaAReceber.TipoContaId,
                 TipoConta = TipoContaMapper.ModelToResource(contaAReceber.TipoConta),
                 ContaId = contaAReceber.ContaId,
-                Conta = ContaMapper.ModelToResource(contaAReceber.Conta),
 
                 Id = contaAReceber.Id,
                 IsAtivo = contaAReceber.IsAtivo,

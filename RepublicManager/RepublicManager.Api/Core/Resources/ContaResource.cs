@@ -9,7 +9,6 @@ namespace RepublicManager.Api.Core.Resources
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public UsuarioResource Usuario { get; set; }
         public IEnumerable<ContaAPagarResource> ContasAPagar { get; set; }
         public IEnumerable<ContaAReceberResource> ContasAReceber { get; set; }
 
@@ -22,9 +21,8 @@ namespace RepublicManager.Api.Core.Resources
             var contaResource = new ContaResource()
             {
                 UsuarioId = conta.UsuarioId,
-                ContasAPagar = conta.ContasAPagar.Select(ContaAPagarMapper.ModelToResource),
-                ContasAReceber = conta.ContasAReceber.Select(ContaAReceberMapper.ModelToResource),
-                Usuario = UsuarioMapper.ModelToResource(conta.Usuario),
+                ContasAPagar = conta.ContasAPagar == null ? null : conta.ContasAPagar.Select(ContaAPagarMapper.ModelToResource) ,
+                ContasAReceber = conta.ContasAReceber == null ? null : conta.ContasAReceber.Select(ContaAReceberMapper.ModelToResource),
 
                 Id = conta.Id,
                 IsAtivo = conta.IsAtivo,

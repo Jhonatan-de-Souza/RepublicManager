@@ -27,8 +27,8 @@ namespace RepublicManager.Api.Persistance.Configuration
 
 
             builder.HasMany(x => x.Usuarios)
-                .WithOne(x => x.Republica).HasForeignKey(x => x.RepublicaId)
-                .IsRequired();
+                .WithOne(x => x.Republica).HasForeignKey(x => x.RepublicaId);
+                
 
 
             builder.HasMany(x => x.CarrinhosDeCompra)

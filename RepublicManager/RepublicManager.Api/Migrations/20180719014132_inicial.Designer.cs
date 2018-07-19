@@ -11,8 +11,8 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    [Migration("20180717003137_Inicial")]
-    partial class Inicial
+    [Migration("20180719014132_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -294,7 +294,7 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ContaId");
+                    b.Property<int?>("ContaId");
 
                     b.Property<int>("CriadoPor");
 
@@ -307,7 +307,7 @@ namespace RepublicManager.Api.Migrations
                     b.Property<string>("Login")
                         .IsRequired();
 
-                    b.Property<int>("RepublicaId");
+                    b.Property<int?>("RepublicaId");
 
                     b.Property<string>("Senha")
                         .IsRequired();

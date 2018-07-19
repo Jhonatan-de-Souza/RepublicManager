@@ -293,7 +293,7 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ContaId");
+                    b.Property<int?>("ContaId");
 
                     b.Property<int>("CriadoPor");
 
@@ -306,7 +306,7 @@ namespace RepublicManager.Api.Migrations
                     b.Property<string>("Login")
                         .IsRequired();
 
-                    b.Property<int>("RepublicaId");
+                    b.Property<int?>("RepublicaId");
 
                     b.Property<string>("Senha")
                         .IsRequired();
