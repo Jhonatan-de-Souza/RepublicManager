@@ -33,7 +33,7 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var usuario in usuarios)
             {
-                if (usuario.IsAtivo == true)
+                if (usuario.IsAtivo)
                 {
                     usuarioResource.Add(UsuarioMapper.ModelToResource(usuario));
                 }
@@ -46,14 +46,12 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var usuario = await _unitOfWork.Usuarios.GetByIdUsuarioWithAllInformation(id);
-            if (usuario.IsAtivo == true)
+            if (usuario.IsAtivo)
             {
                 return Ok(UsuarioMapper.ModelToResource(usuario));
             }
-            else
-            {
-                return NoContent();
-            }
+
+            return NoContent();
         }
 
         //POST: api/Usuario
