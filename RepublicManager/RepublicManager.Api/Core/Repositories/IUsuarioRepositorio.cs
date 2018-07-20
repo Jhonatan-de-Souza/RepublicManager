@@ -7,7 +7,8 @@ namespace RepublicManager.Api.Core.Repositories
     public interface IUsuarioRepositorio : IRepositorioBase<Usuario>
     {
 
-        Task<IEnumerable<Usuario>> GetallTEste();
+        Task<IEnumerable<Usuario>> GetAllUsuarioWithAllInformation();
+        Task<Usuario> GetByIdUsuarioWithAllInformation(int id);
     }
 
 

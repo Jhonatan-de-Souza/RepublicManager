@@ -23,6 +23,7 @@ namespace RepublicManager.Api.Persistance.Repositories
                         .ThenInclude(x => x.TipoConta)
                 .Include(x => x.ContasAReceber)
                     .ThenInclude(x => x.TipoConta)
+                .OrderBy(x => x.Id)
                 .ToListAsync();
         }
 

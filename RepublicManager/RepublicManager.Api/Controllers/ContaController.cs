@@ -83,6 +83,13 @@ namespace RepublicManager.Api.Controllers
                 _unitOfWork.Contas.Add(conta);
                 await _unitOfWork.CompleteAsync();
 
+                Usuario u = await _unitOfWork.Usuarios.GetByIdAsync(conta.UsuarioId);
+                u.ContaId = conta.Id;
+                _unitOfWork.Usuarios.Update(u);
+                await _unitOfWork.CompleteAsync();
+
+                ContaMapper.ModelToResource(conta);
+                
                 return Ok(conta);
             }
             catch (Exception exception)

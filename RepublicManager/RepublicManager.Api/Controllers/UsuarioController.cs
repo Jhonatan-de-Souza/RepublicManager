@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var usuarios = await _unitOfWork.Usuarios.GetallTEste();
+            var usuarios = await _unitOfWork.Usuarios.GetAllUsuarioWithAllInformation();
             List<UsuarioResource> usuarioResource = new List<UsuarioResource>();
 
             if (usuarios == null)
@@ -45,7 +45,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
+            var usuario = await _unitOfWork.Usuarios.GetByIdUsuarioWithAllInformation(id);
             if (usuario.IsAtivo == true)
             {
                 return Ok(UsuarioMapper.ModelToResource(usuario));
@@ -70,10 +70,10 @@ namespace RepublicManager.Api.Controllers
                 if (ModelState.IsValid)
                     usuario = UsuarioMapper.ResourceToModel(usuarioResource, usuario);
 
-
                 _unitOfWork.Usuarios.Add(usuario);
-                
                 await _unitOfWork.CompleteAsync();
+
+                UsuarioMapper.ModelToResource(usuario);
 
                 return Ok(usuario);
             }
