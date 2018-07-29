@@ -88,6 +88,7 @@ namespace RepublicManager.Api.Controllers
                 {
                     contaAReceber = ContaAReceberMapper.ResourceToModel(contaAReceberResource, contaAReceber);
                     await _unitOfWork.CompleteAsync();
+                    contaAReceber.TipoConta = await _unitOfWork.TipoContas.GetByIdAsync(contaAReceber.TipoContaId);
                     ContaAReceberMapper.ModelToResource(contaAReceber);
                 }
                 return Ok(contaAReceber);
