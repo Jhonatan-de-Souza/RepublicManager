@@ -17,7 +17,9 @@ namespace RepublicManager.Api.Persistance.Repositories
 
         public async Task<IEnumerable<TarefaUsuario>> GetAllWithTarefaEUsuarioAsync()
         {
-            return await _republicManagerContext.TarefasUsuario.Include(x => x.Tarefa).Include(x => x.Usuario).ToListAsync();
+            return await _republicManagerContext.TarefasUsuario
+                .Include(x => x.Tarefa)
+                .Include(x => x.Usuario).ToListAsync();
         }
 
         public async Task<TarefaUsuario> GetByIdWithTarefaEUsuarioAsync(int id,int id2)

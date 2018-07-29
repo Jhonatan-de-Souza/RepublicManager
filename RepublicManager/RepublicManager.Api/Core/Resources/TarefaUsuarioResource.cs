@@ -6,7 +6,7 @@ namespace RepublicManager.Api.Core.Resources
     public class TarefaUsuarioResource : Base
     {
 
-        public int Id { get; set; }
+        
         public int UsuarioId { get; set; }
         public virtual UsuarioResource Usuario { get; set; }
         public int TarefaId { get; set; }
@@ -22,7 +22,7 @@ namespace RepublicManager.Api.Core.Resources
     {
         public static TarefaUsuarioResource ModelToResource(TarefaUsuario tarefaUsuario)
         {
-            var tarefaUsuarioResource = new TarefaUsuarioResource()
+            var tarefaUsuarioResource = new TarefaUsuarioResource
             {
                 UsuarioId = tarefaUsuario.UsuarioId,
                 Usuario = UsuarioMapper.ModelToResource(tarefaUsuario.Usuario),
@@ -35,7 +35,7 @@ namespace RepublicManager.Api.Core.Resources
                 DataDaTarefa = tarefaUsuario.DataDaTarefa,
                 PrevisaoDeConclusao = tarefaUsuario.PrevisaoDeConclusao,
 
-                //Id = tarefaUsuario.Id,
+
                 IsAtivo = tarefaUsuario.IsAtivo,
                 CriadoPor = tarefaUsuario.CriadoPor,
                 DataRegistro = tarefaUsuario.DataRegistro
@@ -59,7 +59,7 @@ namespace RepublicManager.Api.Core.Resources
             //tarefaUsuario.Id = tarefaUsuarioResource.Id;
             tarefaUsuario.IsAtivo = tarefaUsuarioResource.IsAtivo;
             tarefaUsuario.CriadoPor = tarefaUsuarioResource.CriadoPor;
-            tarefaUsuario.DataRegistro = (tarefaUsuarioResource.Id > 0) ? tarefaUsuario.DataRegistro : DateTime.Now;
+            tarefaUsuario.DataRegistro = (tarefaUsuarioResource.UsuarioId > 0) ? tarefaUsuario.DataRegistro : DateTime.Now;
 
             return tarefaUsuario;
         }
