@@ -235,8 +235,9 @@ namespace RepublicManager.Api.Migrations
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.TarefaUsuario", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("UsuarioId");
+
+                    b.Property<int>("TarefaId");
 
                     b.Property<string>("ComentarioAvaliacao")
                         .HasMaxLength(250);
@@ -255,17 +256,9 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<DateTime>("PrevisaoDeConclusao");
 
-                    b.Property<int>("TarefaId");
+                    b.HasKey("UsuarioId", "TarefaId");
 
-                    b.Property<int>("UsuarioId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TarefaId")
-                        .IsUnique();
-
-                    b.HasIndex("UsuarioId")
-                        .IsUnique();
+                    b.HasIndex("TarefaId");
 
                     b.ToTable("TarefasUsuario");
                 });
@@ -387,13 +380,13 @@ namespace RepublicManager.Api.Migrations
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.TarefaUsuario", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.Tarefa", "Tarefa")
-                        .WithOne()
-                        .HasForeignKey("RepublicManager.Api.Core.Domain.TarefaUsuario", "TarefaId")
+                        .WithMany("TarefaUsuarios")
+                        .HasForeignKey("TarefaId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
-                        .WithOne()
-                        .HasForeignKey("RepublicManager.Api.Core.Domain.TarefaUsuario", "UsuarioId")
+                        .WithMany("TarefaUsuarios")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RepublicManager.Api.Core.Domain;
 
@@ -9,11 +10,12 @@ namespace RepublicManager.Api.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<TarefaUsuario> builder)
         {
-            builder.HasKey(tarefaUsuario => tarefaUsuario.Id);
-            builder.Property(tarefaUsuario => tarefaUsuario.Id).ValueGeneratedOnAdd();
+            //chave composta
+            builder.HasKey(tarefaUsuario => new {tarefaUsuario.UsuarioId,tarefaUsuario.TarefaId});
 
-            builder.Property(tarefaUsuario => tarefaUsuario.UsuarioId)
-                .IsRequired();
+            //builder.Property(tarefaUsuario => tarefaUsuario.Id).ValueGeneratedOnAdd();
+
+            builder.Property(tarefaUsuario => tarefaUsuario.UsuarioId).IsRequired();
             builder.Property(tarefaUsuario => tarefaUsuario.TarefaId).IsRequired();
 
             builder.Property(tarefaUsuario => tarefaUsuario.ComentarioAvaliacao).HasMaxLength(250);
@@ -22,11 +24,13 @@ namespace RepublicManager.Api.Persistance.Configuration
 
             //nao sei se ta certo
             builder.HasOne(x => x.Tarefa)
-                .WithOne()
+                .WithMany(x => x.TarefaUsuarios)
+                .HasForeignKey(x => x.TarefaId)
                 .IsRequired();
 
             builder.HasOne(x => x.Usuario)
-                .WithOne()
+                .WithMany(x => x.TarefaUsuarios)
+                .HasForeignKey(x => x.UsuarioId)
                 .IsRequired();
 
         }

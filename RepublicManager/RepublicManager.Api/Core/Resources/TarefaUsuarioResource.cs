@@ -8,14 +8,14 @@ namespace RepublicManager.Api.Core.Resources
 
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public UsuarioResource Usuario { get; set; }
+        public virtual UsuarioResource Usuario { get; set; }
         public int TarefaId { get; set; }
-        public TarefaResource Tarefa { get; set; }
+        public virtual TarefaResource Tarefa { get; set; }
         public int NotaAvaliacao { get; set; }
         public string ComentarioAvaliacao { get; set; }
         public bool IsCompleted { get; set; }
         public DateTime DataDaTarefa { get; set; }
-        public DateTime DataFimDaTarefa { get; set; }
+        public DateTime PrevisaoDeConclusao { get; set; }
     }
 
     public static class TarefaUsuarioMapper
@@ -33,9 +33,9 @@ namespace RepublicManager.Api.Core.Resources
                 ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao,
                 IsCompleted = tarefaUsuario.IsCompleted,
                 DataDaTarefa = tarefaUsuario.DataDaTarefa,
-                DataFimDaTarefa = tarefaUsuario.PrevisaoDeConclusao,
+                PrevisaoDeConclusao = tarefaUsuario.PrevisaoDeConclusao,
 
-                Id = tarefaUsuario.Id,
+                //Id = tarefaUsuario.Id,
                 IsAtivo = tarefaUsuario.IsAtivo,
                 CriadoPor = tarefaUsuario.CriadoPor,
                 DataRegistro = tarefaUsuario.DataRegistro
@@ -47,16 +47,16 @@ namespace RepublicManager.Api.Core.Resources
             TarefaUsuario tarefaUsuario)
         {
 
-            tarefaUsuario.UsuarioId = tarefaUsuario.UsuarioId;
-            tarefaUsuario.TarefaId = tarefaUsuario.TarefaId;
+            tarefaUsuario.UsuarioId = tarefaUsuarioResource.UsuarioId;
+            tarefaUsuario.TarefaId = tarefaUsuarioResource.TarefaId;
+           
+            tarefaUsuario.NotaAvaliacao = tarefaUsuarioResource.NotaAvaliacao;
+            tarefaUsuario.ComentarioAvaliacao = tarefaUsuarioResource.ComentarioAvaliacao;
+            tarefaUsuario.IsCompleted = tarefaUsuarioResource.IsCompleted;
+            tarefaUsuario.DataDaTarefa = tarefaUsuarioResource.DataDaTarefa;
+            tarefaUsuario.PrevisaoDeConclusao = tarefaUsuarioResource.PrevisaoDeConclusao;
 
-            tarefaUsuario.NotaAvaliacao = tarefaUsuario.NotaAvaliacao;
-            tarefaUsuario.ComentarioAvaliacao = tarefaUsuario.ComentarioAvaliacao;
-            tarefaUsuario.IsCompleted = tarefaUsuario.IsCompleted;
-            tarefaUsuario.DataDaTarefa = tarefaUsuario.DataDaTarefa;
-            tarefaUsuario.PrevisaoDeConclusao = tarefaUsuario.PrevisaoDeConclusao;
-
-            tarefaUsuario.Id = tarefaUsuarioResource.Id;
+            //tarefaUsuario.Id = tarefaUsuarioResource.Id;
             tarefaUsuario.IsAtivo = tarefaUsuarioResource.IsAtivo;
             tarefaUsuario.CriadoPor = tarefaUsuarioResource.CriadoPor;
             tarefaUsuario.DataRegistro = (tarefaUsuarioResource.Id > 0) ? tarefaUsuario.DataRegistro : DateTime.Now;

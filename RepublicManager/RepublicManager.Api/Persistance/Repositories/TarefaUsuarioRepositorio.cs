@@ -20,10 +20,10 @@ namespace RepublicManager.Api.Persistance.Repositories
             return await _republicManagerContext.TarefasUsuario.Include(x => x.Tarefa).Include(x => x.Usuario).ToListAsync();
         }
 
-        public async Task<TarefaUsuario> GetByIdWithTarefaEUsuarioAsync(int id)
+        public async Task<TarefaUsuario> GetByIdWithTarefaEUsuarioAsync(int id,int id2)
         {
             return await _republicManagerContext.TarefasUsuario
-                .Where(x => x.Id == id)
+                .Where(x => x.TarefaId == id && x.UsuarioId == id2)
                 .Include(x => x.Tarefa).Include(x => x.Usuario).FirstOrDefaultAsync();
         }
     }

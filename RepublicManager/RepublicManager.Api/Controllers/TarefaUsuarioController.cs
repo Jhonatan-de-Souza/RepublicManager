@@ -42,7 +42,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdWithTarefaEUsuarioAsync(id);
+            var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdWithTarefaEUsuarioAsync(id,id);
             return Ok(TarefaUsuarioMapper.ModelToResource(tarefaUsuario));
         }
 
@@ -58,10 +58,13 @@ namespace RepublicManager.Api.Controllers
             {
                 var tarefaUsuario = new TarefaUsuario();
                 if (ModelState.IsValid)
-                    tarefaUsuario = TarefaUsuarioMapper.ResourceToModel(tarefaUsuarioResource, tarefaUsuario);
+
+                tarefaUsuario = TarefaUsuarioMapper.ResourceToModel(tarefaUsuarioResource, tarefaUsuario);
+                
                 _unitOfWork.TarefasUsuario.Add(tarefaUsuario);
                 await _unitOfWork.CompleteAsync();
 
+                TarefaUsuarioMapper.ModelToResource(tarefaUsuario);
                 return Ok(tarefaUsuario);
             }
             catch (Exception exception)

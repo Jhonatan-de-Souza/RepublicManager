@@ -44,6 +44,7 @@ namespace RepublicManager.Api.Persistance
             ContasAPagar = new ContaAPagarRepositorio(_context);
             ContasAReceber = new ContaAReceberRepositorio(_context);
             TipoContas = new TipoContaRepositorio(_context);
+            TarefasUsuario = new TarefaUsuarioRepositorio(_context);
 
 
         }

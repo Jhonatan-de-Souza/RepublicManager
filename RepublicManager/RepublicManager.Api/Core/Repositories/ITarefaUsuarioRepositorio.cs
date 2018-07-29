@@ -7,6 +7,6 @@ namespace RepublicManager.Api.Core.Repositories
     public interface ITarefaUsuarioRepositorio : IRepositorioBase<TarefaUsuario>
     {
         Task<IEnumerable<TarefaUsuario>> GetAllWithTarefaEUsuarioAsync();
-        Task<TarefaUsuario> GetByIdWithTarefaEUsuarioAsync(int id);
+        Task<TarefaUsuario> GetByIdWithTarefaEUsuarioAsync(int id, int id2);
     }
 }

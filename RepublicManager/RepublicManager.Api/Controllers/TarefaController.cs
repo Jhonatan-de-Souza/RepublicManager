@@ -62,6 +62,7 @@ namespace RepublicManager.Api.Controllers
                 _unitOfWork.Tarefas.Add(tarefa);
                 await _unitOfWork.CompleteAsync();
 
+                TarefaMapper.ModelToResource(tarefa);
                 return Ok(tarefa);
             }
             catch (Exception exception)
