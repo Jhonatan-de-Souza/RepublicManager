@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
@@ -9,6 +10,7 @@ using RepublicManager.Api.Helpers;
 
 namespace RepublicManager.Api.Controllers
 {
+    [EnableCors("SiteCorsPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class UsuarioController : Controller
