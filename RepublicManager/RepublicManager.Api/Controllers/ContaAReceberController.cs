@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var contaARecebers = await _unitOfWork.ContasAReceber.GetAllAsync();
+            var contaARecebers = await _unitOfWork.ContasAReceber.GetAllWithTipoContaAsync();
             List<ContaAReceberResource> contaAReceberResource = new List<ContaAReceberResource>();
 
             if (contaARecebers == null)
@@ -43,7 +43,7 @@ namespace RepublicManager.Api.Controllers
         public async Task<IActionResult> Get(int id)
         {
 
-            var contaAReceber = await _unitOfWork.ContasAReceber.GetByIdAsync(id);
+            var contaAReceber = await _unitOfWork.ContasAReceber.GetByIdWithTipoContaAsync(id);
             if (contaAReceber == null)
             {
                 return NotFound();
@@ -88,6 +88,7 @@ namespace RepublicManager.Api.Controllers
                 {
                     contaAReceber = ContaAReceberMapper.ResourceToModel(contaAReceberResource, contaAReceber);
                     await _unitOfWork.CompleteAsync();
+                    contaAReceber.TipoConta = await _unitOfWork.TipoContas.GetByIdAsync(contaAReceber.TipoContaId);
                     ContaAReceberMapper.ModelToResource(contaAReceber);
                 }
                 return Ok(contaAReceber);

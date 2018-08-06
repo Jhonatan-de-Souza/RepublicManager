@@ -2,24 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using RepublicManager.Api.Core.Domain;
+using RepublicManager.Api.Persistance.Repositories;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class ContaResource
+    public class ContaResource : Base
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public UsuarioResource Usuario { get; set; }
+       
         public IEnumerable<ContaAPagarResource> ContasAPagar { get; set; }
         public IEnumerable<ContaAReceberResource> ContasAReceber { get; set; }
 
-        public ContaResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
     }
 
     public static class ContaMapper
@@ -29,25 +23,23 @@ namespace RepublicManager.Api.Core.Resources
             var contaResource = new ContaResource()
             {
                 UsuarioId = conta.UsuarioId,
-                ContasAPagar = conta.ContasAPagar.Select(ContaAPagarMapper.ModelToResource),
-                ContasAReceber = conta.ContasAReceber.Select(ContaAReceberMapper.ModelToResource),
+                ContasAPagar = conta.ContasAPagar == null ? null : conta.ContasAPagar.Select(ContaAPagarMapper.ModelToResource) ,
+                ContasAReceber = conta.ContasAReceber == null ? null : conta.ContasAReceber.Select(ContaAReceberMapper.ModelToResource),
 
                 Id = conta.Id,
-                isAtivo = conta.IsAtivo,
+                IsAtivo = conta.IsAtivo,
                 CriadoPor = conta.CriadoPor,
                 DataRegistro = conta.DataRegistro
             };
             return contaResource;
         }
+
         public static Conta ResourceToModel(ContaResource contaResource, Conta conta)
         {
 
-            conta.UsuarioId = contaResource.UsuarioId;
-            //conta.ContasAPagar = contaResource.ContasAPagar.Select(c => c.ContaAPagarResourceToContaAPagar());
-            //conta.ContasAReceber = contaResource.ContasAReceber.Select(c => c.ContaAReceberResourceToContaAReceber());
-
-            conta.Id = contaResource.Id;
-            conta.IsAtivo = contaResource.isAtivo;
+            conta.UsuarioId = contaResource.UsuarioId > 0 ? contaResource.UsuarioId : conta.UsuarioId;
+            conta.Id = contaResource.Id > 0 ? contaResource.Id : conta.Id;
+            conta.IsAtivo = contaResource.IsAtivo;
             conta.CriadoPor = contaResource.CriadoPor;
             conta.DataRegistro = contaResource.DataRegistro;
 
@@ -56,20 +48,4 @@ namespace RepublicManager.Api.Core.Resources
 
     }
 
-
-    public static class ContaAPagarExtensions
-    {
-        public static ContaAPagar ContaAPagarResourceToContaAPagar(this ContaAPagarResource contaAPagarResoure)
-        {
-            return new ContaAPagar();
-        }
-    }
-
-    public static class ContaAReceberExtensions
-    {
-        public static ContaAReceber ContaAReceberResourceToContaAReceber(this ContaAReceberResource contaAReceberResoure)
-        {
-            return new ContaAReceber();
-        }
-    }
 }

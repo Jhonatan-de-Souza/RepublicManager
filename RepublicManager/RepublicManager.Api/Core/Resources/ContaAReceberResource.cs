@@ -3,24 +3,14 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class ContaAReceberResource
+    public class ContaAReceberResource :Base
     {
         public int Id { get; set; }
         public decimal Valor { get; set; }
-        public int UsuarioId { get; set; }
-        public UsuarioResource Usuario { get; set; }
         public int TipoContaId { get; set; }
-        public TipoContaResource TipoConta { get; set; }
+        public virtual TipoContaResource TipoConta { get; set; }
         public int ContaId { get; set; }
-        public virtual ContaResource Conta { get; set; }
-        public ContaAReceberResource()
-        {
-            isAtivo = true;
         }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
-    }
 
 
 
@@ -31,12 +21,12 @@ namespace RepublicManager.Api.Core.Resources
             var contaAReceberResource = new ContaAReceberResource()
             {
                 Valor = contaAReceber.Valor,
-                UsuarioId = contaAReceber.UsuarioId,
                 TipoContaId = contaAReceber.TipoContaId,
+                TipoConta = TipoContaMapper.ModelToResource(contaAReceber.TipoConta),
                 ContaId = contaAReceber.ContaId,
 
                 Id = contaAReceber.Id,
-                isAtivo = contaAReceber.IsAtivo,
+                IsAtivo = contaAReceber.IsAtivo,
                 CriadoPor = contaAReceber.CriadoPor,
                 DataRegistro = contaAReceber.DataRegistro
             };
@@ -46,12 +36,11 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             contaAReceber.Valor = contaAReceberResource.Valor;
-            contaAReceber.UsuarioId = contaAReceberResource.UsuarioId;
             contaAReceber.TipoContaId = contaAReceberResource.TipoContaId;
             contaAReceber.ContaId = contaAReceberResource.ContaId;
 
             contaAReceber.Id = contaAReceberResource.Id;
-            contaAReceber.IsAtivo = contaAReceberResource.isAtivo;
+            contaAReceber.IsAtivo = contaAReceberResource.IsAtivo;
             contaAReceber.CriadoPor = contaAReceberResource.CriadoPor;
             contaAReceber.DataRegistro = contaAReceberResource.DataRegistro;
 

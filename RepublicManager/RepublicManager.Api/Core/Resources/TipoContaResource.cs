@@ -3,17 +3,11 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class TipoContaResource
+    public class TipoContaResource : Base
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public TipoContaResource()
-        {
-            isAtivo = true;
-        }
-        public DateTime DataRegistro { get; set; }
-        public bool isAtivo { get; set; }
-        public int CriadoPor { get; set; }
+       
     }
 
 
@@ -27,7 +21,7 @@ namespace RepublicManager.Api.Core.Resources
                 Descricao = tipoConta.Descricao,
 
                 Id = tipoConta.Id,
-                isAtivo = tipoConta.IsAtivo,
+                IsAtivo = tipoConta.IsAtivo,
                 CriadoPor = tipoConta.CriadoPor,
                 DataRegistro = tipoConta.DataRegistro
             };
@@ -39,7 +33,7 @@ namespace RepublicManager.Api.Core.Resources
             tipoConta.Descricao = tipoContaResource.Descricao;
 
             tipoConta.Id = tipoContaResource.Id;
-            tipoConta.IsAtivo = tipoContaResource.isAtivo;
+            tipoConta.IsAtivo = tipoContaResource.IsAtivo;
             tipoConta.CriadoPor = tipoContaResource.CriadoPor;
             tipoConta.DataRegistro = tipoContaResource.DataRegistro;
 

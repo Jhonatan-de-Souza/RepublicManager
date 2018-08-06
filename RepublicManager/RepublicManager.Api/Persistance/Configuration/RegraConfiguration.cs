@@ -10,6 +10,7 @@ namespace RepublicManager.Api.Persistance.Configuration
         {
             //Definindo Primary Key
             builder.HasKey(regra => regra.Id);
+            builder.Property(r => r.Id).ValueGeneratedOnAdd();
             builder.Property(r => r.Descricao)
                 .IsRequired()
                 .HasMaxLength(250);

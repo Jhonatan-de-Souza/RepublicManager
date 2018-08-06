@@ -26,7 +26,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var republicas = await _unitOfWork.Republicas.GetRepublicaWithRegras();
+            var republicas = await _unitOfWork.Republicas.GetRepublicaWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync();
             List<RepublicaResource> repbiblicaResource = new List<RepublicaResource>();
 
             if (republicas == null)
@@ -35,7 +35,7 @@ namespace RepublicManager.Api.Controllers
             }
             foreach (var republica in republicas)
             {
-                if (republica.IsAtivo == true)
+                if (republica.IsAtivo)
                 {
                     repbiblicaResource.Add(RepublicaMapper.ModelToResource(republica));
                 }
@@ -48,15 +48,13 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
-            if (republica.IsAtivo == true)
+            var republica = await _unitOfWork.Republicas.GetByIdWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync(id);
+            if (republica.IsAtivo)
             {
                 return Ok(RepublicaMapper.ModelToResource(republica));
             }
-            else
-            {
-                return NoContent();
-            }
+
+            return NoContent();
         }
 
         //POST: api/produto
@@ -75,6 +73,7 @@ namespace RepublicManager.Api.Controllers
                 _unitOfWork.Republicas.Add(republica);
                 await _unitOfWork.CompleteAsync();
 
+                RepublicaMapper.ModelToResource(republica);
                 return Ok(republica);
             }
             catch (Exception exception)

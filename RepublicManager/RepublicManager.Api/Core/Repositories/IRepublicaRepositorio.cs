@@ -6,6 +6,7 @@ namespace RepublicManager.Api.Core.Repositories
 {
     public interface IRepublicaRepositorio : IRepositorioBase<Republica>
     {
-        Task<IEnumerable<Republica>> GetRepublicaWithRegras();
+        Task<IEnumerable<Republica>> GetRepublicaWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync();
+        Task<Republica> GetByIdWithRegrasEUsuariosEAvisosECarrinhosDeCompraAsync(int id);
     }
 }

@@ -9,6 +9,8 @@ namespace RepublicManager.Api.Persistance.Configuration
         public void Configure(EntityTypeBuilder<TipoConta> builder)
         {
             builder.HasKey(tipoConta => tipoConta.Id);
+            builder.Property(t => t.Id).ValueGeneratedOnAdd();
+
             builder.Property(x => x.Descricao).HasMaxLength(250);
         }
     }

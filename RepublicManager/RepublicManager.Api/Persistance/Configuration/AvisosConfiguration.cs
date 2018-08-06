@@ -11,6 +11,9 @@ namespace RepublicManager.Api.Persistance.Configuration
             builder.ToTable("Aviso");
             //Definindo Primary Key
             builder.HasKey(aviso => aviso.Id);
+            builder.Property(aviso => aviso.Id)
+                .ValueGeneratedOnAdd();
+            
             builder.Property(aviso => aviso.Descricao)
                 .IsRequired()
                 .HasMaxLength(250);

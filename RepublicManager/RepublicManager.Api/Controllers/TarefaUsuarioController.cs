@@ -24,7 +24,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var tarefaUsuarios = await _unitOfWork.TarefasUsuario.GetAllAsync();
+            var tarefaUsuarios = await _unitOfWork.TarefasUsuario.GetAllWithTarefaEUsuarioAsync();
             List<TarefaUsuarioResource> tarefaUsuarioResource = new List<TarefaUsuarioResource>();
 
             if (tarefaUsuarios == null)
@@ -42,7 +42,7 @@ namespace RepublicManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdAsync(id);
+            var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdWithTarefaEUsuarioAsync(id,id);
             return Ok(TarefaUsuarioMapper.ModelToResource(tarefaUsuario));
         }
 
@@ -58,11 +58,17 @@ namespace RepublicManager.Api.Controllers
             {
                 var tarefaUsuario = new TarefaUsuario();
                 if (ModelState.IsValid)
-                    tarefaUsuario = TarefaUsuarioMapper.ResourceToModel(tarefaUsuarioResource, tarefaUsuario);
+
+                tarefaUsuario = TarefaUsuarioMapper.ResourceToModel(tarefaUsuarioResource, tarefaUsuario);
+                
                 _unitOfWork.TarefasUsuario.Add(tarefaUsuario);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(tarefaUsuario);
+                tarefaUsuario.Usuario = await _unitOfWork.Usuarios.GetByIdAsync(tarefaUsuario.UsuarioId);
+                tarefaUsuario.Tarefa = await _unitOfWork.Tarefas.GetByIdAsync(tarefaUsuario.TarefaId);
+
+                TarefaUsuarioMapper.ModelToResource(tarefaUsuario);
+                return Ok();
             }
             catch (Exception exception)
             {
@@ -77,7 +83,7 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdAsync(id);
+                var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdWithTarefaEUsuarioAsync(id,id);
 
                 if (ModelState.IsValid)
                 {
@@ -85,7 +91,7 @@ namespace RepublicManager.Api.Controllers
                     await _unitOfWork.CompleteAsync();
                     TarefaUsuarioMapper.ModelToResource(tarefaUsuario);
                 }
-                return Ok(tarefaUsuario);
+                return Ok();
             }
             catch (Exception e)
             {
@@ -100,11 +106,11 @@ namespace RepublicManager.Api.Controllers
         {
             try
             {
-                var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdAsync(id);
+                var tarefaUsuario = await _unitOfWork.TarefasUsuario.GetByIdWithTarefaEUsuarioAsync(id,id);
                 if (tarefaUsuario != null)
                     tarefaUsuario.IsAtivo = false;
                 await _unitOfWork.CompleteAsync();
-                return Ok(tarefaUsuario);
+                return Ok();
             }
             catch (Exception e)
             {

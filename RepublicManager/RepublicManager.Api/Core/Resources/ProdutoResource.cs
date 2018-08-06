@@ -9,8 +9,8 @@ namespace RepublicManager.Api.Core.Resources
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
         public int CarrinhoDeCompraId { get; set; }
-        public CarrinhoDeCompraResource CarrinhoDeCompra { get; set; }
         public int UsuarioId { get; set; }
+
 
     }
 

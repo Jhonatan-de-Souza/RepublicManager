@@ -9,6 +9,9 @@ namespace RepublicManager.Api.Core.Resources
         public string Login { get; set; }
         public string Senha { get; set; }
         public DateTime DataFinalContrato { get; set; }
+        public int? ContaId { get; set; }
+        public virtual ContaResource Conta { get; set; }
+        public int? RepublicaId { get; set; }
 
     }
     public static class UsuarioMapper
@@ -20,6 +23,9 @@ namespace RepublicManager.Api.Core.Resources
                 Login = usuario.Login,
                 Senha = usuario.Senha,
                 DataFinalContrato = usuario.DataFinalContrato,
+                ContaId = usuario.ContaId,
+                Conta = usuario.Conta == null ? null : ContaMapper.ModelToResource(usuario.Conta) ,
+                RepublicaId = usuario.RepublicaId,
 
                 Id = usuario.Id,
                 IsAtivo = usuario.IsAtivo,
@@ -31,13 +37,15 @@ namespace RepublicManager.Api.Core.Resources
         public static Usuario ResourceToModel(UsuarioResource usuarioResource, Usuario usuario)
         {
 
-            usuario.Login = usuarioResource.Login;
-            usuario.Senha = usuarioResource.Senha;
+            usuario.Login = usuarioResource.Login ?? usuario.Login;
+            usuario.Senha = usuarioResource.Senha ?? usuario.Senha;
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
+            usuario.ContaId = usuarioResource.ContaId ?? usuario.ContaId;
+            usuario.RepublicaId = usuarioResource.RepublicaId ?? usuario.RepublicaId;
 
-            usuario.Id = (usuario.Id>0)? usuario.Id: usuarioResource.Id;
+            usuario.Id = (usuario.Id > 0) ? usuario.Id : usuarioResource.Id;
             usuario.IsAtivo = usuarioResource.IsAtivo;
-            usuario.CriadoPor = usuarioResource.CriadoPor;
+            usuario.CriadoPor = usuarioResource.CriadoPor > 0 ? usuarioResource.CriadoPor : usuario.CriadoPor;
             usuario.DataRegistro = (usuarioResource.Id > 0) ? usuario.DataRegistro : DateTime.Now;
 
             return usuario;

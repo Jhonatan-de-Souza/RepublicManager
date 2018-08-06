@@ -6,13 +6,13 @@ using RepublicManager.Api.Core.Resources;
 
 namespace RepublicManager.Api.Core.Resources
 {
-    public class CarrinhoDeCompraResource :Base
+    public class CarrinhoDeCompraResource : Base
     {
         public int Id { get; set; }
         public int RepublicaId { get; set; }
-        public IEnumerable<ProdutoResource> ListaProdutos { get; set; }
+        public IEnumerable<ProdutoResource> Produtos { get; set; }
 
-       
+
     }
 
 
@@ -24,6 +24,8 @@ namespace RepublicManager.Api.Core.Resources
             var carrinhoDeCompraResource = new CarrinhoDeCompraResource()
             {
                 RepublicaId = carrinhoDeCompra.RepublicaId,
+                Produtos = carrinhoDeCompra.Produtos.Select(ProdutoMapper.ModelToResource),
+
                 Id = carrinhoDeCompra.Id,
                 IsAtivo = carrinhoDeCompra.IsAtivo,
                 CriadoPor = carrinhoDeCompra.CriadoPor,
@@ -35,7 +37,7 @@ namespace RepublicManager.Api.Core.Resources
         {
 
             carrinhoDeCompra.RepublicaId = carrinhoDeCompraResource.RepublicaId;
-            carrinhoDeCompra.Id = (carrinhoDeCompra.Id >0)? carrinhoDeCompra.Id : carrinhoDeCompraResource.Id;
+            carrinhoDeCompra.Id = (carrinhoDeCompra.Id > 0) ? carrinhoDeCompra.Id : carrinhoDeCompraResource.Id;
             carrinhoDeCompra.IsAtivo = carrinhoDeCompraResource.IsAtivo;
             carrinhoDeCompra.CriadoPor = carrinhoDeCompraResource.CriadoPor;
             carrinhoDeCompra.DataRegistro = (carrinhoDeCompraResource.Id > 0) ? carrinhoDeCompra.DataRegistro : DateTime.Now;
@@ -48,15 +50,3 @@ namespace RepublicManager.Api.Core.Resources
 
 }
 
-
-public static class ProdutoExtensions
-{
-    public static Produto ProdutoResourceToProduto(this ProdutoResource produtoResoure)
-    {
-        var produto = new Produto();
-        var t = ProdutoMapper.ResourceToModel(produtoResoure, produto);
-        return t;
-
-    }
-   
-}

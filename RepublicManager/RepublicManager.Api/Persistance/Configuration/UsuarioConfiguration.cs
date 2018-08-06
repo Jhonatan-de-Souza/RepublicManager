@@ -9,13 +9,14 @@ namespace RepublicManager.Api.Persistance.Configuration
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             builder.HasKey(u => u.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(u => u.Login).IsRequired();
             builder.Property(u => u.Senha).IsRequired();
             builder.Property(x => x.DataFinalContrato).IsRequired();
 
-            //builder.has
+            
             builder.HasOne(x => x.Conta)
-                .WithOne(x => x.Usuario).HasForeignKey<Usuario>(x =>x.ContaId);
+                .WithOne(x => x.Usuario).HasForeignKey<Conta>(x => x.UsuarioId);
         }
     }
 }
