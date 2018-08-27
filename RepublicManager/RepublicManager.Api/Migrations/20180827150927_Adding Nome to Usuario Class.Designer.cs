@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class RepublicManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20180827150927_Adding Nome to Usuario Class")]
+    partial class AddingNometoUsuarioClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
