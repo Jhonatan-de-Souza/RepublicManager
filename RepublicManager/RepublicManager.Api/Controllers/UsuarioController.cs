@@ -33,6 +33,7 @@ namespace RepublicManager.Api.Controllers
             {
                 return NoContent();
             }
+
             foreach (var usuario in usuarios)
             {
                 if (usuario.IsAtivo)
@@ -40,6 +41,7 @@ namespace RepublicManager.Api.Controllers
                     usuarioResource.Add(UsuarioMapper.ModelToResource(usuario));
                 }
             }
+
             return Ok(usuarioResource);
         }
 
@@ -58,12 +60,13 @@ namespace RepublicManager.Api.Controllers
 
         //POST: api/Usuario
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]UsuarioResource usuarioResource)
+        public async Task<IActionResult> Create([FromBody] UsuarioResource usuarioResource)
         {
             if (usuarioResource == null)
             {
                 return NotFound();
             }
+
             try
             {
                 var usuario = new Usuario();
@@ -82,11 +85,11 @@ namespace RepublicManager.Api.Controllers
                 LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
-
         }
+
         // PUT: api/Usuario/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody]UsuarioResource usuarioResource)
+        public async Task<IActionResult> Edit(int id, [FromBody] UsuarioResource usuarioResource)
         {
             try
             {
@@ -98,6 +101,7 @@ namespace RepublicManager.Api.Controllers
                     await _unitOfWork.CompleteAsync();
                     UsuarioMapper.ModelToResource(usuario);
                 }
+
                 return Ok(usuario);
             }
             catch (Exception e)
@@ -114,10 +118,17 @@ namespace RepublicManager.Api.Controllers
             try
             {
                 var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-                if (usuario != null)
+                if (usuario == null)
+                {
+                    return BadRequest("Não existe usuario com este Id");
+                }
+                else
+                {
                     usuario.IsAtivo = false;
-                await _unitOfWork.CompleteAsync();
-                return Ok(usuario);
+
+                    await _unitOfWork.CompleteAsync();
+                    return Ok(usuario);
+                }
             }
             catch (Exception e)
             {

@@ -8,6 +8,7 @@ namespace RepublicManager.Api.Core.Resources
         public int Id { get; set; }
         public string Login { get; set; }
         public string Nome { get; set; }
+        public string Email { get; set; }
         public string Senha { get; set; }
         public DateTime DataFinalContrato { get; set; }
         public int? ContaId { get; set; }
@@ -24,6 +25,7 @@ namespace RepublicManager.Api.Core.Resources
                 Login = usuario.Login,
                 Senha = usuario.Senha,
                 Nome = usuario.Nome,
+                Email = usuario.Email,
                 DataFinalContrato = usuario.DataFinalContrato,
                 ContaId = usuario.ContaId,
                 Conta = usuario.Conta == null ? null : ContaMapper.ModelToResource(usuario.Conta) ,
@@ -45,7 +47,8 @@ namespace RepublicManager.Api.Core.Resources
             usuario.DataFinalContrato = usuarioResource.DataFinalContrato;
             usuario.ContaId = usuarioResource.ContaId ?? usuario.ContaId;
             usuario.RepublicaId = usuarioResource.RepublicaId ?? usuario.RepublicaId;
-
+            usuario.Email = usuarioResource.Email ?? usuario.Email;
+            //this logig is wrong
             usuario.Id = (usuario.Id > 0) ? usuario.Id : usuarioResource.Id;
             usuario.IsAtivo = usuarioResource.IsAtivo;
             usuario.CriadoPor = usuarioResource.CriadoPor > 0 ? usuarioResource.CriadoPor : usuario.CriadoPor;
