@@ -29,6 +29,7 @@ namespace RepublicManager.Api.Persistance
             modelBuilder.ApplyConfiguration(new TarefaConfiguration());
             modelBuilder.ApplyConfiguration(new TarefaUsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new RegraConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
         public DbSet<Aviso> Aviso { get; set; }
         public DbSet<Republica> Republica { get; set; }
@@ -42,5 +43,6 @@ namespace RepublicManager.Api.Persistance
         public DbSet<ContaAReceber> ContasAReceber { get; set; }
         public DbSet<TipoConta> TipoContas { get; set; }
         public DbSet<Regra> Regras { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
