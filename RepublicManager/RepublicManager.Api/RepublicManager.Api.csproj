@@ -20,6 +20,8 @@
     <Compile Remove="Migrations\20180713012655_teste.Designer.cs" />
     <Compile Remove="Migrations\20180913015635_adding user collumn for jwt authentication.cs" />
     <Compile Remove="Migrations\20180913015635_adding user collumn for jwt authentication.Designer.cs" />
+    <Compile Remove="Migrations\20180913023936_modfifying UserId column to string in User table.cs" />
+    <Compile Remove="Migrations\20180913023936_modfifying UserId column to string in User table.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

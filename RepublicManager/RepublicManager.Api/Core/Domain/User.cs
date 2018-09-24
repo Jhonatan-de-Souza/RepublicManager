@@ -8,7 +8,7 @@ namespace RepublicManager.Api.Core.Domain
 {
     public class User 
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string AccessKey { get; set; }
     }
 }

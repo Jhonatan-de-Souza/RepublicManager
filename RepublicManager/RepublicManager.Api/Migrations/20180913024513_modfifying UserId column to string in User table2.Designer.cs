@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class RepublicManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20180913024513_modfifying UserId column to string in User table2")]
+    partial class modfifyingUserIdcolumntostringinUsertable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

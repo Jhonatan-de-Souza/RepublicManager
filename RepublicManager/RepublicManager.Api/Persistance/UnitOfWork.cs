@@ -22,6 +22,8 @@ namespace RepublicManager.Api.Persistance
         public IContaAPagarRepositorio ContasAPagar { get; set; }
         public IContaAReceberRepositorio ContasAReceber { get; set; }
         public ITipoContaRepositorio TipoContas { get; set; }
+
+        public IUserRepositorio Users { get; set; }
         //public  Type { get; set; }
 
         //here the unit of work will instaniate the repositories and use it across all of the application
@@ -46,8 +48,9 @@ namespace RepublicManager.Api.Persistance
             TipoContas = new TipoContaRepositorio(_context);
             TarefasUsuario = new TarefaUsuarioRepositorio(_context);
 
-
+            UserRepositorio = new UserRepositorio(_context);
         }
+
         public async  Task CompleteAsync()
         {
             await _context.SaveChangesAsync();

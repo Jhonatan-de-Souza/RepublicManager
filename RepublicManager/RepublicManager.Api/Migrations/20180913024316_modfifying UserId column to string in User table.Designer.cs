@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class RepublicManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20180913024316_modfifying UserId column to string in User table")]
+    partial class modfifyingUserIdcolumntostringinUsertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,19 +280,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TipoContas");
-                });
-
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.User", b =>
-                {
-                    b.Property<string>("UserId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccessKey")
-                        .HasMaxLength(250);
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Usuario", b =>
