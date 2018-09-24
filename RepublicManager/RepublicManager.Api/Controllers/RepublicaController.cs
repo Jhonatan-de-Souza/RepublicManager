@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
@@ -13,16 +14,14 @@ namespace RepublicManager.Api.Controllers
     [Route("api/[controller]")]
     public class RepublicaController : Controller
     {
-
-
         private readonly IUnitOfWork _unitOfWork;
-
 
         public RepublicaController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         // GET: api/republicaz
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

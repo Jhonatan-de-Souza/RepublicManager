@@ -48,7 +48,7 @@ namespace RepublicManager.Api.Persistance
             TipoContas = new TipoContaRepositorio(_context);
             TarefasUsuario = new TarefaUsuarioRepositorio(_context);
 
-            UserRepositorio = new UserRepositorio(_context);
+            Users = new UserRepositorio(_context);
         }
 
         public async  Task CompleteAsync()
