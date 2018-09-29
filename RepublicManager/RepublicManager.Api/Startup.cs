@@ -28,15 +28,11 @@ namespace RepublicManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // ********************
-            // Setup CORS
-            // ********************
             var corsBuilder = new CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                .WithOrigins("http://localhost:4200");
             //corsBuilder.AllowAnyOrigin(); // For anyone access.
-            corsBuilder.WithOrigins("http://localhost:4200"); // for a specific url. Don't add a forward slash on the end!
-            corsBuilder.AllowCredentials();
+            //corsBuilder.WithOrigins("http://localhost:4200"); // for a specific url. Don't add a forward slash on the end!
 
             services.AddCors(options =>
             {
@@ -64,29 +60,18 @@ namespace RepublicManager.Api
                 paramsValidation.ValidAudience = tokenConfigurations.Audience;
                 paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
 
-                // Valida a assinatura de um token recebido
                 paramsValidation.ValidateIssuerSigningKey = true;
-
-                // Verifica se um token recebido ainda é válido
                 paramsValidation.ValidateLifetime = true;
-
-                // Tempo de tolerância para a expiração de um token (utilizado
-                // caso haja problemas de sincronismo de horário entre diferentes
-                // computadores envolvidos no processo de comunicação)
                 paramsValidation.ClockSkew = TimeSpan.Zero;
             });
 
-            // Ativa o uso do token como forma de autorizar o acesso
-            // a recursos deste projeto
             services.AddAuthorization(auth =>
             {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                auth.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
+                    .RequireAuthenticatedUser().Build() ;
             });
-            // End Authentication Configuration
 
-            //end CORS Policy configuration
             var hostName = System.Net.Dns.GetHostName();
             if (hostName == "Annon")
             {
@@ -99,22 +84,13 @@ namespace RepublicManager.Api
                 services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
             }
 
-            //var connection = @"Server='amazonaws.cf79yuvlvuez.us-east-2.rds.amazonaws.com';Database=RepublicManager;User Id=fuktik;Password:dsjhonatan1337;";
-
-
-            //injeção de dependencia
-            //services.AddScoped<>()
             services.AddScoped<IAvisoRepositorio, AvisoRepositorio>();
-
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
-
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICarrinhoDeCompraRepositorio, CarrinhoDeCompraRepositorio>();
-
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
             services.AddScoped<ITarefaUsuarioRepositorio, TarefaUsuarioRepositorio>();
-
             services.AddScoped<IContaRepositorio, ContaRepositorio>();
             services.AddScoped<IContaAPagarRepositorio, ContaAPagarRepositorio>();
             services.AddScoped<IContaAReceberRepositorio, ContaAReceberRepositorio>();
@@ -135,9 +111,6 @@ namespace RepublicManager.Api
             }
 
             app.UseMvc();
-            // ********************
-            // USE CORS - might not be required.
-            // ********************
             app.UseCors("SiteCorsPolicy");
         }
     }

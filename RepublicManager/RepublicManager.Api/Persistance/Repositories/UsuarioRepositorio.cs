@@ -40,5 +40,9 @@ namespace RepublicManager.Api.Persistance.Repositories
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
+        public Usuario GetByEmail(string email)
+        {
+            return _republicManagerContext.Usuario.FirstOrDefault(x => x.Email == email);
+        }
     }
 }

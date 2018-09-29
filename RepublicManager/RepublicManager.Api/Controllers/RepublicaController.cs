@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Resources;
 using RepublicManager.Api.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RepublicManager.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class RepublicaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +22,6 @@ namespace RepublicManager.Api.Controllers
             _unitOfWork = unitOfWork;
         }
         // GET: api/republicaz
-        [Authorize("Bearer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -68,7 +68,10 @@ namespace RepublicManager.Api.Controllers
             {
                 var republica = new Republica();
                 if (ModelState.IsValid)
-                    republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
+                {
+                    republica = RepublicaMapper.ResourceToModel(republicaResource, republica);
+                }
+
                 _unitOfWork.Republicas.Add(republica);
                 await _unitOfWork.CompleteAsync();
 
@@ -92,7 +95,7 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    republica = RepublicaMapper.ResourceToModel(republicaResource,republica);
+                    republica = RepublicaMapper.ResourceToModel(republicaResource, republica);
                     await _unitOfWork.CompleteAsync();
                     RepublicaMapper.ModelToResource(republica);
                 }
@@ -113,7 +116,10 @@ namespace RepublicManager.Api.Controllers
             {
                 var republica = await _unitOfWork.Republicas.GetByIdAsync(id);
                 if (republica != null)
+                {
                     republica.IsAtivo = false;
+                }
+
                 await _unitOfWork.CompleteAsync();
                 return Ok(republica);
             }

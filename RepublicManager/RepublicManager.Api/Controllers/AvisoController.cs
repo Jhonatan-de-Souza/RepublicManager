@@ -1,16 +1,18 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Resources;
 using RepublicManager.Api.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RepublicManager.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class AvisoController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -19,12 +21,12 @@ namespace RepublicManager.Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-       
+
         // GET: api/Avisoz
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var avisos =  await _unitOfWork.Avisos.GetAllAsync();
+            var avisos = await _unitOfWork.Avisos.GetAllAsync();
             List<AvisoResource> avisoResource = new List<AvisoResource>();
 
             if (avisos == null)
@@ -40,9 +42,9 @@ namespace RepublicManager.Api.Controllers
 
         // GET: api/Aviso/5
         [HttpGet("{id}")]
-        public async Task<IActionResult>Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            
+
             var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
             if (aviso == null)
             {
@@ -63,18 +65,21 @@ namespace RepublicManager.Api.Controllers
             {
                 var aviso = new Aviso();
                 if (ModelState.IsValid)
-                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
-                    _unitOfWork.Avisos.Add(aviso);
-                    await _unitOfWork.CompleteAsync();
+                {
+                    aviso = AvisoMapper.ResourceToModel(avisoResource, aviso);
+                }
 
-                    return Ok(aviso);
+                _unitOfWork.Avisos.Add(aviso);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(aviso);
             }
             catch (Exception exception)
             {
                 LogError.LogErrorWithSentry(exception);
                 return BadRequest();
             }
-           
+
         }
         // PUT: api/Aviso/5
         [HttpPut("{id}")]
@@ -86,7 +91,7 @@ namespace RepublicManager.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    aviso = AvisoMapper.ResourceToModel(avisoResource,aviso);
+                    aviso = AvisoMapper.ResourceToModel(avisoResource, aviso);
                     await _unitOfWork.CompleteAsync();
                     AvisoMapper.ModelToResource(aviso);
                 }
@@ -98,7 +103,7 @@ namespace RepublicManager.Api.Controllers
                 return BadRequest(ModelState);
             }
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -107,9 +112,12 @@ namespace RepublicManager.Api.Controllers
             {
                 var aviso = await _unitOfWork.Avisos.GetByIdAsync(id);
                 if (aviso != null)
+                {
                     aviso.IsAtivo = false;
-                    await _unitOfWork.CompleteAsync();
-                    return Ok(aviso);
+                }
+
+                await _unitOfWork.CompleteAsync();
+                return Ok(aviso);
             }
             catch (Exception e)
             {
