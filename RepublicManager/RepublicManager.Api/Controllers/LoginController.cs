@@ -29,12 +29,15 @@ namespace RepublicManager.Api.Controllers
         public object Post( [FromBody]Usuario usuario, [FromServices]UserChecker userChecker, [FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
         {
             bool credenciaisValidas = false;
+            string nomeUsuario = "";
+            
             if (usuario != null)
             {
                 var usuarioBase = _unitOfWork.Usuarios.GetByEmail(usuario.Email);
                 credenciaisValidas = (usuarioBase != null &&
                     usuario.Email == usuarioBase.Email &&
                     usuario.Senha == usuarioBase.Senha);
+                nomeUsuario = usuarioBase.Nome;
             }
 
             if (credenciaisValidas)
@@ -69,7 +72,9 @@ namespace RepublicManager.Api.Controllers
                     created = creationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                     expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                     accessToken = token,
-                    message = "OK"
+                    message = "OK",
+                    nome = nomeUsuario
+
                 };
             }
             else

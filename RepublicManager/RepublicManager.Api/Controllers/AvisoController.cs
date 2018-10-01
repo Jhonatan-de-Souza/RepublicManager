@@ -7,9 +7,11 @@ using RepublicManager.Api.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 
 namespace RepublicManager.Api.Controllers
 {
+    [EnableCors("SiteCorsPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize]
