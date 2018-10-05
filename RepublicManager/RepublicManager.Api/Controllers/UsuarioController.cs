@@ -25,7 +25,7 @@ namespace RepublicManager.Api.Controllers
         }
 
         // GET: api/Usuarioz
-        [HttpGet]
+        [HttpGet/*, Authorize(Policy = "Administrators")*/]
         public async Task<IActionResult> GetAll()
         {
             var usuarios = await _unitOfWork.Usuarios.GetAllUsuarioWithAllInformation();

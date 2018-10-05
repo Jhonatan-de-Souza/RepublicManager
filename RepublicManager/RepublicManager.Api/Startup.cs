@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -13,6 +12,7 @@ using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Repositories;
 using RepublicManager.Api.Persistance;
 using RepublicManager.Api.Persistance.Repositories;
+using System;
 
 namespace RepublicManager.Api
 {
@@ -69,18 +69,19 @@ namespace RepublicManager.Api
             {
                 auth.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build() ;
+                    .RequireAuthenticatedUser().Build();
+                auth.AddPolicy("Administrators",
+                    policy => policy.RequireClaim("Manager"));
+                
+                //auth.AddPolicy("SuperUsers",
+                //    policy => policy.RequireClaim("SuperUser"));
             });
 
+            //In case of multiple development environments
             var hostName = System.Net.Dns.GetHostName();
             if (hostName == "Annon")
             {
                 var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
-                services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
-            }
-            else
-            {
-                var connection = @"Server=DESKTOP-OCC8KVA\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
                 services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
             }
 
@@ -98,8 +99,6 @@ namespace RepublicManager.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,6 +109,7 @@ namespace RepublicManager.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
             app.UseCors("SiteCorsPolicy");
         }

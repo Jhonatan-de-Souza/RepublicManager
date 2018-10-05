@@ -37,18 +37,33 @@ namespace RepublicManager.Api.Controllers
                 credenciaisValidas = (usuarioBase != null &&
                     usuario.Email == usuarioBase.Email &&
                     usuario.Senha == usuarioBase.Senha);
+                if (usuarioBase == null)
+                {
+                    return new
+                    {
+                        authenticated = false,
+                        message = "Não temos cadastro deste usuário no sistema."
+                    };
+                }
                 nomeUsuario = usuarioBase.Nome;
             }
 
             if (credenciaisValidas)
             {
-                ClaimsIdentity identity = new ClaimsIdentity(
-                    new GenericIdentity(usuario.Email, "Login"),
-                    new[] {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Email)
-                    }
-                );
+                //ClaimsIdentity identity = new ClaimsIdentity(
+                //    new GenericIdentity(usuario.Email, "Login"),
+                //    new[] {
+                //        new Claim(ClaimTypes.Name, usuario.Email),
+                //        new Claim("Manager","")
+                //    }
+                //);
+
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.Name, usuario.Email),
+                    new Claim("Manager", "")
+                };
+                ClaimsIdentity identity = new ClaimsIdentity(new GenericIdentity(usuario.Email, "Login"), claims);
 
                 DateTime creationDate = DateTime.Now;
                 DateTime expirationDate = creationDate +
@@ -82,7 +97,7 @@ namespace RepublicManager.Api.Controllers
                 return new
                 {
                     authenticated = false,
-                    message = "Falha ao autenticar"
+                    message = "Senha ou Usuário incorreto."
                 };
             }
         }
