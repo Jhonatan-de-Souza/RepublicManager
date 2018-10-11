@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RepublicManager.Api.Core.Repositories;
+using System;
 using System.Threading.Tasks;
-using RepublicManager.Api.Core.Repositories;
 
 namespace RepublicManager.Api.Core
 {
@@ -18,7 +18,8 @@ namespace RepublicManager.Api.Core
         IContaAPagarRepositorio ContasAPagar { get; }
         IContaAReceberRepositorio ContasAReceber { get; }
         ITipoContaRepositorio TipoContas { get; }
-        IUserRepositorio Users { get; }
+
+        IRoleRepositorio Roles { get; }
         Task CompleteAsync();
     }
 }

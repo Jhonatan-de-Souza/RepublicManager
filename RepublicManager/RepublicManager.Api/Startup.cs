@@ -40,7 +40,6 @@ namespace RepublicManager.Api
             });
 
             //JWT authentication bellow
-            services.AddTransient<UserChecker>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);

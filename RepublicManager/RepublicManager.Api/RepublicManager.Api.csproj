@@ -23,6 +23,12 @@
     <Compile Remove="Migrations\20180913015635_adding user collumn for jwt authentication.Designer.cs" />
     <Compile Remove="Migrations\20180913023936_modfifying UserId column to string in User table.cs" />
     <Compile Remove="Migrations\20180913023936_modfifying UserId column to string in User table.Designer.cs" />
+    <Compile Remove="Migrations\20181011002256_AddingRoleTableToDatabase.cs" />
+    <Compile Remove="Migrations\20181011002256_AddingRoleTableToDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20181011002541_AddingRoleTableToDatabasesss.cs" />
+    <Compile Remove="Migrations\20181011002541_AddingRoleTableToDatabasesss.Designer.cs" />
+    <Compile Remove="Migrations\20181011003033_AddingRoleTableToDatabasesssz.cs" />
+    <Compile Remove="Migrations\20181011003033_AddingRoleTableToDatabasesssz.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

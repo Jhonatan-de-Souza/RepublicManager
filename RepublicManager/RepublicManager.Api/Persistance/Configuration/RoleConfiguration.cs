@@ -8,12 +8,15 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Persistance.Configuration
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.HasKey(c => c.UserId);
-            builder.Property(c => c.AccessKey).HasMaxLength(250);
+            builder.ToTable("Role");
+
+            builder.HasKey(role => role.Id);
+            builder.Property(role => role.RoleName).HasMaxLength(50);
         }
+
     }
 }

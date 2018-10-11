@@ -26,7 +26,7 @@ namespace RepublicManager.Api.Controllers
 
 
         [HttpPost]
-        public object Post( [FromBody]Usuario usuario, [FromServices]UserChecker userChecker, [FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
+        public object Post( [FromBody]Usuario usuario,[FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
         {
             bool credenciaisValidas = false;
             string nomeUsuario = "";
@@ -34,9 +34,9 @@ namespace RepublicManager.Api.Controllers
             if (usuario != null)
             {
                 var usuarioBase = _unitOfWork.Usuarios.GetByEmail(usuario.Email);
-                credenciaisValidas = (usuarioBase != null &&
-                    usuario.Email == usuarioBase.Email &&
-                    usuario.Senha == usuarioBase.Senha);
+
+                credenciaisValidas = (usuarioBase != null && usuario.Email == usuarioBase.Email && usuario.Senha == usuarioBase.Senha);
+
                 if (usuarioBase == null)
                 {
                     return new
@@ -50,20 +50,19 @@ namespace RepublicManager.Api.Controllers
 
             if (credenciaisValidas)
             {
-                //ClaimsIdentity identity = new ClaimsIdentity(
-                //    new GenericIdentity(usuario.Email, "Login"),
-                //    new[] {
-                //        new Claim(ClaimTypes.Name, usuario.Email),
-                //        new Claim("Manager","")
-                //    }
-                //);
-
+                //var claims = new[]
+                //{
+                //    new Claim(ClaimTypes.Name, usuario.Email),
+                //    new Claim("Role", "admin"),
+                //    new Claim("Role", "manager"),
+                //};
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.Name, usuario.Email),
                     new Claim("Manager", "")
                 };
-                ClaimsIdentity identity = new ClaimsIdentity(new GenericIdentity(usuario.Email, "Login"), claims);
+
+                ClaimsIdentity identity = new ClaimsIdentity(new GenericIdentity(nomeUsuario, "Login"), claims);
 
                 DateTime creationDate = DateTime.Now;
                 DateTime expirationDate = creationDate +

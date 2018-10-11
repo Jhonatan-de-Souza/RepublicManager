@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class RepublicManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20181010233258_RemovingUserTableFromDatabase")]
+    partial class RemovingUserTableFromDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,22 +215,6 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Republica");
                 });
 
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleName");
-
-                    b.Property<int?>("UsuarioId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Tarefa", b =>
                 {
                     b.Property<int>("Id")
@@ -394,14 +379,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
                         .WithMany("Regras")
                         .HasForeignKey("RepublicaId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
-
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Role", b =>
-                {
-                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario")
-                        .WithMany("Roles")
-                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

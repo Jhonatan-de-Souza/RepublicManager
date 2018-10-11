@@ -6,8 +6,7 @@ using RepublicManager.Api.Core.Domain;
 
 namespace RepublicManager.Api.Core.Repositories
 {
-    public interface IUserRepositorio
+    public interface IRoleRepositorio: IRepositorioBase<Role>
     {
-    User GetById(string userId);
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    partial class RepublicManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20181011002440_AddingRoleTableToDatabase")]
+    partial class AddingRoleTableToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,11 +222,7 @@ namespace RepublicManager.Api.Migrations
 
                     b.Property<string>("RoleName");
 
-                    b.Property<int?>("UsuarioId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Roles");
                 });
@@ -394,14 +391,6 @@ namespace RepublicManager.Api.Migrations
                     b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
                         .WithMany("Regras")
                         .HasForeignKey("RepublicaId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
-
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Role", b =>
-                {
-                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario")
-                        .WithMany("Roles")
-                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
