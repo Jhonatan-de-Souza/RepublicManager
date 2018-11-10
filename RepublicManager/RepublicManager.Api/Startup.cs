@@ -77,12 +77,8 @@ namespace RepublicManager.Api
             });
 
             //In case of multiple development environments
-            var hostName = System.Net.Dns.GetHostName();
-            if (hostName == "Annon")
-            {
-                var connection = @"Server=ANNON\SQLEXPRESS;Database=RepublicManager;Trusted_Connection=True;ConnectRetryCount=0";
+                var connection = @"Data Source=127.0.0.1,1433;Initial Catalog=RepublicManager;User ID=sa;Password=yourStrong(!)Password;";
                 services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
-            }
 
             services.AddScoped<IAvisoRepositorio, AvisoRepositorio>();
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
