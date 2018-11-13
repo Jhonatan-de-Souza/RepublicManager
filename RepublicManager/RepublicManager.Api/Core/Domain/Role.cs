@@ -9,5 +9,6 @@ namespace RepublicManager.Api.Core.Domain
     {
         public int Id { get; set; }
         public string RoleName { get; set; }
+        public List<UsuarioRole> Usuarios { get; set; }
     }
 }

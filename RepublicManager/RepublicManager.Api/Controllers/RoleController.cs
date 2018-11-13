@@ -14,7 +14,7 @@ namespace RepublicManager.Api.Controllers
 {
     [EnableCors("SiteCorsPolicy")]
     [Produces("application/json")]
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     public class RoleController : Controller
     {

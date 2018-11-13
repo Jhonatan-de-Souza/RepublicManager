@@ -11,8 +11,8 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    [Migration("20181011003243_AddingListOfRolesToUsuarioTable")]
-    partial class AddingListOfRolesToUsuarioTable
+    [Migration("20181014164905_AddingManyToManyRelationshipWithUsuarioRoleTable")]
+    partial class AddingManyToManyRelationshipWithUsuarioRoleTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,15 +220,12 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("RoleName");
-
-                    b.Property<int?>("UsuarioId");
+                    b.Property<string>("RoleName")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Tarefa", b =>
@@ -332,6 +329,19 @@ namespace RepublicManager.Api.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.UsuarioRole", b =>
+                {
+                    b.Property<int>("RoleId");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.HasKey("RoleId", "UsuarioId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UsuarioRole");
+                });
+
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Aviso", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
@@ -398,14 +408,6 @@ namespace RepublicManager.Api.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("RepublicManager.Api.Core.Domain.Role", b =>
-                {
-                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario")
-                        .WithMany("Roles")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
-
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.TarefaUsuario", b =>
                 {
                     b.HasOne("RepublicManager.Api.Core.Domain.Tarefa", "Tarefa")
@@ -424,6 +426,19 @@ namespace RepublicManager.Api.Migrations
                     b.HasOne("RepublicManager.Api.Core.Domain.Republica", "Republica")
                         .WithMany("Usuarios")
                         .HasForeignKey("RepublicaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RepublicManager.Api.Core.Domain.UsuarioRole", b =>
+                {
+                    b.HasOne("RepublicManager.Api.Core.Domain.Role", "Role")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RepublicManager.Api.Core.Domain.Usuario", "Usuario")
+                        .WithMany("Roles")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

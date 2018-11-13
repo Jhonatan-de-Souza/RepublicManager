@@ -62,6 +62,7 @@ namespace RepublicManager.Api.Controllers
 
         //POST: api/Usuario
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] UsuarioResource usuarioResource)
         {
             if (usuarioResource == null)
@@ -72,12 +73,26 @@ namespace RepublicManager.Api.Controllers
             try
             {
                 var usuario = new Usuario();
+
+                var listOfUsuarioRoles = new List<UsuarioRole>();
+               
+
                 if (ModelState.IsValid)
                     usuario = UsuarioMapper.ResourceToModel(usuarioResource, usuario);
 
                 _unitOfWork.Usuarios.Add(usuario);
                 await _unitOfWork.CompleteAsync();
 
+                foreach (int roleId in usuarioResource.RoleIds)
+                {
+                    listOfUsuarioRoles.Add(new UsuarioRole()
+                    {
+                        RoleId = roleId,
+                        UsuarioId = usuario.Id
+                    });
+                }
+                _unitOfWork.UsuarioRoles.AddRange(listOfUsuarioRoles);
+                await _unitOfWork.CompleteAsync();
                 UsuarioMapper.ModelToResource(usuario);
 
                 return Ok(usuario);

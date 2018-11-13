@@ -22,12 +22,12 @@ namespace RepublicManager.Api.Persistance.Configuration
                 
 
             builder.HasMany(x => x.Avisos)
-                .WithOne(x => x.Republica).HasForeignKey(x => x.RepublicaId)
+                .WithOne(republica => republica.Republica).HasForeignKey(x => x.RepublicaId)
                 .IsRequired();
 
 
-            builder.HasMany(x => x.Usuarios)
-                .WithOne(x => x.Republica).HasForeignKey(x => x.RepublicaId);
+            builder.HasMany(republica => republica.Usuarios)
+                .WithOne(usuario => usuario.Republica).HasForeignKey(usuario => usuario.RepublicaId);
                 
 
 

@@ -25,10 +25,24 @@
     <Compile Remove="Migrations\20180913023936_modfifying UserId column to string in User table.Designer.cs" />
     <Compile Remove="Migrations\20181011002256_AddingRoleTableToDatabase.cs" />
     <Compile Remove="Migrations\20181011002256_AddingRoleTableToDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20181011002440_AddingRoleTableToDatabase.cs" />
+    <Compile Remove="Migrations\20181011002440_AddingRoleTableToDatabase.Designer.cs" />
     <Compile Remove="Migrations\20181011002541_AddingRoleTableToDatabasesss.cs" />
     <Compile Remove="Migrations\20181011002541_AddingRoleTableToDatabasesss.Designer.cs" />
     <Compile Remove="Migrations\20181011003033_AddingRoleTableToDatabasesssz.cs" />
     <Compile Remove="Migrations\20181011003033_AddingRoleTableToDatabasesssz.Designer.cs" />
+    <Compile Remove="Migrations\20181011003243_AddingListOfRolesToUsuarioTable.cs" />
+    <Compile Remove="Migrations\20181011003243_AddingListOfRolesToUsuarioTable.Designer.cs" />
+    <Compile Remove="Migrations\20181011103323_gfdg.cs" />
+    <Compile Remove="Migrations\20181011103323_gfdg.Designer.cs" />
+    <Compile Remove="Migrations\20181011103504_AddingOneToManyRelationShipOfUsuarioWithManyRoles.cs" />
+    <Compile Remove="Migrations\20181011103504_AddingOneToManyRelationShipOfUsuarioWithManyRoles.Designer.cs" />
+    <Compile Remove="Migrations\20181011103945_AddingOneToManyRelationShipOfUsuarioWithManyRoles.cs" />
+    <Compile Remove="Migrations\20181011103945_AddingOneToManyRelationShipOfUsuarioWithManyRoles.Designer.cs" />
+    <Compile Remove="Migrations\20181014164008_RemovingOldManyToManyRelationshipForUsuarioAndRoles.cs" />
+    <Compile Remove="Migrations\20181014164008_RemovingOldManyToManyRelationshipForUsuarioAndRoles.Designer.cs" />
+    <Compile Remove="Migrations\20181014164400_RemovingOldManyToManyRelationshipForUsuarioAndRoles.cs" />
+    <Compile Remove="Migrations\20181014164400_RemovingOldManyToManyRelationshipForUsuarioAndRoles.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

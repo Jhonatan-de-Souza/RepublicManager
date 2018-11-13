@@ -15,7 +15,8 @@ namespace RepublicManager.Api.Core.Resources
         public int? ContaId { get; set; }
         public virtual ContaResource Conta { get; set; }
         public int? RepublicaId { get; set; }
-        public List<int> Roles { get; set; }
+        public int[] RoleIds { get; set; }
+        public List<Role> Roles { get; set; }
 
     }
     public static class UsuarioMapper
@@ -56,7 +57,8 @@ namespace RepublicManager.Api.Core.Resources
             usuario.IsAtivo = usuarioResource.IsAtivo;
             usuario.CriadoPor = usuarioResource.CriadoPor > 0 ? usuarioResource.CriadoPor : usuario.CriadoPor;
             usuario.DataRegistro = (usuarioResource.Id > 0) ? usuario.DataRegistro : DateTime.Now;
-            /*usuario.Roles = usuarioResource.Roles ?? null*/;
+            //usuario.Roles = usuarioResource.Roles
+            //                ?? null;
 
             return usuario;
         }

@@ -11,8 +11,8 @@ using System;
 namespace RepublicManager.Api.Migrations
 {
     [DbContext(typeof(RepublicManagerContext))]
-    [Migration("20181011002440_AddingRoleTableToDatabase")]
-    partial class AddingRoleTableToDatabase
+    [Migration("20181014164653_AddingKeyToRoleTable")]
+    partial class AddingKeyToRoleTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,11 +220,12 @@ namespace RepublicManager.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("RoleName");
+                    b.Property<string>("RoleName")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("RepublicManager.Api.Core.Domain.Tarefa", b =>

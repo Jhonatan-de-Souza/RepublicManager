@@ -11,5 +11,7 @@ namespace RepublicManager.Api.Core.Repositories
         Task<TEntity> GetByIdAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();
         void SetModifiedState(TEntity entity);
+        void AddRange(IEnumerable<TEntity> entities);
+        
     }
 }

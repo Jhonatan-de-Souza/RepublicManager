@@ -13,6 +13,8 @@ using RepublicManager.Api.Core.Repositories;
 using RepublicManager.Api.Persistance;
 using RepublicManager.Api.Persistance.Repositories;
 using System;
+using RepublicManager.Api.Enums;
+using RepublicManager.Api.Helpers;
 
 namespace RepublicManager.Api
 {
@@ -69,11 +71,11 @@ namespace RepublicManager.Api
                 auth.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build();
-                auth.AddPolicy("Administrators",
-                    policy => policy.RequireClaim("Manager"));
-                
-                //auth.AddPolicy("SuperUsers",
-                //    policy => policy.RequireClaim("SuperUser"));
+                auth.AddPolicy(Policy.Adminstradores,
+                    policy => policy.RequireClaim(Permissions.Administrador));
+
+                auth.AddPolicy(Policy.Inquilinos,
+                    policy => policy.RequireClaim(Permissions.Inquilino));
             });
 
             //In case of multiple development environments
@@ -95,7 +97,10 @@ namespace RepublicManager.Api
             services.AddScoped<IContaAPagarRepositorio, ContaAPagarRepositorio>();
             services.AddScoped<IContaAReceberRepositorio, ContaAReceberRepositorio>();
             services.AddScoped<ITipoContaRepositorio, TipoContaRepositorio>();
+            services.AddScoped<IRoleRepositorio, RoleRepositorio>();
+            services.AddScoped<IUsuarioRoleRepositorio, UsuarioRoleRepositorio>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             services.AddMvc();
         }

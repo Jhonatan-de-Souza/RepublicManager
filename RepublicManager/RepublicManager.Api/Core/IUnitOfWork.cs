@@ -18,6 +18,7 @@ namespace RepublicManager.Api.Core
         IContaAPagarRepositorio ContasAPagar { get; }
         IContaAReceberRepositorio ContasAReceber { get; }
         ITipoContaRepositorio TipoContas { get; }
+        IUsuarioRoleRepositorio UsuarioRoles { get; }
 
         IRoleRepositorio Roles { get; }
         Task CompleteAsync();

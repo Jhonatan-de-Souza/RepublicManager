@@ -44,5 +44,9 @@ namespace RepublicManager.Api.Persistance.Repositories
             //This is the same doing the following ------->  db.Entry(person).State = EntityState.Modified;
             _republicManagerContext.Entry(entity).State = EntityState.Modified;
         }
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            _republicManagerContext.Set<TEntity>().AddRange(entities);
+        }
     }
 }

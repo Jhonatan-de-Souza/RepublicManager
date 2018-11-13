@@ -18,6 +18,6 @@ namespace RepublicManager.Api.Core.Domain
         public int? RepublicaId { get; set; }
         public virtual Republica Republica { get; set; }
         public virtual IEnumerable<TarefaUsuario> TarefaUsuarios { get; set; }
-        public List<Role> Roles { get; set; }
+        public List<UsuarioRole> Roles { get; set; }
     }
 }

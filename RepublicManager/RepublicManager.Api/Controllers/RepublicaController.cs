@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using RepublicManager.Api.Enums;
 
 namespace RepublicManager.Api.Controllers
 {
     [EnableCors("SiteCorsPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = "Administrators")]
+    [Authorize(Policy = Policy.Adminstradores)]
     public class RepublicaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
