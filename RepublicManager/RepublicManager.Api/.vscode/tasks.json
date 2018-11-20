@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/RepublicManager.Api/RepublicManager.Api.csproj"
+                "${workspaceFolder}/RepublicManager.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
