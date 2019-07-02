@@ -1,6 +1,7 @@
-# RepublicManager -API Only->Must be used with [Republic Manager-UI](https://github.com/Jhonatan-de-Souza/RepublicManager-UI)
+# RepublicManager (API Only) #
+### Must be used with [Republic Manager-UI](https://github.com/Jhonatan-de-Souza/RepublicManager-UI)
 
- App to manage expenses and daily task in a shared location
+App to manage expenses and daily task in a shared location
 
 # Technologies Used
 1. .Net Core 2.1
