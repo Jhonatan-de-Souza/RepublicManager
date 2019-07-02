@@ -10,11 +10,10 @@ using Microsoft.Extensions.Options;
 using RepublicManager.Api.Core;
 using RepublicManager.Api.Core.Domain;
 using RepublicManager.Api.Core.Repositories;
+using RepublicManager.Api.Enums;
 using RepublicManager.Api.Persistance;
 using RepublicManager.Api.Persistance.Repositories;
 using System;
-using RepublicManager.Api.Enums;
-using RepublicManager.Api.Helpers;
 
 namespace RepublicManager.Api
 {
@@ -77,10 +76,20 @@ namespace RepublicManager.Api
                 auth.AddPolicy(Policy.Inquilinos,
                     policy => policy.RequireClaim(Permissions.Inquilino));
             });
+            string connection = "";
+            // Setting connection based on OS 
+            // In case of multiple development environments
 
-            //In case of multiple development environments
-                var connection = @"Data Source=127.0.0.1,1433;Initial Catalog=RepublicManager;User ID=sa;Password=yourStrong(!)Password;";
-                services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+            {
+                connection = @"Data Source=127.0.0.1,1433;Initial Catalog=RepublicManager;User ID=sa;Password=yourStrong(!)Password;";
+            }
+            else
+            {
+                connection = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=RepublicManager;Integrated Security=True";
+            }
+
+            services.AddDbContext<RepublicManagerContext>(options => options.UseSqlServer(connection));
 
             services.AddScoped<IAvisoRepositorio, AvisoRepositorio>();
             services.AddScoped<IRepublicaRepositorio, RepublicaRepositorio>();
