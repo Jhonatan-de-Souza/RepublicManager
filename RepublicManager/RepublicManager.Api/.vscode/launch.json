@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/RepublicManager.Api/bin/Debug/netcoreapp2.0/RepublicManager.Api.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.1/RepublicManager.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/RepublicManager.Api",
+            "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
