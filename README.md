@@ -3,13 +3,26 @@
 
 App to manage expenses and daily task in a shared location
 
+# This app will help you:
+
+1. Share Groceries Expenses
+2. Share Daily Taks
+3. Manage Expenses in a shared Location
+4. Create Profiles for "Republics(any share location)" for administrator and regular users
+5. Manage User accounts
+6. Manage Roles 
+7. Manage Shared Location Info
+8. Manage Rules
+9. Manage Tasks
+10. Manage Notices
+11. Manage Bills
+
 # Technologies Used
 1. .Net Core 2.1
 2. Docker (SQL Server Container)
 3. Repository Pattern
 4. JWT Authentication(Roles)
 5. Entity Migrations
-
 
 # How To run ##
 
