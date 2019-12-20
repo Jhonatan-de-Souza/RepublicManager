@@ -48,3 +48,5 @@ Produto: `http://localhost:61209/api/Produto`  (`GET/POST/PUT/DELETE`)
 Regra: `http://localhost:61209/api/Regra`  (`GET/POST/PUT/DELETE`)  
 Tarefa: `http://localhost:61209/api/Tarefa`  (`GET/POST/PUT/DELETE`)  
 TipoConta: `http://localhost:61209/api/TipoConta`  (`GET/POST/PUT/DELETE`)  
+
+.
